@@ -1,3 +1,4 @@
+// tailwind.config.ts
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
@@ -13,6 +14,11 @@ const config: Config = {
         foreground: 'var(--foreground)',
         navy: '#0D1428',
         yellow: '#F0C419',
+      },
+      fontFamily: {
+        display: ['var(--font-bebas)', 'sans-serif'],
+        sans: ['var(--font-geist-sans)', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'monospace'],
       },
     },
   },
