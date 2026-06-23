@@ -21,25 +21,25 @@ const works: Work[] = [
     slug: 'bantay-bayan',
     title: 'Bantay Bayan',
     description: 'Gamified safety awareness platform',
-    image: '/works/bantay-bayan.jpg',
+    image: '/images/works/bantay-bayan.png',
   },
   {
     slug: 'laur-tourism',
     title: 'Laur Tourism',
     description: 'Digital front door for Laur, Nueva Ecija',
-    image: '/works/laur-tourism.jpg',
+    image: '/images/works/laur-tourism.png',
   },
   {
     slug: 'lgu-campaigns',
     title: 'LGU Social Campaigns',
     description: 'Editorial graphics for government channels',
-    image: '/works/lgu-campaigns.jpg',
+    image: '/images/works/lgu-campaigns.png',
   },
   {
     slug: 'cyd-portfolio',
     title: 'CYD Portfolio',
     description: 'This site, in navy and yellow',
-    image: '/works/cyd-portfolio.jpg',
+    image: '/images/works/cyd-portfolio.png',
   },
 ];
 
@@ -50,21 +50,31 @@ function WorkCard({ work, index }: { work: Work; index: number }) {
       href={`/works/${work.slug}`}
       className="group block w-[528px] flex-shrink-0 md:w-[700px]"
     >
-      <div className="relative h-[396px] w-[528px] overflow-hidden rounded-md bg-neutral-100 md:h-[525px] md:w-[700px]">
+      {/* Image container — dimmed by default, full brightness on hover */}
+      <div className="relative h-[396px] w-[528px] overflow-hidden rounded-md border-4 border-gray-800 bg-neutral-200 ring-1 ring-neutral-900/10 md:h-[525px] md:w-[700px]">
         <Image
           src={work.image}
           alt={work.title}
           fill
           sizes="(min-width: 768px) 700px, 528px"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover brightness-75 transition-[filter,transform] duration-[400ms] ease-in-out group-hover:brightness-100 group-hover:scale-105"
         />
+
+        {/* View Work label — fades in on hover, bottom-right */}
+        <div className="absolute inset-0 flex items-end justify-end p-5 opacity-0 transition-opacity duration-[400ms] ease-in-out group-hover:opacity-100">
+          <span className="rounded-sm bg-white/90 px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-neutral-900 backdrop-blur-sm">
+            View Work
+          </span>
+        </div>
       </div>
-      <div className="mt-5 flex items-baseline gap-3">
-        <span className="font-mono text-xs text-neutral-400">
-          {String(index + 1).padStart(2, '0')}
-        </span>
-        <h3 className="text-lg font-normal text-neutral-900 md:text-xl">
+
+      {/* Caption — title + superscript index (screenshot layout) */}
+      <div className="mt-5">
+        <h3 className="inline text-lg font-normal text-neutral-900 md:text-xl">
           {work.title}
+          <sup className="ml-1 font-mono text-[0.6em] font-normal text-neutral-400">
+            {String(index + 1).padStart(2, '0')}
+          </sup>
         </h3>
       </div>
       <p className="mt-1.5 text-sm text-neutral-500 md:text-base">
@@ -81,9 +91,6 @@ function SectionDivider() {
   return <div className="h-px w-full bg-neutral-200" />;
 }
 
-// Editorial-style masthead: small tracked eyebrow, oversized display
-// headline, and a single accent rule. Shared by both the mobile row
-// and the desktop pinned row so the section reads consistently.
 function WorksHeader({
   showNav,
   onPrev,
@@ -97,11 +104,12 @@ function WorksHeader({
     <div className="px-[6vw] pt-10 pb-6">
       <div className="flex items-end justify-between gap-6">
         <div>
+          {/* Typo fixed: FEAUTURED → Featured */}
           <span className="block font-mono text-xs uppercase tracking-[0.2em] text-neutral-400">
             Featured
           </span>
           <h2 className="mt-2 font-display text-[clamp(2.25rem,5vw,4rem)] uppercase leading-[0.9] text-neutral-900">
-            Selected Work
+            Selected Works
           </h2>
         </div>
         {showNav && (
@@ -125,7 +133,7 @@ function WorksHeader({
           </div>
         )}
       </div>
-      <div className="mt-6 h-px w-full bg-[#FCDB32]" />
+      <div className="mt-6 h-px w-full bg-neutral-900" />
     </div>
   );
 }
@@ -137,7 +145,7 @@ function SimpleWorksRow() {
       <WorksHeader />
       <div className="pb-20">
         <div
-          className={`flex snap-x snap-mandatory gap-8 overflow-x-auto px-[6vw] pb-2 ${hideScrollbar}`}
+          className={`flex snap-x snap-mandatory gap-14 overflow-x-auto px-[6vw] pb-2 ${hideScrollbar}`}
         >
           {works.map((work, index) => (
             <div key={work.slug} className="snap-start">
@@ -195,7 +203,7 @@ function PinnedWorksRow() {
           <motion.div
             ref={trackRef}
             style={{ x }}
-            className="flex gap-8 px-[6vw]"
+            className="flex gap-14 px-[6vw]"
           >
             {works.map((work, index) => (
               <WorkCard key={work.slug} work={work} index={index} />
