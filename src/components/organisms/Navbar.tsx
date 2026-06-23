@@ -17,6 +17,7 @@ interface NavLink {
 const NAV_LINKS: NavLink[] = [
   { label: 'About', href: '/#about' },
   { label: 'Works', href: '/works' },
+  { label: 'Services', href: '/#services' },
   { label: 'Ask AI', href: '#' },
 ];
 
@@ -30,14 +31,14 @@ function Logo() {
     <Link
       href="/"
       aria-label="CYD Portfolio — home"
-      className="rounded-[8px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30"
+      className="flex-shrink-0 rounded-[8px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30"
     >
-      <div className="relative w-[42px] h-[42px] rounded-[8px] overflow-hidden flex-shrink-0">
+      <div className="relative w-[40px] h-[40px] rounded-[8px] overflow-hidden">
         <Image
           src="/images/logo/cyd-logo.png"
           alt="CYD"
           fill
-          sizes="42px"
+          sizes="40px"
           className="object-contain"
           priority
         />
@@ -66,14 +67,16 @@ function NavItem({
   const focusRing =
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30';
 
-  const desktopClass = `flex items-center px-[16px] py-[6px] rounded-full text-[14.5px] font-medium tracking-tight text-navy transition-colors duration-200 whitespace-nowrap active:scale-[0.97] hover:bg-navy/[0.045] ${focusRing}`;
-  const mobileClass = `flex items-center w-full px-[16px] py-[12px] rounded-[16px] text-[16px] font-medium tracking-tight text-navy transition-colors duration-200 active:scale-[0.98] hover:bg-navy/[0.045] ${focusRing}`;
+  // Desktop items live inside the gray pill, so active state reads as a
+  // raised white "chip" rather than a tinted background.
+  const desktopClass = `flex items-center px-[18px] py-[9px] rounded-full text-[14.5px] font-medium tracking-tight text-navy/75 transition-all duration-200 whitespace-nowrap active:scale-[0.97] hover:text-navy hover:bg-white/60 ${focusRing}`;
+  const mobileClass = `flex items-center w-full px-[16px] py-[12px] rounded-[14px] text-[16px] font-medium tracking-tight text-navy transition-colors duration-200 active:scale-[0.98] hover:bg-navy/[0.05] ${focusRing}`;
 
   const base = variant === 'mobile' ? mobileClass : desktopClass;
   const activeClass =
     variant === 'mobile'
       ? 'bg-[#FCDB32]/25 font-semibold'
-      : 'bg-navy/[0.07] font-semibold';
+      : 'bg-white text-navy font-semibold shadow-[0_1px_2px_rgba(13,20,40,0.10)]';
 
   const handleAiClick = () => {
     onAiChatClick?.();
@@ -206,63 +209,53 @@ export default function Navbar({ onAiChatClick }: NavbarProps) {
   return (
     <header
       className={`
-        fixed top-4 left-0 right-0 z-50
-        flex justify-center px-4
+        fixed top-0 left-0 right-0 z-50
         transition-transform duration-500
-        ${visible ? 'translate-y-0' : '-translate-y-[calc(100%+1rem)]'}
+        ${visible ? 'translate-y-0' : '-translate-y-full'}
       `}
       style={{ transitionTimingFunction: EASE }}
       role="banner"
     >
-      <div className="w-full max-w-[420px] md:w-auto md:max-w-none">
-        <nav
+      <div className="relative flex items-center justify-between max-w-7xl mx-auto px-6 md:px-10 py-5">
+        {/* Logo — bare, no container, sits directly on the page background */}
+        <Logo />
+
+        {/* Centered link pill — desktop only. Absolutely centered on the
+            viewport so it stays visually centered regardless of how wide
+            the logo or the Contact button end up being. */}
+        <ul
           className="
-            flex items-center justify-between md:inline-flex
-            w-full md:w-auto
-            bg-white/75 backdrop-blur-xl backdrop-saturate-150
-            rounded-full
-            pl-[20px] md:pl-[36px] pr-[14px] md:pr-[28px] py-[8px]
-            ring-1 ring-black/[0.06]
-            shadow-[0_1px_2px_rgba(13,20,40,0.04),0_8px_24px_-8px_rgba(13,20,40,0.12)]
+            hidden md:flex items-center list-none m-0 p-[6px]
+            absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+            bg-navy/[0.045] backdrop-blur-md
+            rounded-full ring-1 ring-navy/[0.06]
           "
-          aria-label="Main navigation"
+          role="list"
         >
-          {/* Logo */}
-          <Logo />
+          {NAV_LINKS.map((link) => (
+            <li key={link.href + link.label}>
+              <NavItem
+                link={link}
+                isActive={isLinkActive(link.href)}
+                onAiChatClick={link.href === '#' ? onAiChatClick : undefined}
+              />
+            </li>
+          ))}
+        </ul>
 
-          {/* Divider — desktop only */}
-          <div
-            className="hidden md:block w-px h-[22px] bg-navy/15 mx-4 flex-shrink-0"
-            aria-hidden="true"
-          />
-
-          {/* Nav links — desktop only */}
-          <ul
-            className="hidden md:flex items-center list-none m-0 p-0"
-            role="list"
-          >
-            {NAV_LINKS.map((link) => (
-              <li key={link.href + link.label}>
-                <NavItem
-                  link={link}
-                  isActive={isLinkActive(link.href)}
-                  onAiChatClick={link.href === '#' ? onAiChatClick : undefined}
-                />
-              </li>
-            ))}
-          </ul>
-
-          {/* Contact CTA — desktop only */}
+        {/* Right side: outlined Contact button (desktop) + hamburger (mobile) */}
+        <div className="flex items-center gap-3 flex-shrink-0">
           <Link
             href="/#contact"
             className="
               hidden md:inline-flex
-              ml-2 px-[20px] py-[7px] rounded-full
-              bg-navy text-white
-              text-[15px] font-semibold tracking-tight
+              px-[22px] py-[9px] rounded-[14px]
+              bg-white/80 backdrop-blur-md
+              ring-1 ring-navy/15
+              text-navy text-[14.5px] font-semibold tracking-tight
               whitespace-nowrap
               transition-all duration-200 ease-out
-              hover:opacity-90 active:scale-[0.97]
+              hover:bg-white hover:ring-navy/25 active:scale-[0.97]
               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
             "
           >
@@ -274,8 +267,9 @@ export default function Navbar({ onAiChatClick }: NavbarProps) {
             onClick={() => setMobileOpen((v) => !v)}
             className="
               md:hidden flex items-center justify-center
-              w-9 h-9 rounded-full flex-shrink-0
-              hover:bg-navy/[0.06] transition-colors duration-200
+              w-10 h-10 rounded-full flex-shrink-0
+              bg-white ring-1 ring-navy/12
+              hover:ring-navy/25 transition-all duration-200
               active:scale-95
               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
             "
@@ -285,58 +279,56 @@ export default function Navbar({ onAiChatClick }: NavbarProps) {
           >
             <BurgerIcon open={mobileOpen} />
           </button>
-        </nav>
+        </div>
+      </div>
 
-        {/* Dropdown panel — mobile only */}
+      {/* Dropdown panel — mobile only */}
+      <div
+        id="mobile-nav-panel"
+        className={`
+          md:hidden overflow-hidden px-4
+          transition-all duration-300
+          ${mobileOpen ? 'max-h-[420px] opacity-100' : 'max-h-0 opacity-0'}
+        `}
+        style={{ transitionTimingFunction: EASE }}
+      >
         <div
-          id="mobile-nav-panel"
-          className={`
-            md:hidden overflow-hidden
-            transition-all duration-300
-            ${mobileOpen ? 'max-h-[420px] opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0'}
-          `}
-          style={{ transitionTimingFunction: EASE }}
+          className="
+            bg-white
+            rounded-[24px] p-2 mb-3
+            ring-1 ring-black/[0.06]
+            shadow-[0_1px_2px_rgba(13,20,40,0.04),0_16px_32px_-8px_rgba(13,20,40,0.16)]
+          "
         >
-          <div
+          <ul className="flex flex-col list-none m-0 p-0" role="list">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href + link.label}>
+                <NavItem
+                  link={link}
+                  isActive={isLinkActive(link.href)}
+                  onAiChatClick={link.href === '#' ? onAiChatClick : undefined}
+                  onNavigate={closeMenu}
+                  variant="mobile"
+                />
+              </li>
+            ))}
+          </ul>
+
+          <Link
+            href="/#contact"
+            onClick={closeMenu}
             className="
-              bg-white/85 backdrop-blur-xl backdrop-saturate-150
-              rounded-[24px] p-2
-              ring-1 ring-black/[0.06]
-              shadow-[0_1px_2px_rgba(13,20,40,0.04),0_16px_32px_-8px_rgba(13,20,40,0.16)]
+              mt-1 flex items-center justify-center w-full
+              px-[20px] py-[13px] rounded-[16px]
+              bg-white ring-1 ring-navy/15
+              text-navy text-[15px] font-semibold tracking-tight
+              transition-all duration-200
+              hover:bg-navy/[0.04] hover:ring-navy/25 active:scale-[0.98]
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
             "
           >
-            <ul className="flex flex-col list-none m-0 p-0" role="list">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href + link.label}>
-                  <NavItem
-                    link={link}
-                    isActive={isLinkActive(link.href)}
-                    onAiChatClick={
-                      link.href === '#' ? onAiChatClick : undefined
-                    }
-                    onNavigate={closeMenu}
-                    variant="mobile"
-                  />
-                </li>
-              ))}
-            </ul>
-
-            <Link
-              href="/#contact"
-              onClick={closeMenu}
-              className="
-                mt-1 flex items-center justify-center w-full
-                px-[20px] py-[12px] rounded-[16px]
-                bg-navy text-white
-                text-[15px] font-semibold tracking-tight
-                transition-opacity duration-200
-                hover:opacity-90 active:scale-[0.98]
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
-              "
-            >
-              Contact
-            </Link>
-          </div>
+            Contact
+          </Link>
         </div>
       </div>
     </header>

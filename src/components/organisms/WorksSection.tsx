@@ -38,46 +38,49 @@ const works: Work[] = [
   {
     slug: 'cyd-portfolio',
     title: 'CYD Portfolio',
-    description: 'This site, in navy and yellow',
+    description: 'This site — design portfolio in black and white',
     image: '/images/works/cyd-portfolio.png',
   },
 ];
 
-// Card image size: 528×396 on mobile, 700×525 on desktop (4:3 ratio)
+// Card: fixed 640px wide, height is intrinsic — no cropping, full image visible
 function WorkCard({ work, index }: { work: Work; index: number }) {
   return (
     <a
       href={`/works/${work.slug}`}
-      className="group block w-[528px] flex-shrink-0 md:w-[700px]"
+      className="group block w-[480px] flex-shrink-0 md:w-[640px]"
     >
-      {/* Image container — dimmed by default, full brightness on hover */}
-      <div className="relative h-[396px] w-[528px] overflow-hidden rounded-md border-4 border-gray-800 bg-neutral-200 ring-1 ring-neutral-900/10 md:h-[525px] md:w-[700px]">
+      {/* Image wrapper — fixed size, object-contain so full image visible, no crop */}
+      <div
+        className="relative h-[320px] w-[480px] overflow-hidden rounded-[6px] border border-black/[0.06] md:h-[426px] md:w-[640px]"
+        style={{ background: '#f5f5f5' }}
+      >
         <Image
           src={work.image}
           alt={work.title}
           fill
-          sizes="(min-width: 768px) 700px, 528px"
-          className="object-cover brightness-75 transition-[filter,transform] duration-[400ms] ease-in-out group-hover:brightness-100 group-hover:scale-105"
+          sizes="(min-width: 768px) 640px, 480px"
+          className="object-contain brightness-[0.78] transition-[filter,transform] duration-500 ease-in-out group-hover:brightness-100 group-hover:scale-[1.035]"
         />
 
-        {/* View Work label — fades in on hover, bottom-right */}
-        <div className="absolute inset-0 flex items-end justify-end p-5 opacity-0 transition-opacity duration-[400ms] ease-in-out group-hover:opacity-100">
-          <span className="rounded-sm bg-white/90 px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-neutral-900 backdrop-blur-sm">
+        {/* "View Work" pill — fades in on hover, bottom-right */}
+        <div className="absolute inset-0 flex items-end justify-end p-[18px] opacity-0 transition-opacity duration-[350ms] ease-in-out group-hover:opacity-100">
+          <span className="rounded-[3px] bg-white/92 px-[18px] py-[8px] font-mono text-[9.5px] uppercase tracking-[0.16em] text-neutral-900 backdrop-blur-sm">
             View Work
           </span>
         </div>
       </div>
 
-      {/* Caption — title + superscript index (screenshot layout) */}
-      <div className="mt-5">
-        <h3 className="inline text-lg font-normal text-neutral-900 md:text-xl">
+      {/* Caption */}
+      <div className="mt-[22px]">
+        <h3 className="inline text-[1.1rem] font-normal leading-snug tracking-[-0.01em] text-neutral-900 md:text-[1.15rem]">
           {work.title}
-          <sup className="ml-1 font-mono text-[0.6em] font-normal text-neutral-400">
+          <sup className="ml-[5px] font-mono text-[0.58em] font-normal text-neutral-300">
             {String(index + 1).padStart(2, '0')}
           </sup>
         </h3>
       </div>
-      <p className="mt-1.5 text-sm text-neutral-500 md:text-base">
+      <p className="mt-[7px] text-[0.85rem] leading-relaxed tracking-[0.005em] text-neutral-500 md:text-[0.875rem]">
         {work.description}
       </p>
     </a>
@@ -86,10 +89,6 @@ function WorkCard({ work, index }: { work: Work; index: number }) {
 
 const hideScrollbar =
   '[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden';
-
-function SectionDivider() {
-  return <div className="h-px w-full bg-neutral-200" />;
-}
 
 function WorksHeader({
   showNav,
@@ -101,24 +100,27 @@ function WorksHeader({
   onNext?: () => void;
 }) {
   return (
-    <div className="px-[6vw] pt-10 pb-6">
+    <div className="bg-[#0a0a0a] px-[52px] pt-[52px] pb-0">
       <div className="flex items-end justify-between gap-6">
         <div>
-          {/* Typo fixed: FEAUTURED → Featured */}
-          <span className="block font-mono text-xs uppercase tracking-[0.2em] text-neutral-400">
+          {/* Mono eyebrow — very muted */}
+          <span className="block font-mono text-[10px] uppercase tracking-[0.22em] text-neutral-600">
             Featured
           </span>
-          <h2 className="mt-2 font-display text-[clamp(2.25rem,5vw,4rem)] uppercase leading-[0.9] text-neutral-900">
+          {/* Bebas Neue display title */}
+          <h2 className="mt-[14px] font-display text-[clamp(3rem,7vw,5.5rem)] uppercase leading-[0.92] tracking-[0.02em] text-white">
             Selected Works
           </h2>
         </div>
+
+        {/* Desktop nav arrows */}
         {showNav && (
-          <div className="flex shrink-0 gap-3 pb-1 text-neutral-400">
+          <div className="flex shrink-0 gap-5 pb-1 text-[#444]">
             <button
               type="button"
               aria-label="Previous work"
               onClick={onPrev}
-              className="transition-colors hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-neutral-900"
+              className="text-[22px] leading-none transition-colors duration-200 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
             >
               ←
             </button>
@@ -126,14 +128,16 @@ function WorksHeader({
               type="button"
               aria-label="Next work"
               onClick={onNext}
-              className="transition-colors hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-neutral-900"
+              className="text-[22px] leading-none transition-colors duration-200 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
             >
               →
             </button>
           </div>
         )}
       </div>
-      <div className="mt-6 h-px w-full bg-neutral-900" />
+
+      {/* Hairline rule — barely visible, premium separator */}
+      <div className="mt-[44px] h-[0.5px] w-full bg-white/[0.08]" />
     </div>
   );
 }
@@ -141,11 +145,10 @@ function WorksHeader({
 function SimpleWorksRow() {
   return (
     <section className="bg-white">
-      <SectionDivider />
       <WorksHeader />
-      <div className="pb-20">
+      <div className="pb-24 pt-[44px]">
         <div
-          className={`flex snap-x snap-mandatory gap-14 overflow-x-auto px-[6vw] pb-2 ${hideScrollbar}`}
+          className={`flex snap-x snap-mandatory gap-12 overflow-x-auto px-[52px] pb-2 md:gap-[48px] ${hideScrollbar}`}
         >
           {works.map((work, index) => (
             <div key={work.slug} className="snap-start">
@@ -193,7 +196,6 @@ function PinnedWorksRow() {
       className="relative hidden h-[320vh] bg-white md:block"
     >
       <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
-        <SectionDivider />
         <WorksHeader
           showNav
           onPrev={() => scrollByCard(-1)}
@@ -203,7 +205,7 @@ function PinnedWorksRow() {
           <motion.div
             ref={trackRef}
             style={{ x }}
-            className="flex gap-14 px-[6vw]"
+            className="flex gap-[48px] px-[52px]"
           >
             {works.map((work, index) => (
               <WorkCard key={work.slug} work={work} index={index} />

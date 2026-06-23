@@ -32,14 +32,15 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* Hero content — dark text for contrast against white bg */}
+      {/* Hero content — text now rides on the "navy" token instead of raw
+          black/gray, matching the navbar's palette */}
       <section
         id="hero"
         className="relative z-0 flex min-h-[100svh] flex-col items-center justify-center px-6 sm:px-10 text-center"
       >
-        <h1 className="max-w-4xl text-[clamp(2.5rem,7vw,4.75rem)] leading-[1.15] tracking-tight font-sans font-normal text-black">
+        <h1 className="max-w-4xl text-[clamp(2.5rem,7vw,4.75rem)] leading-[1.15] tracking-tight font-sans font-normal text-navy">
           <span
-            className="italic text-gray-800 text-[1.3em]"
+            className="italic text-navy/70 text-[1.3em]"
             style={{
               fontFamily: "'Playfair Display', 'Georgia', serif",
               fontWeight: '100',
@@ -55,32 +56,50 @@ export default function HeroSection() {
           Without Limits
         </h1>
 
-        <p className="mt-6 max-w-xl font-sans text-base sm:text-lg font-normal text-black">
+        <p className="mt-6 max-w-xl font-sans text-base sm:text-lg font-normal text-navy">
           Web Developer · Layout Artist · UX/UI Designer
         </p>
 
         {/* Value proposition */}
-        <p className="mt-8 max-w-2xl font-sans text-sm sm:text-base font-normal leading-relaxed text-black/80">
+        <p className="mt-8 max-w-2xl font-sans text-sm sm:text-base font-normal leading-relaxed text-navy/75">
           I design scalable, beautiful digital experiences with clean code and
           thoughtful UX. From pixel-perfect interfaces to AI-enhanced
           solutions—let's create something extraordinary.
         </p>
 
-        {/* CTA Buttons */}
-        <div className="mt-10 flex flex-col sm:flex-row gap-6 justify-center">
-          {/* Primary CTA */}
+        {/* CTA Buttons — same radius, weight, and interaction recipe as the
+            navbar's Contact chip, so hero and nav read as one design */}
+        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+          {/* Primary CTA — solid navy fill. This stays the one bold, filled
+              button on the page; the nav's Contact is deliberately quieter. */}
           <Link
             href="/works"
-            className="inline-flex items-center justify-center px-7 py-3 bg-black text-white font-medium rounded-md transition-opacity duration-300 hover:opacity-90 active:opacity-75"
+            className="
+              inline-flex items-center justify-center
+              px-[26px] py-[13px] rounded-[14px]
+              bg-navy text-white font-semibold tracking-tight
+              transition-all duration-200 ease-out
+              hover:opacity-90 active:scale-[0.97]
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
+            "
           >
             Explore My Work
             <span className="ml-2">→</span>
           </Link>
 
-          {/* Secondary CTA */}
+          {/* Secondary CTA — outlined chip: identical recipe to the navbar's
+              Contact button (white fill, navy ring, navy text). */}
           <button
             onClick={handleAskAI}
-            className="inline-flex items-center justify-center px-7 py-3 border border-black text-black font-medium rounded-md transition-colors duration-300 hover:bg-black/5"
+            className="
+              inline-flex items-center justify-center
+              px-[26px] py-[13px] rounded-[14px]
+              bg-white ring-1 ring-navy/15
+              text-navy font-semibold tracking-tight
+              transition-all duration-200 ease-out
+              hover:bg-navy/[0.04] hover:ring-navy/25 active:scale-[0.97]
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
+            "
           >
             Ask AI About Me
           </button>

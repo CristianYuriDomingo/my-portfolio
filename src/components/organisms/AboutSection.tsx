@@ -12,13 +12,27 @@ export default function AboutSection() {
       id="about"
       className="
         relative overflow-hidden
-        bg-[#F5F5F5]
+        bg-white
         min-h-[100dvh] flex flex-col
         px-9 pt-16 sm:pt-20 pb-0
         lg:h-screen lg:block lg:py-0
         [--page-x:2.25rem] lg:[--page-x:5rem]
       "
     >
+      {/* Subtle background watermark — same recipe as HeroSection */}
+      <div className="fixed inset-0 -z-20 flex items-center justify-center pointer-events-none select-none">
+        <div
+          className="opacity-[0.025] w-[110vw] h-[110vw] sm:w-[100vw] sm:h-[100vw] md:w-[90vw] md:h-[90vw]"
+          style={{
+            backgroundImage: "url('/images/hero/bg-logo1.png')",
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'contain',
+            filter: 'brightness(0)',
+          }}
+        />
+      </div>
+
       <div
         className="
           relative mx-auto w-full max-w-[1700px]
@@ -30,7 +44,7 @@ export default function AboutSection() {
         <h2
           className="
             w-full text-center font-display font-black leading-none tracking-tight
-            text-[#141D38]
+            text-navy
             text-[44px] sm:text-[64px] md:text-[80px]
             lg:absolute lg:top-[10%] lg:left-[var(--page-x)] lg:z-0 lg:text-left
             lg:text-[clamp(140px,15vw,230px)] lg:whitespace-nowrap
@@ -49,10 +63,10 @@ export default function AboutSection() {
         >
           <h3
             className="
-              font-display font-bold uppercase tracking-wide
-              text-[#4B4B4B]
-              text-[16px] sm:text-[18px]
-              mb-2
+              font-display font-bold uppercase tracking-widest
+              text-navy/40
+              text-[13px] sm:text-[14px]
+              mb-3
             "
           >
             {ABOUT_LABEL}
@@ -60,7 +74,7 @@ export default function AboutSection() {
           <p
             className="
               text-[18px] sm:text-[21px]
-              leading-[1.8] text-[#141D38]/80
+              leading-[1.8] text-navy/75
             "
           >
             {ABOUT_DESCRIPTION}
