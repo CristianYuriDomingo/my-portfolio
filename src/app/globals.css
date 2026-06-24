@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --background: #0d1428;
-  --foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #0D1428;
   --accent: #fcdb32;
+  --surface: #F8F8F8;
+  --surface-alt: #fafafa;
+  --border: #e5e4e2;
+  --navy-dark: #141D38;
   --font-display: var(--font-bebas);
   --font-body: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

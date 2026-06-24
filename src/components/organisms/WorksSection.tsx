@@ -161,7 +161,6 @@ function WorksHeader({
     <div className="bg-white px-[40px] pt-[60px] pb-0 sm:px-[52px]">
       <div className="flex items-end justify-between gap-6">
         <div>
-          {/* "Featured" → Playfair italic, premium accent */}
           <span
             className="block text-[9px] tracking-[0.24em] text-navy/40 uppercase"
             style={{
@@ -171,7 +170,7 @@ function WorksHeader({
               letterSpacing: '0.24em',
             }}
           >
-            Featured Work
+            DESIGN • BRAND • DEVELOPMENT
           </span>
           {/* "Selected Works" with refined hierarchy */}
           <h2 className="mt-[16px] text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] text-navy">

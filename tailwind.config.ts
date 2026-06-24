@@ -13,7 +13,12 @@ const config: Config = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         navy: '#0D1428',
+        'navy-dark': '#141D38',
         yellow: '#F0C419',
+        accent: '#fcdb32',
+        surface: '#F8F8F8',
+        'surface-alt': '#fafafa',
+        border: '#e5e4e2',
       },
       fontFamily: {
         display: ['var(--font-bebas)', 'sans-serif'],

@@ -50,7 +50,7 @@ export default function HeroSection() {
               fontWeight: 300,
             }}
           >
-            Portfolio · 2026
+            CYD 2026 PORTFOLIO
           </span>
           <div className="flex-1 h-[1px] bg-navy/15" />
         </div>
@@ -88,7 +88,7 @@ export default function HeroSection() {
             fontWeight: 200,
           }}
         >
-          By Cristian Yuri Domingo / CYD
+          By Cristian Yuri Domingo
         </p>
 
         <p

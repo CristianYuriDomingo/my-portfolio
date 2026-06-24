@@ -66,7 +66,7 @@ export default function RootLayout({
           ${geistMono.variable}
           ${bebasNeue.variable}
           font-sans antialiased
-          bg-navy text-white
+          bg-background text-foreground
         `}
       >
         {children}

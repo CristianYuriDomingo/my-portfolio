@@ -11,7 +11,7 @@ const services = [
     description:
       'Creating thoughtful digital experiences through UI/UX design, web design, mobile interfaces, posters, marketing materials, and visual communication.',
     image: '/images/services/design-preview.webp',
-    bg: '#ffffff', // White - like intro panel
+    bg: '#ffffff',
   },
   {
     number: '02',
@@ -19,7 +19,7 @@ const services = [
     description:
       'Crafting memorable visual identities, logos, and brand systems that build recognition, trust, and consistency.',
     image: '/images/services/branding-preview.webp',
-    bg: '#fffdf0', // Very light warm white
+    bg: '#f9f9f9',
   },
   {
     number: '03',
@@ -27,7 +27,7 @@ const services = [
     description:
       'Building fast, scalable, and responsive digital products with modern frontend technologies and clean code.',
     image: '/images/services/dev-preview.webp',
-    bg: '#fffaf5', // Very light off-white
+    bg: '#ffffff',
   },
 ];
 
@@ -81,7 +81,7 @@ function IntroPanel() {
           top: 0,
           height: '100vh',
           zIndex: 5,
-          backgroundColor: '#ffffff',
+          backgroundColor: '#f9f9f9',
           overflow: 'hidden',
         }}
       >
