@@ -78,7 +78,7 @@ function WorkCard({ work, index }: { work: Work; index: number }) {
           alt={work.title}
           fill
           sizes="(min-width: 1024px) 560px, (min-width: 768px) 420px, 100vw"
-          className="object-contain transition-[filter] duration-500 ease-in-out group-hover:brightness-95"
+          className="object-cover transition-[filter] duration-500 ease-in-out group-hover:brightness-95"
         />
         {/* Overlay on hover */}
         <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
@@ -109,7 +109,7 @@ function WorkCard({ work, index }: { work: Work; index: number }) {
       </div>
 
       {/* Content section - airy spacing */}
-      <div className="pt-[24px]">
+      <div className="pt-[12px]">
         <h3
           className="text-[1.05rem] leading-[1.3] text-navy sm:text-[1.15rem]"
           style={{ fontWeight: 400 }}
@@ -128,7 +128,7 @@ function WorkCard({ work, index }: { work: Work; index: number }) {
 
       {/* Description with refined typography */}
       <p
-        className="mt-[8px] text-sm leading-[1.6] text-navy/60 sm:text-[0.95rem]"
+        className="mt-[2px] text-sm leading-[1.6] text-navy/60 sm:text-[0.95rem]"
         style={{ fontWeight: 200, lineHeight: 1.65 }}
       >
         {work.description.split(/\*\*(.+?)\*\*/).map((part, i) =>
@@ -145,72 +145,39 @@ function WorkCard({ work, index }: { work: Work; index: number }) {
   );
 }
 
-const hideScrollbar =
-  '[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden';
-
-function WorksHeader({
-  showNav,
-  onPrev,
-  onNext,
-}: {
-  showNav?: boolean;
-  onPrev?: () => void;
-  onNext?: () => void;
-}) {
+function WorksHeader() {
   return (
-    <div className="bg-white px-[40px] pt-[60px] pb-0 sm:px-[52px]">
-      <div className="flex items-end justify-between gap-6">
-        <div>
+    <div className="bg-white px-[40px] pt-[80px] pb-0 sm:px-[52px] sm:pt-[100px]">
+      <div className="flex flex-col items-center text-center">
+        {/* Line separator with badge — matching Hero */}
+        <div className="flex items-center gap-4 w-full max-w-md">
+          <div className="flex-1 h-[1px] bg-navy/15" />
           <span
-            className="block text-[9px] tracking-[0.24em] text-navy/40 uppercase"
+            className="text-[11px] tracking-[0.2em] uppercase text-navy/40 whitespace-nowrap"
             style={{
-              fontFamily: 'var(--font-playfair)',
-              fontStyle: 'italic',
-              fontWeight: 400,
-              letterSpacing: '0.24em',
+              fontFamily: 'var(--font-geist-sans)',
+              fontWeight: 300,
             }}
           >
             DESIGN • BRAND • DEVELOPMENT
           </span>
-          {/* "Selected Works" with refined hierarchy */}
-          <h2 className="mt-[16px] text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] text-navy">
-            <span style={{ fontWeight: 100, letterSpacing: '-0.01em' }}>
-              Selected Works
-            </span>
-          </h2>
-          {/* Separator line after heading */}
-          <div className="mt-[24px] h-[1px] w-[80px] bg-navy/15" />
+          <div className="flex-1 h-[1px] bg-navy/15" />
         </div>
-        {showNav && (
-          <div className="flex shrink-0 gap-6 pb-2 text-navy/30">
-            <button
-              type="button"
-              aria-label="Previous work"
-              onClick={onPrev}
-              className="text-[20px] leading-none transition-all duration-200 hover:text-navy/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-navy/30"
-            >
-              ←
-            </button>
-            <button
-              type="button"
-              aria-label="Next work"
-              onClick={onNext}
-              className="text-[20px] leading-none transition-all duration-200 hover:text-navy/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-navy/30"
-            >
-              →
-            </button>
-          </div>
-        )}
+
+        {/* Selected Works heading */}
+        <h2 className="mt-[24px] text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] text-navy">
+          <span style={{ fontWeight: 100, letterSpacing: '-0.01em' }}>
+            Selected Works
+          </span>
+        </h2>
       </div>
-      {/* Refined divider - more subtle */}
-      <div className="mt-[48px] h-[1px] w-full bg-navy/8" />
     </div>
   );
 }
 
 function SimpleWorksRow() {
   return (
-    <section className="bg-white">
+    <section className="bg-white border-t border-navy/[0.06]">
       <WorksHeader />
       <div className="px-[40px] py-[48px] sm:px-[52px] sm:py-[56px]">
         {/* Grid layout for mobile with refined spacing */}
@@ -248,24 +215,13 @@ function PinnedWorksRow() {
   });
   const x = useTransform(scrollYProgress, [0, 1], [0, -distance]);
 
-  const scrollByCard = (direction: 1 | -1) => {
-    if (!sectionRef.current) return;
-    const scrollRange = sectionRef.current.offsetHeight - window.innerHeight;
-    const step = scrollRange / Math.max(works.length - 1, 1);
-    window.scrollBy({ top: direction * step, behavior: 'smooth' });
-  };
-
   return (
     <section
       ref={sectionRef}
-      className={`${playfair.variable} relative hidden h-[320vh] bg-white md:block`}
+      className={`${playfair.variable} relative hidden h-[320vh] bg-white border-t border-navy/[0.06] md:block`}
     >
       <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
-        <WorksHeader
-          showNav
-          onPrev={() => scrollByCard(-1)}
-          onNext={() => scrollByCard(1)}
-        />
+        <WorksHeader />
         {/* Generous padding for premium feel */}
         <div className="flex flex-1 items-center overflow-hidden px-[52px]">
           <motion.div ref={trackRef} style={{ x }} className="flex gap-[56px]">

@@ -1,6 +1,7 @@
 // src/components/organisms/HeroSection.tsx
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { Playfair_Display } from 'next/font/google';
 
@@ -19,10 +20,10 @@ export default function HeroSection() {
 
   return (
     <>
-      {/* Fixed background — white */}
+      {/* ── White base ── */}
       <div className="fixed inset-0 -z-30 bg-white" />
 
-      {/* Fixed giant watermark logo */}
+      {/* ── Watermark logo — full viewport bg ── */}
       <div className="fixed inset-0 -z-20 flex items-center justify-center pointer-events-none select-none">
         <div
           className="opacity-[0.015] w-[110vw] h-[110vw] sm:w-[100vw] sm:h-[100vw] md:w-[90vw] md:h-[90vw]"
@@ -38,109 +39,236 @@ export default function HeroSection() {
 
       <section
         id="hero"
-        className={`${playfair.variable} relative z-0 flex min-h-[100svh] flex-col items-center justify-center px-6 sm:px-10 text-center`}
+        className={`${playfair.variable} relative z-0 flex flex-col lg:flex-row min-h-[100svh]`}
       >
-        {/* ── Separator ── */}
-        <div className="flex items-center gap-4 w-full max-w-md mb-10">
-          <div className="flex-1 h-[1px] bg-navy/15" />
-          <span
-            className="text-[11px] tracking-[0.2em] uppercase text-navy/40 whitespace-nowrap"
-            style={{
-              fontFamily: 'var(--font-geist-sans)',
-              fontWeight: 300,
-            }}
+        {/* ══════════════════════════════════
+            LEFT — Text content
+        ══════════════════════════════════ */}
+        <div className="w-full lg:w-1/2 flex flex-col justify-center px-[6vw] py-28 lg:py-0 gap-0">
+          {/* Eyebrow */}
+          <p
+            className="mb-5 text-[10px] tracking-[0.22em] uppercase text-navy/35"
+            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
           >
-            CYD 2026 PORTFOLIO
-          </span>
-          <div className="flex-1 h-[1px] bg-navy/15" />
+            Portfolio · 2026
+          </p>
+
+          {/* Headline */}
+          <h1
+            className="text-[clamp(3rem,5vw,5.5rem)] leading-[1.05] tracking-tight text-navy"
+            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
+          >
+            I'm{' '}
+            <span
+              style={{
+                fontFamily: 'var(--font-playfair)',
+                fontWeight: 400,
+                fontStyle: 'italic',
+                fontSize: '1em',
+                letterSpacing: '-0.02em',
+                color: '#000',
+              }}
+            >
+              Cristian Yuri
+            </span>
+            <br />
+            Domingo.
+          </h1>
+
+          {/* Role labels */}
+          <p
+            className="mt-5 text-[11px] tracking-[0.2em] uppercase text-navy/40"
+            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
+          >
+            UI/UX Designer · Developer · Visual Creator
+          </p>
+
+          {/* Bio */}
+          <div className="mt-7 pl-4 border-l-2 border-navy/15 max-w-[360px]">
+            <p
+              className="text-sm leading-[1.85] text-navy/55"
+              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
+            >
+              I'm Cristian Yuri Domingo — CYD for short. A 3-in-1 Designer,
+              Developer, and Visual Creator from Nueva Ecija, PH. I handle
+              layout, branding, social graphics, UI/UX, and full-stack
+              development. One person, full package.
+            </p>
+          </div>
+
+          {/* Checklist */}
+          <ul className="mt-7 flex flex-col gap-[10px]">
+            {[
+              'Layout artistry & brand identity design',
+              'Full-stack web apps with clean, scalable code',
+              'Social media graphics & visual communications',
+            ].map((item) => (
+              <li
+                key={item}
+                className="flex items-center gap-3 text-sm text-navy/45"
+                style={{
+                  fontFamily: 'var(--font-geist-sans)',
+                  fontWeight: 300,
+                }}
+              >
+                <span className="text-navy/30 text-xs">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          {/* Buttons */}
+          <div className="mt-10 flex flex-col sm:flex-row gap-3">
+            <Link
+              href="/works"
+              className="
+                inline-flex items-center justify-center
+                px-[24px] py-[10px]
+                bg-navy text-white text-sm tracking-tight
+                transition-all duration-200 ease-out
+                hover:opacity-90 active:scale-[0.97]
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
+              "
+              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
+            >
+              View My Work
+            </Link>
+
+            <button
+              onClick={handleAskAI}
+              className="
+                inline-flex items-center justify-center
+                px-[24px] py-[10px]
+                bg-white ring-1 ring-navy/15
+                text-navy text-sm tracking-tight
+                transition-all duration-200 ease-out
+                hover:bg-navy/[0.04] hover:ring-navy/25 active:scale-[0.97]
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
+              "
+              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
+            >
+              Ask AI About Me
+            </button>
+          </div>
         </div>
 
-        <h1
-          className="max-w-4xl text-[clamp(2.5rem,7vw,4.75rem)] leading-[1.15] tracking-tight text-navy"
-          style={{
-            fontFamily: 'var(--font-geist-sans)',
-            fontWeight: 200,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'var(--font-playfair)',
-              fontWeight: 400,
-              fontStyle: 'italic',
-              fontSize: '1.3em',
-              letterSpacing: '-0.02em',
-              color: '#000000',
-            }}
-          >
-            Infinite
-          </span>{' '}
-          by Design.
-          <br />
-          Built to Create
-          <br />
-          Without Limits
-        </h1>
+        {/* ══════════════════════════════════
+            RIGHT — Photo + Stats bar
+            · On mobile: full-width block below content
+            · On desktop: 50% column with left margin
+        ══════════════════════════════════ */}
+        <div className="w-full lg:w-1/2 flex flex-col ml-0 lg:ml-6 lg:mr-6">
+          {/* Photo wrapper — hover animation */}
+          <div className="relative flex-1 min-h-[60vw] sm:min-h-[50vw] lg:min-h-0 group overflow-hidden">
+            <Image
+              src="/images/hero/portrait.webp"
+              alt="CYD — Cristian Yuri Domingo"
+              fill
+              priority
+              className="
+                object-cover object-top grayscale
+                transition-transform duration-700 ease-out
+                group-hover:scale-[1.04]
+              "
+            />
 
-        <p
-          className="mt-6 max-w-xl text-base sm:text-lg text-navy"
-          style={{
-            fontFamily: 'var(--font-geist-sans)',
-            fontWeight: 200,
-          }}
-        >
-          By Cristian Yuri Domingo
-        </p>
+            {/* Left-edge fade into white */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent pointer-events-none" />
 
-        <p
-          className="mt-14 max-w-2xl text-sm sm:text-base leading-relaxed text-navy/75"
-          style={{
-            fontFamily: 'var(--font-geist-sans)',
-            fontWeight: 200,
-          }}
-        >
-          I design scalable, beautiful digital experiences with clean code and
-          thoughtful UX. From pixel-perfect interfaces to AI-enhanced
-          solutions—let's create something extraordinary.
-        </p>
+            {/* Hover overlay — corner bracket + label */}
+            <div
+              className="
+                absolute inset-0 pointer-events-none
+                opacity-0 group-hover:opacity-100
+                transition-opacity duration-500 ease-out
+              "
+            >
+              {/* Thin inset border that draws in from corners */}
+              <span
+                className="
+                  absolute top-4 left-4 w-8 h-8
+                  border-t border-l border-navy/40
+                  transition-all duration-500 ease-out
+                  translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0
+                "
+              />
+              <span
+                className="
+                  absolute top-4 right-4 w-8 h-8
+                  border-t border-r border-navy/40
+                  transition-all duration-500 ease-out
+                  -translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0
+                "
+              />
+              <span
+                className="
+                  absolute bottom-4 left-4 w-8 h-8
+                  border-b border-l border-navy/40
+                  transition-all duration-500 ease-out
+                  translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0
+                "
+              />
+              <span
+                className="
+                  absolute bottom-4 right-4 w-8 h-8
+                  border-b border-r border-navy/40
+                  transition-all duration-500 ease-out
+                  -translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0
+                "
+              />
 
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/works"
-            className="
-              inline-flex items-center justify-center
-              px-[26px] py-[10px]
-              bg-navy text-white tracking-tight
-              transition-all duration-200 ease-out
-              hover:opacity-90 active:scale-[0.97]
-              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
-            "
-            style={{
-              fontFamily: 'var(--font-geist-sans)',
-              fontWeight: 300,
-            }}
-          >
-            Explore My Work
-            <span className="ml-2">→</span>
-          </Link>
+              {/* Subtle label bottom-left */}
+              <p
+                className="
+                  absolute bottom-6 left-6
+                  text-[9px] tracking-[0.22em] uppercase text-navy/50
+                  translate-y-2 group-hover:translate-y-0
+                  transition-transform duration-500 delay-100 ease-out
+                "
+                style={{
+                  fontFamily: 'var(--font-geist-sans)',
+                  fontWeight: 300,
+                }}
+              >
+                Cristian Yuri Domingo
+              </p>
+            </div>
+          </div>
 
-          <button
-            onClick={handleAskAI}
-            className="
-              inline-flex items-center justify-center
-              px-[26px] py-[10px]
-              bg-white ring-1 ring-navy/15
-              text-navy tracking-tight
-              transition-all duration-200 ease-out
-              hover:bg-navy/[0.04] hover:ring-navy/25 active:scale-[0.97]
-              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
-            "
-            style={{
-              fontFamily: 'var(--font-geist-sans)',
-              fontWeight: 300,
-            }}
-          >
-            Ask AI About Me
-          </button>
+          {/* Stats bar */}
+          <div className="flex items-stretch border-t border-navy/10 bg-white/70 backdrop-blur-sm">
+            {[
+              { value: 'NEUST', label: 'Class of 2026' },
+              { value: 'Gold', label: 'ARC 2026 Award' },
+              { value: '3-in-1', label: 'Dev + Design + Visual' },
+            ].map(({ value, label }, i) => (
+              <div
+                key={label}
+                className={`flex-1 flex flex-col gap-[6px] px-5 sm:px-8 py-5 sm:py-6 ${
+                  i !== 0 ? 'border-l border-navy/10' : ''
+                }`}
+              >
+                <span
+                  className="text-navy text-lg sm:text-xl"
+                  style={{
+                    fontFamily: 'var(--font-geist-sans)',
+                    fontWeight: 600,
+                  }}
+                >
+                  {value}
+                </span>
+                <span
+                  className="text-[9px] tracking-[0.18em] uppercase text-navy/35"
+                  style={{
+                    fontFamily: 'var(--font-geist-sans)',
+                    fontWeight: 300,
+                  }}
+                >
+                  {label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </>

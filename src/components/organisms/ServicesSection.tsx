@@ -53,11 +53,10 @@ function AnimatedWord({
   const wordStart = FILL_START + index * sliceSize;
   const wordEnd = wordStart + sliceSize * 2.2;
 
-  // Light bg: start dim (#999) → fill to gold (#fcd525)
   const color = useTransform(
     scrollYProgress,
     [wordStart, Math.min(wordEnd, FILL_END + 0.05)],
-    ['#999999', '#fcd525']
+    ['#555555', '#ffffff']
   );
 
   return (
@@ -81,8 +80,10 @@ function IntroPanel() {
           top: 0,
           height: '100vh',
           zIndex: 5,
-          backgroundColor: '#f9f9f9',
+          backgroundColor: '#000000',
           overflow: 'hidden',
+          borderTop: '1px solid rgba(13, 20, 40, 0.06)',
+          borderBottom: '1px solid rgba(13, 20, 40, 0.06)',
         }}
       >
         <div
@@ -100,14 +101,14 @@ function IntroPanel() {
           <p
             style={{
               fontFamily: 'var(--font-geist-sans)',
-              fontWeight: 400,
+              fontWeight: 700,
               fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
               lineHeight: 1.5,
-              letterSpacing: '-0.01em',
+              letterSpacing: '-0.02em',
               textAlign: 'center',
               maxWidth: '920px',
               margin: 0,
-              color: '#141D38',
+              color: '#ffffff',
             }}
           >
             {ALL_WORDS.map((word, i) => (
@@ -146,6 +147,8 @@ export default function ServicesSection() {
             display: 'grid',
             gridTemplateColumns: '2fr 1fr',
             overflow: 'hidden',
+            borderTop: '1px solid rgba(13, 20, 40, 0.06)',
+            borderBottom: '1px solid rgba(13, 20, 40, 0.06)',
           }}
           className="services-panel"
         >
@@ -159,7 +162,7 @@ export default function ServicesSection() {
               gap: '28px',
             }}
           >
-            {/* Service number badge - subtle and refined */}
+            {/* Service number badge */}
             <div
               style={{
                 width: '40px',
@@ -180,7 +183,7 @@ export default function ServicesSection() {
               {s.number}
             </div>
 
-            {/* Heading - refined, light weight */}
+            {/* Heading */}
             <h2
               style={{
                 fontFamily: 'var(--font-geist-sans)',
@@ -196,7 +199,7 @@ export default function ServicesSection() {
               {s.heading}
             </h2>
 
-            {/* Description - premium readability */}
+            {/* Description */}
             <p
               style={{
                 fontFamily: 'var(--font-geist-sans)',
@@ -214,7 +217,7 @@ export default function ServicesSection() {
             </p>
           </div>
 
-          {/* RIGHT — Image with subtle border */}
+          {/* RIGHT — Image */}
           <div
             style={{
               position: 'relative',
