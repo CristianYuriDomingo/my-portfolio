@@ -8,26 +8,35 @@ const services = [
   {
     number: '01',
     heading: 'Design',
+    subtitle: 'UI/UX · Web · Branding',
     description:
       'Creating thoughtful digital experiences through UI/UX design, web design, mobile interfaces, posters, marketing materials, and visual communication.',
     image: '/images/services/design-preview.webp',
-    bg: '#ffffff',
+    bg: '#1a1a1a',
+    color: '#ffffff',
+    borderColor: 'rgba(255, 255, 255, 0.12)',
   },
   {
     number: '02',
     heading: 'Branding',
+    subtitle: 'Identity · Systems · Strategy',
     description:
       'Crafting memorable visual identities, logos, and brand systems that build recognition, trust, and consistency.',
     image: '/images/services/branding-preview.webp',
-    bg: '#f9f9f9',
+    bg: '#333333',
+    color: '#ffffff',
+    borderColor: 'rgba(255, 255, 255, 0.10)',
   },
   {
     number: '03',
     heading: 'Development',
+    subtitle: 'Frontend · Full-stack · Scalable',
     description:
       'Building fast, scalable, and responsive digital products with modern frontend technologies and clean code.',
     image: '/images/services/dev-preview.webp',
     bg: '#ffffff',
+    color: '#141D38',
+    borderColor: 'rgba(13, 20, 40, 0.08)',
   },
 ];
 
@@ -129,7 +138,7 @@ function IntroPanel() {
 
 export default function ServicesSection() {
   return (
-    <section id="services" style={{ position: 'relative' }}>
+    <section id="services" className="bg-[#f9f9f9]" style={{ position: 'relative' }}>
       {/* ─── INTRO PANEL ──────────────────────────────────────────── */}
       <IntroPanel />
 
@@ -143,12 +152,18 @@ export default function ServicesSection() {
             height: '100vh',
             zIndex: 20 + idx,
             backgroundColor: s.bg,
-            color: '#141D38',
+            color: s.color,
             display: 'grid',
-            gridTemplateColumns: '2fr 1fr',
+            gridTemplateColumns: '1.4fr 1fr',
+            gap: '48px',
             overflow: 'hidden',
-            borderTop: '1px solid rgba(13, 20, 40, 0.06)',
-            borderBottom: '1px solid rgba(13, 20, 40, 0.06)',
+            borderTop: `1px solid ${s.borderColor}`,
+            borderBottom: `1px solid ${s.borderColor}`,
+            paddingLeft: '64px',
+            paddingRight: '64px',
+            alignItems: 'center',
+            paddingTop: '0',
+            paddingBottom: '0',
           }}
           className="services-panel"
         >
@@ -157,27 +172,24 @@ export default function ServicesSection() {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
-              padding: '64px 56px',
-              gap: '28px',
+              justifyContent: 'flex-start',
+              padding: '0',
+              gap: '16px',
+              paddingLeft: '32px',
+              borderLeft: `2px solid ${s.borderColor}`,
             }}
           >
-            {/* Service number badge */}
+            {/* Service number */}
             <div
               style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                backgroundColor: '#141D38',
-                color: '#ffffff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
                 fontFamily: 'var(--font-geist-sans)',
-                fontWeight: 300,
+                fontWeight: 400,
                 fontSize: '0.75rem',
-                letterSpacing: '0.08em',
-                flexShrink: 0,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: s.color,
+                opacity: 0.5,
+                margin: 0,
               }}
             >
               {s.number}
@@ -187,13 +199,13 @@ export default function ServicesSection() {
             <h2
               style={{
                 fontFamily: 'var(--font-geist-sans)',
-                fontWeight: 200,
-                fontSize: 'clamp(6rem, 14vw, 10rem)',
-                lineHeight: 0.9,
+                fontWeight: 700,
+                fontSize: 'clamp(3.5rem, 10vw, 7rem)',
+                lineHeight: 0.95,
                 letterSpacing: '-0.02em',
                 textTransform: 'capitalize',
                 margin: 0,
-                color: '#141D38',
+                color: s.color,
               }}
             >
               {s.heading}
@@ -204,51 +216,144 @@ export default function ServicesSection() {
               style={{
                 fontFamily: 'var(--font-geist-sans)',
                 fontWeight: 300,
-                fontSize: 'clamp(1.2rem, 1.4vw, 1.3rem)',
-                lineHeight: 1.7,
+                fontSize: 'clamp(0.95rem, 1.1vw, 1.1rem)',
+                lineHeight: 1.6,
                 letterSpacing: '0em',
-                color: '#141D38',
-                opacity: 0.6,
+                color: s.color,
+                opacity: 0.55,
                 margin: 0,
-                maxWidth: '480px',
+                maxWidth: '420px',
               }}
             >
               {s.description}
             </p>
           </div>
 
-          {/* RIGHT — Image */}
+          {/* RIGHT — Image (Squared) */}
           <div
             style={{
-              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '32px',
               height: '100%',
-              borderLeft: '1px solid #e5e4e2',
+              borderLeft: `1px solid ${s.borderColor}`,
+              gap: '32px',
             }}
           >
-            <Image
-              src={s.image}
-              alt={`${s.heading} preview`}
-              fill
-              style={{ objectFit: 'cover' }}
-              sizes="33vw"
-            />
+            {/* Subtitle with divider */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '0',
+                width: '100%',
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: 'var(--font-geist-sans)',
+                  fontWeight: 300,
+                  fontSize: '0.8rem',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: s.color,
+                  opacity: 0.5,
+                  margin: 0,
+                  textAlign: 'center',
+                }}
+              >
+                {s.subtitle}
+              </p>
+            </div>
+
+            {/* Square image wrapper with hover effects */}
+            <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                height: 'clamp(300px, 60vh, 600px)',
+                aspectRatio: '1 / 1',
+                overflow: 'hidden',
+                backgroundColor: 'transparent',
+                flexShrink: 0,
+              }}
+              className="service-image-wrapper group"
+            >
+              <Image
+                src={s.image}
+                alt={`${s.heading} preview`}
+                fill
+                style={{
+                  objectFit: 'cover',
+                  transition: 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
+                }}
+                sizes="(max-width: 1024px) 90vw, 30vw"
+              />
+
+              {/* Subtle fade overlay */}
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background:
+                    s.color === '#ffffff'
+                      ? 'linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.04) 100%)'
+                      : 'linear-gradient(135deg, rgba(13, 20, 40, 0) 0%, rgba(13, 20, 40, 0.02) 100%)',
+                  pointerEvents: 'none',
+                }}
+              />
+            </div>
           </div>
         </div>
       ))}
 
       <style jsx global>{`
+        /* Service image hover — simple scale effect */
+        .service-image-wrapper:hover img {
+          transform: scale(1.05);
+        }
+
+        @media (max-width: 1024px) {
+          .services-panel {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+            padding-left: 48px !important;
+            padding-right: 48px !important;
+            align-items: stretch !important;
+          }
+          .services-panel > div:first-child {
+            padding: 40px 0 !important;
+            border-left: none !important;
+            padding-left: 0 !important;
+          }
+          .services-panel > div:last-child {
+            padding: 0 !important;
+            border-left: none !important;
+          }
+          .service-image-wrapper {
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+        }
+
         @media (max-width: 768px) {
           .services-panel {
             grid-template-columns: 1fr !important;
-            grid-template-rows: auto 1fr !important;
+            gap: 12px !important;
+            padding-left: 24px !important;
+            padding-right: 24px !important;
           }
           .services-panel > div:first-child {
-            padding: 48px 28px 32px !important;
+            padding: 32px 0 !important;
           }
-          .services-panel > div:last-child {
-            height: 40vh !important;
-            border-left: none !important;
-            border-top: 1px solid #e5e4e2 !important;
+          .services-panel h2 {
+            font-size: clamp(3rem, 10vw, 6rem) !important;
+          }
+          .service-image-wrapper {
+            max-height: 50vh !important;
           }
         }
       `}</style>

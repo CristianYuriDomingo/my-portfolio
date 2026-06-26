@@ -18,14 +18,14 @@ const workExperiences = [
     bullets: [
       <>
         Designed{' '}
-        <strong className="text-navy/70 font-semibold">
+        <strong className="text-navy/85 font-semibold">
           Pagulyas Festival
         </strong>{' '}
         materials — tarpaulins, pubmats, and full branding collateral.
       </>,
       <>
         Built and deployed{' '}
-        <strong className="text-navy/70 font-semibold">
+        <strong className="text-navy/85 font-semibold">
           laurtourism.vercel.app
         </strong>{' '}
         using vanilla HTML, CSS, and JS via GitHub + Vercel.
@@ -36,7 +36,7 @@ const workExperiences = [
       </>,
       <>
         Proposed 3D design concepts and developed an{' '}
-        <strong className="text-navy/70 font-semibold">
+        <strong className="text-navy/85 font-semibold">
           admin CMS UI demo
         </strong>{' '}
         for the tourism office.
@@ -51,7 +51,7 @@ const workExperiences = [
     bullets: [
       <>
         Served as{' '}
-        <strong className="text-navy/70 font-semibold">
+        <strong className="text-navy/85 font-semibold">
           President of ACE-IT
         </strong>
         , the IT department student organization at NEUST Atate Campus.
@@ -61,9 +61,9 @@ const workExperiences = [
       </>,
       <>
         Worked as{' '}
-        <strong className="text-navy/70 font-semibold">Layout Artist</strong>{' '}
+        <strong className="text-navy/85 font-semibold">Layout Artist</strong>{' '}
         then promoted to{' '}
-        <strong className="text-navy/70 font-semibold">Associate Editor</strong>{' '}
+        <strong className="text-navy/85 font-semibold">Associate Editor</strong>{' '}
         for The Pen Mover student publication over 2 years, handling editorial
         layout and visual design.
       </>,
@@ -80,19 +80,19 @@ const academicExperiences = [
     bullets: [
       <>
         Graduated with a specialization in{' '}
-        <strong className="text-navy/70 font-semibold">
+        <strong className="text-navy/85 font-semibold">
           Web Systems Technology
         </strong>
         , Class of 2026.
       </>,
       <>
         Maintained a{' '}
-        <strong className="text-navy/70 font-semibold">GWA of 1.50</strong>,
+        <strong className="text-navy/85 font-semibold">GWA of 1.50</strong>,
         recognized on the Dean's List across multiple semesters.
       </>,
       <>
         Received the{' '}
-        <strong className="text-navy/70 font-semibold">
+        <strong className="text-navy/85 font-semibold">
           Excellence in Service Award (USO) — Silver
         </strong>
         .
@@ -107,7 +107,7 @@ const academicExperiences = [
     bullets: [
       <>
         Built a full-stack{' '}
-        <strong className="text-navy/70 font-semibold">
+        <strong className="text-navy/85 font-semibold">
           gamified civic education web app
         </strong>{' '}
         using Next.js 15, React 19, and TypeScript.
@@ -117,11 +117,11 @@ const academicExperiences = [
         v4 authentication.
       </>,
       <>
-        <strong className="text-navy/70 font-semibold">
+        <strong className="text-navy/85 font-semibold">
           Won Best in Capstone
         </strong>{' '}
         at NEUST and{' '}
-        <strong className="text-navy/70 font-semibold">
+        <strong className="text-navy/85 font-semibold">
           Gold Award at ARC 2026
         </strong>
         .
@@ -160,13 +160,13 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
       {/* LEFT — index + period */}
       <div className="flex flex-row lg:flex-col gap-4 lg:gap-2 items-start lg:pt-[2px]">
         <span
-          className="text-[10px] tracking-[0.18em] uppercase text-navy/20 tabular-nums"
+          className="text-[10px] tracking-[0.18em] uppercase text-navy/35 tabular-nums"
           style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
         >
           {String(index + 1).padStart(2, '0')}
         </span>
         <span
-          className="text-[11px] tracking-[0.04em] text-navy/35"
+          className="text-[11px] tracking-[0.04em] text-navy/55"
           style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
         >
           {exp.period}
@@ -183,7 +183,7 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
             {exp.role}
           </h3>
           <p
-            className="text-[11px] tracking-[0.06em] uppercase text-navy/35"
+            className="text-[11px] tracking-[0.06em] uppercase text-navy/50"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
           >
             {exp.org}
@@ -193,7 +193,7 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
           {exp.bullets.map((b) => (
             <li
               key={b}
-              className="flex items-start gap-3 text-[12.5px] leading-[1.75] text-navy/45"
+              className="flex items-start gap-3 text-[12.5px] leading-[1.75] text-navy/65"
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
             >
               <span className="mt-[9px] w-[12px] h-[1px] bg-navy/20 shrink-0" />
@@ -206,7 +206,7 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
       {/* RIGHT — type badge */}
       <div className="flex lg:justify-end items-start">
         <span
-          className="inline-flex items-center px-3 py-[4px] border border-navy/12 text-[9px] tracking-[0.16em] uppercase text-navy/30 whitespace-nowrap"
+          className="inline-flex items-center px-3 py-[4px] border border-navy/20 text-[9px] tracking-[0.16em] uppercase text-navy/50 whitespace-nowrap"
           style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
         >
           {exp.type}
@@ -305,7 +305,7 @@ export default function AboutSection() {
             lg:absolute lg:top-[10%] lg:left-1/2 lg:z-0 lg:text-center lg:-translate-x-1/2
             lg:text-[clamp(140px,15vw,230px)]
           "
-          style={{ fontWeight: 200 }}
+          style={{ fontWeight: 700 }}
         >
           ABOUT ME
         </h2>

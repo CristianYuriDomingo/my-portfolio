@@ -1,3 +1,4 @@
+// src/components/organisms/WorksSection.tsx
 'use client';
 
 import { useRef, useState, useLayoutEffect, useCallback } from 'react';
@@ -20,6 +21,7 @@ const playfair = Playfair_Display({
 interface Work {
   slug: string;
   title: string;
+  tag: string;
   description: string;
   image: string;
 }
@@ -28,107 +30,122 @@ const works: Work[] = [
   {
     slug: 'bantay-bayan',
     title: 'Bantay Bayan',
+    tag: 'Full-Stack Web App',
     description:
       'Award-winning full-stack web app. Gamified civic education with a custom achievement engine, daily mini-games, and Admin CMS. **Best in Capstone · Gold Award ARC 2026.**',
-    image: '/images/works/bantay-bayan.webp',
+    image: '/images/works/bantay-bayan.png',
   },
   {
     slug: 'sagip-247',
     title: 'Sagip 24/7',
+    tag: 'Mobile App',
     description:
       'A complete emergency response mobile app. Bilingual, native device integration, medicine overdose protection — shipped and working.',
-    image: '/images/works/sagip-247.webp',
+    image: '/images/works/sagip-247.png',
   },
   {
     slug: 'graphic-design',
     title: 'Graphic Design',
+    tag: 'Visual Design',
     description:
       '2 years. Hundreds of outputs. Tarpaulins, pubmats, festival branding, logos — I made the materials people actually stopped to look at.',
-    image: '/images/works/graphic-design.webp',
+    image: '/images/works/graphic.png',
   },
   {
     slug: 'laur-tourism',
     title: 'Laur Tourism',
+    tag: 'Website',
     description:
       "Designed it. Built it. Deployed it. Laur's first ever official tourism website — live, SEO-optimized, and built solo during OJT.",
-    image: '/images/works/laur-tourism.webp',
+    image: '/images/works/laur-tourism.png',
   },
   {
     slug: 'cyd-portfolio',
     title: 'CYD Portfolio',
+    tag: 'Web Development',
     description:
       "Didn't use a template. Built from scratch — Next.js 14, Framer Motion, custom scroll animations. You're looking at it.",
-    image: '/images/works/cyd-portfolio.webp',
+    image: '/images/works/cyd-portfolio.png',
   },
 ];
 
-function WorkCard({ work, index }: { work: Work; index: number }) {
+function WorkCard({ work }: { work: Work }) {
   return (
     <a
       href={`/works/${work.slug}`}
       className="group block w-full flex-shrink-0"
     >
-      {/* Card container with subtle shadow for premium feel */}
-      <div
-        className="relative h-[280px] w-full overflow-hidden rounded-[8px] border border-gray-200/60 transition-all duration-300 ease-out hover:border-gray-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] sm:h-[360px]"
-        style={{ background: '#fafafa' }}
-      >
-        <Image
-          src={work.image}
-          alt={work.title}
-          fill
-          sizes="(min-width: 1024px) 560px, (min-width: 768px) 420px, 100vw"
-          className="object-cover transition-[filter] duration-500 ease-in-out group-hover:brightness-95"
-        />
-        {/* Overlay on hover */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
-          <div className="flex items-center gap-[10px]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="13"
-              height="13"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+      {/* ── Boxy frame — sharp corners, hairline border, no shadow ── */}
+      <div className="relative border border-navy/10 transition-colors duration-300 ease-out group-hover:border-navy/30">
+        {/* Image */}
+        <div
+          className="relative h-[280px] w-full overflow-hidden sm:h-[360px]"
+          style={{ background: '#fafafa' }}
+        >
+          <Image
+            src={work.image}
+            alt={work.title}
+            fill
+            quality={90}
+            sizes="(min-width: 1024px) 560px, (min-width: 768px) 420px, 100vw"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          />
+
+          {/* Scrim on hover so the corner marks / label stay legible */}
+          <div className="absolute inset-0 bg-black/0 transition-colors duration-500 ease-out group-hover:bg-black/50" />
+
+          {/* View Work — centered label, boxy outline */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
+            <div className="flex items-center gap-2 border border-white/60 px-4 py-2">
+              <span
+                className="text-[9px] uppercase tracking-[0.15em] text-white"
+                style={{ fontWeight: 300 }}
+              >
+                View Work
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-white"
+              >
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer meta bar — same recipe as the hero stats bar */}
+        <div className="flex items-stretch border-t border-navy/10">
+          <div className="flex-1 px-5 py-4 sm:py-5">
+            <h3
+              className="text-[1.05rem] leading-[1.3] text-navy sm:text-[1.15rem]"
+              style={{ fontWeight: 400 }}
             >
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-              <polyline points="15 3 21 3 21 9" />
-              <line x1="10" y1="14" x2="21" y2="3" />
-            </svg>
+              {work.title}
+            </h3>
+          </div>
+          <div className="flex items-center px-5">
             <span
-              className="text-[9px] uppercase tracking-[0.15em] text-white"
-              style={{ fontWeight: 300, letterSpacing: '0.15em' }}
+              className="whitespace-nowrap text-[9px] tracking-[0.15em] uppercase text-navy/35"
+              style={{ fontWeight: 300 }}
             >
-              View Work
+              {work.tag}
             </span>
           </div>
         </div>
       </div>
 
-      {/* Content section - airy spacing */}
-      <div className="pt-[12px]">
-        <h3
-          className="text-[1.05rem] leading-[1.3] text-navy sm:text-[1.15rem]"
-          style={{ fontWeight: 400 }}
-        >
-          {work.title}
-        </h3>
-
-        {/* Premium detail: subtle index, top-right aligned */}
-        <div
-          className="absolute mt-[-2.8rem] right-0 text-[0.75rem] text-navy/20"
-          style={{ fontWeight: 300 }}
-        >
-          {String(index + 1).padStart(2, '0')}
-        </div>
-      </div>
-
-      {/* Description with refined typography */}
+      {/* Description — sits outside the box, same as before */}
       <p
-        className="mt-[2px] text-sm leading-[1.6] text-navy/60 sm:text-[0.95rem]"
+        className="mt-3 text-sm leading-[1.6] text-navy/60 sm:text-[0.95rem]"
         style={{ fontWeight: 200, lineHeight: 1.65 }}
       >
         {work.description.split(/\*\*(.+?)\*\*/).map((part, i) =>
@@ -147,13 +164,13 @@ function WorkCard({ work, index }: { work: Work; index: number }) {
 
 function WorksHeader() {
   return (
-    <div className="bg-white px-[40px] pt-[80px] pb-0 sm:px-[52px] sm:pt-[100px]">
+    <div className="bg-black px-[40px] pt-[24px] pb-[24px] sm:px-[52px] sm:pt-[32px] sm:pb-[32px]">
       <div className="flex flex-col items-center text-center">
         {/* Line separator with badge — matching Hero */}
         <div className="flex items-center gap-4 w-full max-w-md">
-          <div className="flex-1 h-[1px] bg-navy/15" />
+          <div className="flex-1 h-[1px] bg-white/15" />
           <span
-            className="text-[11px] tracking-[0.2em] uppercase text-navy/40 whitespace-nowrap"
+            className="text-[11px] tracking-[0.2em] uppercase text-white/40 whitespace-nowrap"
             style={{
               fontFamily: 'var(--font-geist-sans)',
               fontWeight: 300,
@@ -161,14 +178,15 @@ function WorksHeader() {
           >
             DESIGN • BRAND • DEVELOPMENT
           </span>
-          <div className="flex-1 h-[1px] bg-navy/15" />
+          <div className="flex-1 h-[1px] bg-white/15" />
         </div>
 
-        {/* Selected Works heading */}
-        <h2 className="mt-[24px] text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] text-navy">
-          <span style={{ fontWeight: 100, letterSpacing: '-0.01em' }}>
-            Selected Works
-          </span>
+        {/* Selected Works heading — light "Selected", bold "Works" */}
+        <h2
+          className="mt-[24px] text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-white"
+          style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
+        >
+          <span style={{ fontWeight: 200 }}>Selected</span> Works
         </h2>
       </div>
     </div>
@@ -177,14 +195,14 @@ function WorksHeader() {
 
 function SimpleWorksRow() {
   return (
-    <section className="bg-white border-t border-navy/[0.06]">
+    <section className="bg-[#f5f5f5] border-t border-navy/[0.06]">
       <WorksHeader />
       <div className="px-[40px] py-[48px] sm:px-[52px] sm:py-[56px]">
-        {/* Grid layout for mobile with refined spacing */}
-        <div className="grid grid-cols-1 gap-[48px] sm:grid-cols-2 sm:gap-[40px]">
-          {works.map((work, index) => (
+        {/* Grid layout for mobile with boxy spacing */}
+        <div className="grid grid-cols-1 gap-[36px] sm:grid-cols-2 sm:gap-[32px]">
+          {works.map((work) => (
             <div key={work.slug}>
-              <WorkCard work={work} index={index} />
+              <WorkCard work={work} />
             </div>
           ))}
         </div>
@@ -200,7 +218,16 @@ function PinnedWorksRow() {
 
   const measure = useCallback(() => {
     if (!trackRef.current) return;
-    setDistance(Math.max(trackRef.current.scrollWidth - window.innerWidth, 0));
+    // The track sits inside a container with px-[52px] padding on each side.
+    // Without adding that back, the last card stops short by ~52–104px
+    // and never scrolls fully into view.
+    const EDGE_PADDING = 52;
+    setDistance(
+      Math.max(
+        trackRef.current.scrollWidth - window.innerWidth + EDGE_PADDING * 2,
+        0
+      )
+    );
   }, []);
 
   useLayoutEffect(() => {
@@ -218,16 +245,15 @@ function PinnedWorksRow() {
   return (
     <section
       ref={sectionRef}
-      className={`${playfair.variable} relative hidden h-[320vh] bg-white border-t border-navy/[0.06] md:block`}
+      className={`${playfair.variable} relative hidden h-[320vh] bg-[#f5f5f5] border-t border-navy/[0.06] md:block`}
     >
       <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
         <WorksHeader />
-        {/* Generous padding for premium feel */}
         <div className="flex flex-1 items-center overflow-hidden px-[52px]">
-          <motion.div ref={trackRef} style={{ x }} className="flex gap-[56px]">
-            {works.map((work, index) => (
+          <motion.div ref={trackRef} style={{ x }} className="flex gap-[40px]">
+            {works.map((work) => (
               <div key={work.slug} className="w-[560px] flex-shrink-0">
-                <WorkCard work={work} index={index} />
+                <WorkCard work={work} />
               </div>
             ))}
           </motion.div>

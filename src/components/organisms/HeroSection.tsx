@@ -47,7 +47,7 @@ export default function HeroSection() {
         <div className="w-full lg:w-1/2 flex flex-col justify-center px-[6vw] py-28 lg:py-0 gap-0">
           {/* Eyebrow */}
           <p
-            className="mb-5 text-[10px] tracking-[0.22em] uppercase text-navy/35"
+            className="mb-5 text-[12px] tracking-[0.22em] uppercase text-navy/35"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
           >
             Portfolio · 2026
@@ -55,7 +55,7 @@ export default function HeroSection() {
 
           {/* Headline */}
           <h1
-            className="text-[clamp(3rem,5vw,5.5rem)] leading-[1.05] tracking-tight text-navy"
+            className="text-[clamp(4rem,7vw,7.5rem)] leading-[1.05] tracking-tight text-navy"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
           >
             I'm{' '}
@@ -69,53 +69,30 @@ export default function HeroSection() {
                 color: '#000',
               }}
             >
-              Cristian Yuri
+              CYD
             </span>
-            <br />
-            Domingo.
           </h1>
 
           {/* Role labels */}
           <p
-            className="mt-5 text-[11px] tracking-[0.2em] uppercase text-navy/40"
+            className="mt-5 text-[13px] tracking-[0.2em] uppercase text-navy/40"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
           >
             UI/UX Designer · Developer · Visual Creator
           </p>
 
           {/* Bio */}
-          <div className="mt-7 pl-4 border-l-2 border-navy/15 max-w-[360px]">
+          <div className="mt-7 pl-4 border-l-2 border-navy/15 max-w-[480px]">
             <p
-              className="text-sm leading-[1.85] text-navy/55"
+              className="text-base leading-[1.85] text-navy/55"
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
             >
               I'm Cristian Yuri Domingo — CYD for short. A 3-in-1 Designer,
-              Developer, and Visual Creator from Nueva Ecija, PH. I handle
-              layout, branding, social graphics, UI/UX, and full-stack
-              development. One person, full package.
+              Developer, and Visual Creator from Nueva Ecija, PH. One person, full package.
             </p>
           </div>
 
-          {/* Checklist */}
-          <ul className="mt-7 flex flex-col gap-[10px]">
-            {[
-              'Layout artistry & brand identity design',
-              'Full-stack web apps with clean, scalable code',
-              'Social media graphics & visual communications',
-            ].map((item) => (
-              <li
-                key={item}
-                className="flex items-center gap-3 text-sm text-navy/45"
-                style={{
-                  fontFamily: 'var(--font-geist-sans)',
-                  fontWeight: 300,
-                }}
-              >
-                <span className="text-navy/30 text-xs">✓</span>
-                {item}
-              </li>
-            ))}
-          </ul>
+
 
           {/* Buttons */}
           <div className="mt-10 flex flex-col sm:flex-row gap-3">
@@ -124,7 +101,7 @@ export default function HeroSection() {
               className="
                 inline-flex items-center justify-center
                 px-[24px] py-[10px]
-                bg-navy text-white text-sm tracking-tight
+                bg-navy text-white text-base tracking-tight
                 transition-all duration-200 ease-out
                 hover:opacity-90 active:scale-[0.97]
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
@@ -140,7 +117,7 @@ export default function HeroSection() {
                 inline-flex items-center justify-center
                 px-[24px] py-[10px]
                 bg-white ring-1 ring-navy/15
-                text-navy text-sm tracking-tight
+                text-navy text-base tracking-tight
                 transition-all duration-200 ease-out
                 hover:bg-navy/[0.04] hover:ring-navy/25 active:scale-[0.97]
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
