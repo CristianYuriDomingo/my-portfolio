@@ -203,7 +203,6 @@ export default function ContactSection() {
               );
             })}
           </div>
-
         </div>
 
         {/* ══════════════════════════════════
@@ -238,12 +237,7 @@ export default function ContactSection() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               {/* Name + Email */}
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <Field
-                  id="name"
-                  label="Name *"
-                  placeholder="Hello"
-                  required
-                />
+                <Field id="name" label="Name *" placeholder="Hello" required />
                 <Field
                   id="email"
                   label="Email *"

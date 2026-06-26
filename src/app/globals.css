@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #0d1428;
-  --foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #0D1428;
   --accent: #fcdb32;
   --font-display: var(--font-bebas);
   --font-body: var(--font-geist-sans);

@@ -58,7 +58,7 @@ export default function HeroSection() {
             className="text-[clamp(4rem,7vw,7.5rem)] leading-[1.05] tracking-tight text-navy"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
           >
-            I'm{' '}
+            I&apos;m{' '}
             <span
               style={{
                 fontFamily: 'var(--font-playfair)',
@@ -87,17 +87,16 @@ export default function HeroSection() {
               className="text-base leading-[1.85] text-navy/55"
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
             >
-              I'm Cristian Yuri Domingo — CYD for short. A 3-in-1 Designer,
-              Developer, and Visual Creator from Nueva Ecija, PH. One person, full package.
+              I&apos;m Cristian Yuri Domingo — CYD for short. A 3-in-1 Designer,
+              Developer, and Visual Creator from Nueva Ecija, PH. One person,
+              full package.
             </p>
           </div>
-
-
 
           {/* Buttons */}
           <div className="mt-10 flex flex-col sm:flex-row gap-3">
             <Link
-              href="/works"
+              href="/#works"
               className="
                 inline-flex items-center justify-center
                 px-[24px] py-[10px]
@@ -160,48 +159,13 @@ export default function HeroSection() {
                 transition-opacity duration-500 ease-out
               "
             >
-              {/* Thin inset border that draws in from corners */}
-              <span
-                className="
-                  absolute top-4 left-4 w-8 h-8
-                  border-t border-l border-navy/40
-                  transition-all duration-500 ease-out
-                  translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0
-                "
-              />
-              <span
-                className="
-                  absolute top-4 right-4 w-8 h-8
-                  border-t border-r border-navy/40
-                  transition-all duration-500 ease-out
-                  -translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0
-                "
-              />
-              <span
-                className="
-                  absolute bottom-4 left-4 w-8 h-8
-                  border-b border-l border-navy/40
-                  transition-all duration-500 ease-out
-                  translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0
-                "
-              />
-              <span
-                className="
-                  absolute bottom-4 right-4 w-8 h-8
-                  border-b border-r border-navy/40
-                  transition-all duration-500 ease-out
-                  -translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0
-                "
-              />
+              <span className="absolute top-4 left-4 w-8 h-8 border-t border-l border-navy/40 transition-all duration-500 ease-out translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0" />
+              <span className="absolute top-4 right-4 w-8 h-8 border-t border-r border-navy/40 transition-all duration-500 ease-out -translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0" />
+              <span className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-navy/40 transition-all duration-500 ease-out translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0" />
+              <span className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-navy/40 transition-all duration-500 ease-out -translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0" />
 
-              {/* Subtle label bottom-left */}
               <p
-                className="
-                  absolute bottom-6 left-6
-                  text-[9px] tracking-[0.22em] uppercase text-navy/50
-                  translate-y-2 group-hover:translate-y-0
-                  transition-transform duration-500 delay-100 ease-out
-                "
+                className="absolute bottom-6 left-6 text-[9px] tracking-[0.22em] uppercase text-navy/50 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 delay-100 ease-out"
                 style={{
                   fontFamily: 'var(--font-geist-sans)',
                   fontWeight: 300,
@@ -215,8 +179,8 @@ export default function HeroSection() {
           {/* Stats bar */}
           <div className="flex items-stretch border-t border-navy/10 bg-white/70 backdrop-blur-sm">
             {[
-              { value: 'NEUST', label: 'Class of 2026' },
-              { value: 'Gold', label: 'ARC 2026 Award' },
+              { value: 'Fresh', label: 'Grad of 2026' },
+              { value: 'Driven', label: 'Ready to Build' },
               { value: '3-in-1', label: 'Dev + Design + Visual' },
             ].map(({ value, label }, i) => (
               <div

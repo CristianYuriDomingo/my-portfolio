@@ -1,42 +1,47 @@
 'use client';
 
-import Image from 'next/image';
 import { useRef } from 'react';
-import { useScroll, useTransform, motion } from 'framer-motion';
+import {
+  useScroll,
+  useTransform,
+  motion,
+  type MotionValue,
+} from 'framer-motion';
 
 const services = [
   {
     number: '01',
-    heading: 'Design',
-    subtitle: 'UI/UX · Web · Branding',
+    heading: 'Development',
     description:
-      'Creating thoughtful digital experiences through UI/UX design, web design, mobile interfaces, posters, marketing materials, and visual communication.',
-    image: '/images/services/design-preview.webp',
+      'Building responsive websites, web apps, and systems with modern tools — clean code, fast performance, and scalable structure.',
+    tools:
+      'HTML • CSS • JavaScript • TypeScript • React • Next.js • Tailwind CSS • Git • AI-Assisted Development',
     bg: '#1a1a1a',
     color: '#ffffff',
-    borderColor: 'rgba(255, 255, 255, 0.12)',
+    toolsBg: 'rgba(255,255,255,0.06)',
+    toolsBorder: 'rgba(255,255,255,0.12)',
   },
   {
     number: '02',
-    heading: 'Branding',
-    subtitle: 'Identity · Systems · Strategy',
+    heading: 'Design',
     description:
-      'Crafting memorable visual identities, logos, and brand systems that build recognition, trust, and consistency.',
-    image: '/images/services/branding-preview.webp',
+      'Designing clean, user-centered interfaces for web and mobile — from wireframes to polished UI, built with intention.',
+    tools: 'Figma',
     bg: '#333333',
     color: '#ffffff',
-    borderColor: 'rgba(255, 255, 255, 0.10)',
+    toolsBg: 'rgba(255,255,255,0.06)',
+    toolsBorder: 'rgba(255,255,255,0.12)',
   },
   {
     number: '03',
-    heading: 'Development',
-    subtitle: 'Frontend · Full-stack · Scalable',
+    heading: 'Graphics',
     description:
-      'Building fast, scalable, and responsive digital products with modern frontend technologies and clean code.',
-    image: '/images/services/dev-preview.webp',
+      'Creating visual content that communicates clearly — social media posts, infographics, layouts, and print-ready materials.',
+    tools: 'Canva • Photopea',
     bg: '#ffffff',
     color: '#141D38',
-    borderColor: 'rgba(13, 20, 40, 0.08)',
+    toolsBg: 'rgba(20,29,56,0.06)',
+    toolsBorder: 'rgba(20,29,56,0.15)',
   },
 ];
 
@@ -54,7 +59,7 @@ function AnimatedWord({
   word: string;
   index: number;
   total: number;
-  scrollYProgress: any;
+  scrollYProgress: MotionValue<number>;
 }) {
   const FILL_START = 0.05;
   const FILL_END = 0.8;
@@ -75,7 +80,6 @@ function AnimatedWord({
 
 function IntroPanel() {
   const wrapperRef = useRef<HTMLDivElement>(null);
-
   const { scrollYProgress } = useScroll({
     target: wrapperRef,
     offset: ['start start', 'end end'],
@@ -91,8 +95,6 @@ function IntroPanel() {
           zIndex: 5,
           backgroundColor: '#000000',
           overflow: 'hidden',
-          borderTop: '1px solid rgba(13, 20, 40, 0.06)',
-          borderBottom: '1px solid rgba(13, 20, 40, 0.06)',
         }}
       >
         <div
@@ -102,9 +104,9 @@ function IntroPanel() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            padding: '0 48px',
             pointerEvents: 'none',
             userSelect: 'none',
-            padding: '0 48px',
           }}
         >
           <p
@@ -117,7 +119,6 @@ function IntroPanel() {
               textAlign: 'center',
               maxWidth: '920px',
               margin: 0,
-              color: '#ffffff',
             }}
           >
             {ALL_WORDS.map((word, i) => (
@@ -131,6 +132,44 @@ function IntroPanel() {
             ))}
           </p>
         </div>
+
+        {/* Scroll hint */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '32px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '6px',
+            opacity: 0.4,
+            pointerEvents: 'none',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-geist-sans)',
+              fontWeight: 400,
+              fontSize: '0.65rem',
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              color: '#ffffff',
+            }}
+          >
+            Scroll
+          </span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path
+              d="M3 6L8 11L13 6"
+              stroke="#ffffff"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
       </div>
     </div>
   );
@@ -138,11 +177,9 @@ function IntroPanel() {
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="bg-[#f9f9f9]" style={{ position: 'relative' }}>
-      {/* ─── INTRO PANEL ──────────────────────────────────────────── */}
+    <section id="services" style={{ position: 'relative' }}>
       <IntroPanel />
 
-      {/* ─── SERVICE PANELS ──────────────────────────────────────────── */}
       {services.map((s, idx) => (
         <div
           key={s.number}
@@ -153,210 +190,126 @@ export default function ServicesSection() {
             zIndex: 20 + idx,
             backgroundColor: s.bg,
             color: s.color,
-            display: 'grid',
-            gridTemplateColumns: '1.4fr 1fr',
-            gap: '48px',
             overflow: 'hidden',
-            borderTop: `1px solid ${s.borderColor}`,
-            borderBottom: `1px solid ${s.borderColor}`,
-            paddingLeft: '64px',
-            paddingRight: '64px',
-            alignItems: 'center',
-            paddingTop: '0',
-            paddingBottom: '0',
           }}
-          className="services-panel"
         >
-          {/* LEFT — Content */}
-          <div
+          {/* Number — top right, large */}
+          <span
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-start',
-              padding: '0',
-              gap: '16px',
-              paddingLeft: '32px',
-              borderLeft: `2px solid ${s.borderColor}`,
+              position: 'absolute',
+              top: '28px',
+              right: '48px',
+              fontFamily: 'var(--font-geist-sans)',
+              fontWeight: 700,
+              fontSize: 'clamp(5rem, 12vw, 10rem)',
+              letterSpacing: '-0.04em',
+              lineHeight: 1,
+              opacity: 0.1,
             }}
           >
-            {/* Service number */}
-            <div
-              style={{
-                fontFamily: 'var(--font-geist-sans)',
-                fontWeight: 400,
-                fontSize: '0.75rem',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                color: s.color,
-                opacity: 0.5,
-                margin: 0,
-              }}
-            >
-              {s.number}
-            </div>
+            {s.number}
+          </span>
 
-            {/* Heading */}
+          {/* Center content */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              padding: '0 10vw',
+              gap: '24px',
+            }}
+          >
             <h2
               style={{
                 fontFamily: 'var(--font-geist-sans)',
                 fontWeight: 700,
-                fontSize: 'clamp(3.5rem, 10vw, 7rem)',
+                fontSize: 'clamp(4rem, 12vw, 10rem)',
                 lineHeight: 0.95,
-                letterSpacing: '-0.02em',
-                textTransform: 'capitalize',
+                letterSpacing: '-0.03em',
                 margin: 0,
-                color: s.color,
               }}
             >
               {s.heading}
             </h2>
-
-            {/* Description */}
             <p
               style={{
                 fontFamily: 'var(--font-geist-sans)',
                 fontWeight: 300,
-                fontSize: 'clamp(0.95rem, 1.1vw, 1.1rem)',
-                lineHeight: 1.6,
-                letterSpacing: '0em',
-                color: s.color,
+                fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)',
+                lineHeight: 1.7,
                 opacity: 0.55,
+                maxWidth: '560px',
                 margin: 0,
-                maxWidth: '420px',
               }}
             >
               {s.description}
             </p>
           </div>
 
-          {/* RIGHT — Image (Squared) */}
+          {/* Tools — bottom center, pill style */}
           <div
             style={{
+              position: 'absolute',
+              bottom: '72px',
+              left: 0,
+              right: 0,
               display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
               justifyContent: 'center',
-              padding: '32px',
-              height: '100%',
-              borderLeft: `1px solid ${s.borderColor}`,
-              gap: '32px',
+              padding: '0 24px',
             }}
           >
-            {/* Subtitle with divider */}
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'column',
+                display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0',
-                width: '100%',
+                gap: '8px',
+                padding: '10px 20px',
+                backgroundColor: s.toolsBg,
+                border: `1px solid ${s.toolsBorder}`,
+                borderRadius: '100px',
               }}
             >
-              <p
+              <span
+                style={{
+                  fontFamily: 'var(--font-geist-sans)',
+                  fontWeight: 400,
+                  fontSize: '0.65rem',
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  opacity: 0.5,
+                }}
+              >
+                Tools
+              </span>
+              <span
+                style={{
+                  width: '1px',
+                  height: '10px',
+                  backgroundColor: s.color,
+                  opacity: 0.2,
+                }}
+              />
+              <span
                 style={{
                   fontFamily: 'var(--font-geist-sans)',
                   fontWeight: 300,
-                  fontSize: '0.8rem',
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  color: s.color,
-                  opacity: 0.5,
-                  margin: 0,
+                  fontSize: '0.75rem',
+                  letterSpacing: '0.04em',
+                  opacity: 0.75,
                   textAlign: 'center',
                 }}
               >
-                {s.subtitle}
-              </p>
-            </div>
-
-            {/* Square image wrapper with hover effects */}
-            <div
-              style={{
-                position: 'relative',
-                width: '100%',
-                height: 'clamp(300px, 60vh, 600px)',
-                aspectRatio: '1 / 1',
-                overflow: 'hidden',
-                backgroundColor: 'transparent',
-                flexShrink: 0,
-              }}
-              className="service-image-wrapper group"
-            >
-              <Image
-                src={s.image}
-                alt={`${s.heading} preview`}
-                fill
-                style={{
-                  objectFit: 'cover',
-                  transition: 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
-                }}
-                sizes="(max-width: 1024px) 90vw, 30vw"
-              />
-
-              {/* Subtle fade overlay */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background:
-                    s.color === '#ffffff'
-                      ? 'linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.04) 100%)'
-                      : 'linear-gradient(135deg, rgba(13, 20, 40, 0) 0%, rgba(13, 20, 40, 0.02) 100%)',
-                  pointerEvents: 'none',
-                }}
-              />
+                {s.tools}
+              </span>
             </div>
           </div>
         </div>
       ))}
-
-      <style jsx global>{`
-        /* Service image hover — simple scale effect */
-        .service-image-wrapper:hover img {
-          transform: scale(1.05);
-        }
-
-        @media (max-width: 1024px) {
-          .services-panel {
-            grid-template-columns: 1fr !important;
-            gap: 20px !important;
-            padding-left: 48px !important;
-            padding-right: 48px !important;
-            align-items: stretch !important;
-          }
-          .services-panel > div:first-child {
-            padding: 40px 0 !important;
-            border-left: none !important;
-            padding-left: 0 !important;
-          }
-          .services-panel > div:last-child {
-            padding: 0 !important;
-            border-left: none !important;
-          }
-          .service-image-wrapper {
-            width: 100% !important;
-            max-width: 100% !important;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .services-panel {
-            grid-template-columns: 1fr !important;
-            gap: 12px !important;
-            padding-left: 24px !important;
-            padding-right: 24px !important;
-          }
-          .services-panel > div:first-child {
-            padding: 32px 0 !important;
-          }
-          .services-panel h2 {
-            font-size: clamp(3rem, 10vw, 6rem) !important;
-          }
-          .service-image-wrapper {
-            max-height: 50vh !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

@@ -4,139 +4,13 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import PortraitHoverImage from '@/components/molecules/PortraitHoverImage';
-
-const ABOUT_LABEL = 'WHO AM I';
-const ABOUT_DESCRIPTION =
-  'I craft impactful digital experiences that blend creativity and technology. With expertise in branding, design, and full-stack development, I help businesses build a strong presence through thoughtful visuals and seamless digital solutions.';
-
-const workExperiences = [
-  {
-    period: 'Feb – May 2026',
-    role: 'Graphic Designer & Web Developer',
-    org: 'Laur Municipal Tourism Office',
-    type: 'OJT / Internship',
-    bullets: [
-      <>
-        Designed{' '}
-        <strong className="text-navy/85 font-semibold">
-          Pagulyas Festival
-        </strong>{' '}
-        materials — tarpaulins, pubmats, and full branding collateral.
-      </>,
-      <>
-        Built and deployed{' '}
-        <strong className="text-navy/85 font-semibold">
-          laurtourism.vercel.app
-        </strong>{' '}
-        using vanilla HTML, CSS, and JS via GitHub + Vercel.
-      </>,
-      <>
-        Produced social media graphics and visual communications for municipal
-        tourism campaigns.
-      </>,
-      <>
-        Proposed 3D design concepts and developed an{' '}
-        <strong className="text-navy/85 font-semibold">
-          admin CMS UI demo
-        </strong>{' '}
-        for the tourism office.
-      </>,
-    ],
-  },
-  {
-    period: '2024 – 2026',
-    role: 'IT Org President · Layout Artist & Associate Editor',
-    org: 'ACE-IT · The Pen Mover — NEUST',
-    type: 'Leadership · Publication',
-    bullets: [
-      <>
-        Served as{' '}
-        <strong className="text-navy/85 font-semibold">
-          President of ACE-IT
-        </strong>
-        , the IT department student organization at NEUST Atate Campus.
-      </>,
-      <>
-        Represented the IT department in university-wide leadership councils.
-      </>,
-      <>
-        Worked as{' '}
-        <strong className="text-navy/85 font-semibold">Layout Artist</strong>{' '}
-        then promoted to{' '}
-        <strong className="text-navy/85 font-semibold">Associate Editor</strong>{' '}
-        for The Pen Mover student publication over 2 years, handling editorial
-        layout and visual design.
-      </>,
-    ],
-  },
-];
-
-const academicExperiences = [
-  {
-    period: '2022 – 2026',
-    role: 'Bachelor of Science in Information Technology',
-    org: 'Nueva Ecija University of Science and Technology — Atate Campus',
-    type: 'Web Systems Technology',
-    bullets: [
-      <>
-        Graduated with a specialization in{' '}
-        <strong className="text-navy/85 font-semibold">
-          Web Systems Technology
-        </strong>
-        , Class of 2026.
-      </>,
-      <>
-        Maintained a{' '}
-        <strong className="text-navy/85 font-semibold">GWA of 1.50</strong>,
-        recognized on the Dean's List across multiple semesters.
-      </>,
-      <>
-        Received the{' '}
-        <strong className="text-navy/85 font-semibold">
-          Excellence in Service Award (USO) — Silver
-        </strong>
-        .
-      </>,
-    ],
-  },
-  {
-    period: '2025 – 2026',
-    role: 'Capstone Lead Developer',
-    org: 'Bantay Bayan — NEUST Capstone Project',
-    type: 'Best in Capstone · Gold @ ARC 2026',
-    bullets: [
-      <>
-        Built a full-stack{' '}
-        <strong className="text-navy/85 font-semibold">
-          gamified civic education web app
-        </strong>{' '}
-        using Next.js 15, React 19, and TypeScript.
-      </>,
-      <>
-        Designed and implemented PostgreSQL schema with Prisma ORM and NextAuth
-        v4 authentication.
-      </>,
-      <>
-        <strong className="text-navy/85 font-semibold">
-          Won Best in Capstone
-        </strong>{' '}
-        at NEUST and{' '}
-        <strong className="text-navy/85 font-semibold">
-          Gold Award at ARC 2026
-        </strong>
-        .
-      </>,
-    ],
-  },
-];
-
-type ExpEntry = {
-  period: string;
-  role: string;
-  org: string;
-  type: string;
-  bullets: React.ReactNode[];
-};
+import {
+  ABOUT_LABEL,
+  ABOUT_DESCRIPTION,
+  type ExpEntry,
+  workExperiences,
+  academicExperiences,
+} from '@/data/experience';
 
 function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -190,9 +64,9 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
           </p>
         </div>
         <ul className="flex flex-col gap-[6px]">
-          {exp.bullets.map((b) => (
+          {exp.bullets.map((b, bi) => (
             <li
-              key={b}
+              key={bi}
               className="flex items-start gap-3 text-[12.5px] leading-[1.75] text-navy/65"
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
             >
@@ -212,50 +86,6 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
           {exp.type}
         </span>
       </div>
-    </motion.div>
-  );
-}
-
-function SectionHeading({
-  eyebrow,
-  title,
-  sub,
-  delay = 0,
-}: {
-  eyebrow: string;
-  title: React.ReactNode;
-  sub: string;
-  delay?: number;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay }}
-      className="mb-12 flex flex-col gap-3"
-    >
-      <p
-        className="text-[10px] tracking-[0.22em] uppercase text-navy/30"
-        style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
-      >
-        {eyebrow}
-      </p>
-      <h2
-        className="text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-tight text-navy"
-        style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
-      >
-        {title}
-      </h2>
-      <p
-        className="mt-1 text-sm leading-[1.85] text-navy/40 max-w-[400px]"
-        style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
-      >
-        {sub}
-      </p>
     </motion.div>
   );
 }
