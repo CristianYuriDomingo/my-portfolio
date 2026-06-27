@@ -45,15 +45,6 @@ function Icon({
 
 const contactInfo: { label: string; href?: string; icon: ReactNode }[] = [
   {
-    label: 'Laur, Nueva Ecija, Philippines',
-    icon: (
-      <Icon size={14}>
-        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z" />
-        <circle cx="12" cy="10" r="3" />
-      </Icon>
-    ),
-  },
-  {
     label: 'dcristianyuri@gmail.com',
     href: 'mailto:dcristianyuri@gmail.com',
     icon: (
@@ -63,12 +54,35 @@ const contactInfo: { label: string; href?: string; icon: ReactNode }[] = [
       </Icon>
     ),
   },
+];
+
+const socialLinks: { label: string; href: string; icon: ReactNode }[] = [
   {
-    label: '0966856844',
-    href: 'tel:+63966856844',
+    label: 'GitHub',
+    href: 'https://github.com/cydoming',
     icon: (
-      <Icon size={14}>
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
+      <Icon size={16}>
+        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.167 6.839 9.49c.5.092.682-.217.682-.482c0-.237-.008-.866-.013-1.7c-2.782.604-3.369-1.34-3.369-1.34c-.454-1.156-1.11-1.463-1.11-1.463c-.908-.62.069-.608.069-.608c1.003.07 1.531 1.03 1.531 1.03c.892 1.529 2.341 1.087 2.91.831c.092-.646.35-1.086.636-1.336c-2.22-.253-4.555-1.11-4.555-4.943c0-1.091.39-1.984 1.029-2.683c-.103-.253-.446-1.27.098-2.647c0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025c.546 1.377.202 2.394.1 2.647c.64.699 1.028 1.592 1.028 2.683c0 3.842-2.339 4.687-4.566 4.935c.359.309.678.919.678 1.852c0 1.336-.012 2.415-.012 2.743c0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+      </Icon>
+    ),
+  },
+  {
+    label: 'Facebook',
+    href: 'https://facebook.com/cyd.tech',
+    icon: (
+      <Icon size={16}>
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+      </Icon>
+    ),
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/in/cydoming',
+    icon: (
+      <Icon size={16}>
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2a2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+        <rect x="2" y="9" width="4" height="12" />
+        <circle cx="4" cy="4" r="2" />
       </Icon>
     ),
   },
@@ -202,6 +216,22 @@ export default function ContactSection() {
                 </div>
               );
             })}
+
+            {/* Social logos row */}
+            <div className="flex items-center gap-3 mt-2">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 w-10 items-center justify-center border border-navy/15 text-navy/50 transition-all duration-200 ease-out hover:border-navy/30 hover:text-navy/70 hover:bg-navy/[0.02]"
+                  aria-label={link.label}
+                >
+                  {link.icon}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -18,8 +18,6 @@ const services = [
       'HTML • CSS • JavaScript • TypeScript • React • Next.js • Tailwind CSS • Git • AI-Assisted Development',
     bg: '#1a1a1a',
     color: '#ffffff',
-    toolsBg: 'rgba(255,255,255,0.06)',
-    toolsBorder: 'rgba(255,255,255,0.12)',
   },
   {
     number: '02',
@@ -29,8 +27,6 @@ const services = [
     tools: 'Figma',
     bg: '#333333',
     color: '#ffffff',
-    toolsBg: 'rgba(255,255,255,0.06)',
-    toolsBorder: 'rgba(255,255,255,0.12)',
   },
   {
     number: '03',
@@ -40,13 +36,11 @@ const services = [
     tools: 'Canva • Photopea',
     bg: '#ffffff',
     color: '#141D38',
-    toolsBg: 'rgba(20,29,56,0.06)',
-    toolsBorder: 'rgba(20,29,56,0.15)',
   },
 ];
 
 const ALL_WORDS =
-  'WHAT I BRING TO THE TABLE COMBINES DESIGN, DEVELOPMENT, AND BRAND STRATEGY INTO ONE SEAMLESS PROCESS.'.split(
+  'What I bring to the table combines design, development, and brand strategy into one seamless process.'.split(
     ' '
   );
 
@@ -104,7 +98,7 @@ function IntroPanel() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 48px',
+            padding: '0 clamp(24px, 10vw, 120px)',
             pointerEvents: 'none',
             userSelect: 'none',
           }}
@@ -137,7 +131,7 @@ function IntroPanel() {
         <div
           style={{
             position: 'absolute',
-            bottom: '32px',
+            bottom: '64px',
             left: '50%',
             transform: 'translateX(-50%)',
             display: 'flex',
@@ -251,7 +245,7 @@ export default function ServicesSection() {
             </p>
           </div>
 
-          {/* Tools — bottom center, pill style */}
+          {/* Tools — centered text */}
           <div
             style={{
               position: 'absolute',
@@ -260,53 +254,45 @@ export default function ServicesSection() {
               right: 0,
               display: 'flex',
               justifyContent: 'center',
+              alignItems: 'center',
+              gap: '8px',
               padding: '0 24px',
+              pointerEvents: 'none',
             }}
           >
-            <div
+            <span
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '10px 20px',
-                backgroundColor: s.toolsBg,
-                border: `1px solid ${s.toolsBorder}`,
-                borderRadius: '100px',
+                fontFamily: 'var(--font-geist-sans)',
+                fontWeight: 400,
+                fontSize: '0.65rem',
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                opacity: 0.5,
               }}
             >
-              <span
-                style={{
-                  fontFamily: 'var(--font-geist-sans)',
-                  fontWeight: 400,
-                  fontSize: '0.65rem',
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase',
-                  opacity: 0.5,
-                }}
-              >
-                Tools
-              </span>
-              <span
-                style={{
-                  width: '1px',
-                  height: '10px',
-                  backgroundColor: s.color,
-                  opacity: 0.2,
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: 'var(--font-geist-sans)',
-                  fontWeight: 300,
-                  fontSize: '0.75rem',
-                  letterSpacing: '0.04em',
-                  opacity: 0.75,
-                  textAlign: 'center',
-                }}
-              >
-                {s.tools}
-              </span>
-            </div>
+              Tools
+            </span>
+            <span
+              style={{
+                width: '1px',
+                height: '10px',
+                margin: '0 8px',
+                backgroundColor: s.color,
+                opacity: 0.2,
+              }}
+            />
+            <span
+              style={{
+                fontFamily: 'var(--font-geist-sans)',
+                fontWeight: 300,
+                fontSize: '0.75rem',
+                letterSpacing: '0.04em',
+                opacity: 0.75,
+                textAlign: 'center',
+              }}
+            >
+              {s.tools}
+            </span>
           </div>
         </div>
       ))}

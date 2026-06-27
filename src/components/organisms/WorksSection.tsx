@@ -29,8 +29,8 @@ function WorkCard({ work }: { work: Work }) {
       <div className="relative border border-navy/10 transition-colors duration-300 ease-out group-hover:border-navy/30">
         {/* Image */}
         <div
-          className="relative h-[280px] w-full overflow-hidden sm:h-[360px]"
-          style={{ background: '#fafafa' }}
+          className="relative w-full overflow-hidden"
+          style={{ aspectRatio: '5757 / 3276', background: '#fafafa' }}
         >
           <Image
             src={work.image}
@@ -116,27 +116,12 @@ function WorksHeader() {
   return (
     <div className="bg-black px-[40px] pt-[24px] pb-[24px] sm:px-[52px] sm:pt-[32px] sm:pb-[32px]">
       <div className="flex flex-col items-center text-center">
-        {/* Line separator with badge — matching Hero */}
-        <div className="flex items-center gap-4 w-full max-w-md">
-          <div className="flex-1 h-[1px] bg-white/15" />
-          <span
-            className="text-[11px] tracking-[0.2em] uppercase text-white/40 whitespace-nowrap"
-            style={{
-              fontFamily: 'var(--font-geist-sans)',
-              fontWeight: 300,
-            }}
-          >
-            DESIGN • BRAND • DEVELOPMENT
-          </span>
-          <div className="flex-1 h-[1px] bg-white/15" />
-        </div>
-
-        {/* Selected Works heading — light "Selected", bold "Works" */}
+        {/* Selected Works heading — all bold */}
         <h2
-          className="mt-[24px] text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-white"
+          className="text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-white"
           style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
         >
-          <span style={{ fontWeight: 200 }}>Selected</span> Works
+          Selected Works
         </h2>
       </div>
     </div>
@@ -148,7 +133,6 @@ function SimpleWorksRow() {
     <section className="bg-[#f5f5f5] border-t border-navy/[0.06]">
       <WorksHeader />
       <div className="px-[40px] py-[48px] sm:px-[52px] sm:py-[56px]">
-        {/* Grid layout for mobile with boxy spacing */}
         <div className="grid grid-cols-1 gap-[36px] sm:grid-cols-2 sm:gap-[32px]">
           {works.map((work) => (
             <div key={work.slug}>
@@ -168,9 +152,6 @@ function PinnedWorksRow() {
 
   const measure = useCallback(() => {
     if (!trackRef.current) return;
-    // The track sits inside a container with px-[52px] padding on each side.
-    // Without adding that back, the last card stops short by ~52–104px
-    // and never scrolls fully into view.
     const EDGE_PADDING = 52;
     setDistance(
       Math.max(

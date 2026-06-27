@@ -90,21 +90,77 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
   );
 }
 
+function SectionBlock({
+  eyebrow,
+  title,
+  subtitle,
+  entries,
+  show,
+  onToggle,
+}: {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  entries: ExpEntry[];
+  show: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div className="relative mx-auto w-full max-w-[1700px] pt-16 pb-0 border-t border-navy/10">
+      <div className="flex items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col gap-3">
+          <p
+            className="text-[10px] tracking-[0.22em] uppercase text-navy/30"
+            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
+          >
+            {eyebrow}
+          </p>
+          <h2
+            className="text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-tight text-navy"
+            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
+          >
+            {title} <span style={{ fontWeight: 200 }}>{subtitle}</span>
+          </h2>
+        </div>
+        <button
+          onClick={onToggle}
+          className="mb-1 shrink-0 inline-flex items-center gap-3 px-5 py-[9px] border border-navy/15 text-[10px] tracking-[0.18em] uppercase text-navy/50 transition-all duration-300 hover:border-navy/40 hover:text-navy focus-visible:outline-none"
+          style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
+        >
+          {show ? 'Hide' : 'View Details'}
+          <span
+            className="inline-block transition-transform duration-300"
+            style={{ transform: show ? 'rotate(180deg)' : 'rotate(0deg)' }}
+          >
+            ↓
+          </span>
+        </button>
+      </div>
+
+      <motion.div
+        initial={false}
+        animate={{ height: show ? 'auto' : 0, opacity: show ? 1 : 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        style={{ overflow: 'hidden' }}
+      >
+        <div>
+          {entries.map((exp, i) => (
+            <ExperienceRow key={exp.org} exp={exp} index={i} />
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function AboutSection() {
-  const [showExp, setShowExp] = useState(false);
   const [showAcad, setShowAcad] = useState(false);
+  const [showExp, setShowExp] = useState(false);
 
   return (
     <section
       id="about"
-      className="
-        relative overflow-hidden
-        bg-white border-t border-navy/15
-        flex flex-col
-        px-9 pt-16 sm:pt-20 pb-0
-        lg:block
-        [--page-x:2.25rem] lg:[--page-x:5rem]
-      "
+      className="relative overflow-hidden bg-white border-t border-navy/15 flex flex-col px-9 pt-16 sm:pt-20 pb-0 lg:block [--page-x:2.25rem] lg:[--page-x:5rem]"
     >
       <div className="fixed inset-0 -z-20 flex items-center justify-center pointer-events-none select-none">
         <div
@@ -120,62 +176,30 @@ export default function AboutSection() {
       </div>
 
       {/* ── ABOUT PART ── */}
-      <div
-        className="
-          relative mx-auto w-full max-w-[1700px]
-          flex flex-col items-center
-          lg:min-h-screen lg:h-screen lg:block
-        "
-      >
+      <div className="relative mx-auto w-full max-w-[1700px] flex flex-col items-center lg:min-h-screen lg:h-screen lg:block">
         <h2
-          className="
-            w-full text-center font-display font-black leading-none tracking-tight
-            text-navy
-            text-[44px] sm:text-[64px] md:text-[80px]
-            lg:absolute lg:top-[10%] lg:left-1/2 lg:z-0 lg:text-center lg:-translate-x-1/2
-            lg:text-[clamp(140px,15vw,230px)]
-          "
+          className="w-full text-center font-display font-black leading-none tracking-tight text-navy text-[44px] sm:text-[64px] md:text-[80px] lg:absolute lg:top-[10%] lg:left-1/2 lg:z-0 lg:text-center lg:-translate-x-1/2 lg:text-[clamp(140px,15vw,230px)]"
           style={{ fontWeight: 700 }}
         >
           ABOUT ME
         </h2>
 
-        <div
-          className="
-            w-full max-w-[460px] mx-auto mt-6 sm:mt-8
-            text-center
-            lg:absolute lg:bottom-[24%] lg:left-[var(--page-x)] lg:z-20 lg:max-w-[28%] lg:mt-0 lg:mx-0 lg:text-left
-          "
-        >
+        <div className="w-full max-w-[460px] mx-auto mt-6 sm:mt-8 text-center lg:absolute lg:bottom-[24%] lg:left-[var(--page-x)] lg:z-20 lg:max-w-[28%] lg:mt-0 lg:mx-0 lg:text-left">
           <h3
-            className="
-              font-display font-bold uppercase tracking-widest
-              text-navy/40
-              text-[13px] sm:text-[14px]
-              mb-3
-            "
+            className="font-display font-bold uppercase tracking-widest text-navy/40 text-[13px] sm:text-[14px] mb-3"
             style={{ fontWeight: 400 }}
           >
             {ABOUT_LABEL}
           </h3>
           <p
-            className="
-              text-[18px] sm:text-[21px]
-              leading-[1.8] text-navy/75
-            "
+            className="text-[18px] sm:text-[21px] leading-[1.8] text-navy/75"
             style={{ fontWeight: 200 }}
           >
             {ABOUT_DESCRIPTION}
           </p>
         </div>
 
-        <div
-          className="
-            relative mt-10 w-full hidden lg:block
-            lg:absolute lg:bottom-0 lg:right-[var(--page-x)] lg:left-auto
-            lg:mt-0 lg:w-auto lg:h-[115%] lg:max-w-none lg:aspect-[4/5] lg:z-10
-          "
-        >
+        <div className="relative mt-10 w-full hidden lg:block lg:absolute lg:bottom-0 lg:right-[var(--page-x)] lg:left-auto lg:mt-0 lg:w-auto lg:h-[115%] lg:max-w-none lg:aspect-[4/5] lg:z-10">
           <PortraitHoverImage
             src="/images/about/portrait-cropped1.png"
             alt="Cristian Yuri Domingo"
@@ -184,121 +208,32 @@ export default function AboutSection() {
           />
         </div>
 
-        {/* Separator below image — visible on mobile/tablet, hidden on desktop where image bleeds */}
         <div className="w-full mt-8 border-t border-navy/10 lg:hidden" />
       </div>
 
       {/* ── SEPARATOR ── */}
       <div className="w-full border-t border-navy/10" />
 
-      {/* ── WORK EXPERIENCE — heading always visible, rows toggled ── */}
-      <div className="relative mx-auto w-full max-w-[1700px] pt-16 pb-0">
-        <div className="flex items-end justify-between gap-6 mb-12">
-          <div className="flex flex-col gap-3">
-            <p
-              className="text-[10px] tracking-[0.22em] uppercase text-navy/30"
-              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
-            >
-              Experience
-            </p>
-            <h2
-              className="text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-tight text-navy"
-              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
-            >
-              Work <span style={{ fontWeight: 200 }}>Experience</span>
-            </h2>
-          </div>
-          <button
-            onClick={() => setShowExp((v) => !v)}
-            className="
-              mb-1 shrink-0 inline-flex items-center gap-3
-              px-5 py-[9px]
-              border border-navy/15
-              text-[10px] tracking-[0.18em] uppercase text-navy/50
-              transition-all duration-300
-              hover:border-navy/40 hover:text-navy
-              focus-visible:outline-none
-            "
-            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-          >
-            {showExp ? 'Hide' : 'View Details'}
-            <span
-              className="inline-block transition-transform duration-300"
-              style={{ transform: showExp ? 'rotate(180deg)' : 'rotate(0deg)' }}
-            >
-              ↓
-            </span>
-          </button>
-        </div>
+      {/* ── ACADEMIC BACKGROUND — first ── */}
+      <SectionBlock
+        eyebrow="Education"
+        title="Academic"
+        subtitle="Background"
+        entries={academicExperiences}
+        show={showAcad}
+        onToggle={() => setShowAcad((v) => !v)}
+      />
 
-        <motion.div
-          initial={false}
-          animate={{ height: showExp ? 'auto' : 0, opacity: showExp ? 1 : 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          style={{ overflow: 'hidden' }}
-        >
-          <div>
-            {workExperiences.map((exp, i) => (
-              <ExperienceRow key={exp.org} exp={exp} index={i} />
-            ))}
-          </div>
-        </motion.div>
-      </div>
-
-      {/* ── ACADEMIC — heading always visible, rows toggled ── */}
-      <div className="relative mx-auto w-full max-w-[1700px] pt-16 pb-24 lg:pb-32 border-t border-navy/10">
-        <div className="flex items-end justify-between gap-6 mb-12">
-          <div className="flex flex-col gap-3">
-            <p
-              className="text-[10px] tracking-[0.22em] uppercase text-navy/30"
-              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
-            >
-              Recognition
-            </p>
-            <h2
-              className="text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-tight text-navy"
-              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
-            >
-              Academic <span style={{ fontWeight: 200 }}>Achievements</span>
-            </h2>
-          </div>
-          <button
-            onClick={() => setShowAcad((v) => !v)}
-            className="
-              mb-1 shrink-0 inline-flex items-center gap-3
-              px-5 py-[9px]
-              border border-navy/15
-              text-[10px] tracking-[0.18em] uppercase text-navy/50
-              transition-all duration-300
-              hover:border-navy/40 hover:text-navy
-              focus-visible:outline-none
-            "
-            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-          >
-            {showAcad ? 'Hide' : 'View Details'}
-            <span
-              className="inline-block transition-transform duration-300"
-              style={{
-                transform: showAcad ? 'rotate(180deg)' : 'rotate(0deg)',
-              }}
-            >
-              ↓
-            </span>
-          </button>
-        </div>
-
-        <motion.div
-          initial={false}
-          animate={{ height: showAcad ? 'auto' : 0, opacity: showAcad ? 1 : 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          style={{ overflow: 'hidden' }}
-        >
-          <div>
-            {academicExperiences.map((exp, i) => (
-              <ExperienceRow key={exp.org} exp={exp} index={i} />
-            ))}
-          </div>
-        </motion.div>
+      {/* ── WORK EXPERIENCE — second ── */}
+      <div className="pb-24 lg:pb-32">
+        <SectionBlock
+          eyebrow="Experience"
+          title="Work"
+          subtitle="Experience"
+          entries={workExperiences}
+          show={showExp}
+          onToggle={() => setShowExp((v) => !v)}
+        />
       </div>
     </section>
   );

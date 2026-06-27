@@ -1,4 +1,4 @@
-export const ABOUT_LABEL = 'WHO AM I';
+export const ABOUT_LABEL = 'Who Am I?';
 export const ABOUT_DESCRIPTION =
   'I craft impactful digital experiences that blend creativity and technology. With expertise in branding, design, and full-stack development, I help businesses build a strong presence through thoughtful visuals and seamless digital solutions.';
 
