@@ -24,19 +24,13 @@ export const works: Work[] = [
     tagline:
       'Two years of visual communication across events, brands, and publications.',
     challenge:
-      'Organizations — from student publications to local government units — constantly need visual materials that are both deadline-driven and brand-consistent. The work demands speed without sacrificing quality, and adaptability across very different contexts and audiences.',
+      'Every design project begins with a different objective, audience, and set of constraints. The challenge is transforming ideas into visuals that are clear, engaging, and consistent while balancing creativity, usability, and effective communication.',
     solution:
-      'A body of design work spanning pubmats, tarpaulins, festival branding, logos, and infographics — produced for the Pen Mover student publication, ACE-IT, the Laur Tourism Office, and the Pagulyas Festival. Each piece was crafted to serve a specific communication goal while maintaining visual cohesion.',
+      'I approach every project with a strategy-first mindset—combining visual design, branding principles, and modern design tools to create work that is both aesthetically refined and purpose-driven. Every design is crafted to communicate clearly and leave a lasting impression.',
     industry: ['Graphic Design', 'Branding', 'Publishing', 'Events'],
-    technologies: [
-      'Canva',
-      'Figma',
-      'Print',
-      'Digital',
-      'Social Media',
-    ],
+    technologies: ['Canva', 'Figma', 'Print', 'Digital', 'Social Media'],
     outcome:
-      'Over 2+ years, the work reached real audiences — from students reading the publication to festival-goers seeing the branding live. It also built the design foundation that directly informs the visual direction of every web project since.',
+      'The result is a collection of designs that solve real communication problems while maintaining a strong visual identity. Each project has strengthened my creative process, attention to detail, and ability to deliver meaningful design solutions across different mediums.',
     screenshots: [
       '/images/works/graphic-design/1.png',
       '/images/works/graphic-design/2.png',

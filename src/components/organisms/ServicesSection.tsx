@@ -11,7 +11,7 @@ import ToolsTech from './ToolsTech';
 import { services } from '@/data/services';
 
 const ALL_WORDS =
-  'What I bring to the table combines design, development, and brand strategy into one seamless process.'.split(
+  'I design and build digital experiences that are functional, visually refined, and purpose-driven.'.split(
     ' '
   );
 
