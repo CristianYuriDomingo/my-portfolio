@@ -42,11 +42,11 @@ export default function ToolsTech() {
   return (
     <section
       id="tools"
-      className="bg-black w-full border-t border-white/10 py-16 lg:py-24"
+      className="bg-black w-full border-t border-white/10 py-10 lg:py-14"
     >
       <div className="mx-auto w-full max-w-[1700px] px-6 sm:px-10 lg:px-20">
         {/* Header */}
-        <p className="text-[10px] tracking-[0.3em] uppercase text-white/30 font-normal mb-12 lg:mb-16">
+        <p className="text-[11px] tracking-[0.3em] uppercase text-white/30 font-normal mb-8 lg:mb-10 text-center">
           Tools &amp; Technologies
         </p>
 
@@ -55,15 +55,12 @@ export default function ToolsTech() {
           {toolCategories.map((cat) => (
             <div
               key={cat.label}
-              className="bg-black px-6 py-8 lg:px-8 lg:py-10 flex flex-col gap-6"
+              className="bg-black px-6 py-6 lg:px-8 lg:py-7 flex flex-col gap-4"
             >
-              {/* Category label */}
               <span className="text-[9px] tracking-[0.28em] uppercase text-white/30 font-normal">
                 {cat.label}
               </span>
-
-              {/* Tools list */}
-              <ul className="flex flex-col gap-3">
+              <ul className="flex flex-col gap-2.5">
                 {cat.tools.map((tool) => (
                   <li
                     key={tool}
