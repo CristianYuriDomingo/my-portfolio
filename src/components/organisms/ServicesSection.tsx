@@ -7,7 +7,6 @@ import {
   motion,
   type MotionValue,
 } from 'framer-motion';
-import ToolsTech from './ToolsTech';
 import { services } from '@/data/services';
 
 const ALL_WORDS =
@@ -142,83 +141,83 @@ function IntroPanel() {
 
 export default function ServicesSection() {
   return (
-    <section id="services" style={{ position: 'relative' }}>
-      <IntroPanel />
+    <>
+      <section id="services" style={{ position: 'relative' }}>
+        <IntroPanel />
 
-      {services.map((s, idx) => (
-        <div
-          key={s.number}
-          style={{
-            position: 'sticky',
-            top: 0,
-            height: '100vh',
-            zIndex: 20 + idx,
-            backgroundColor: s.bg,
-            color: s.color,
-            overflow: 'hidden',
-          }}
-        >
-          {/* Number — top right, large */}
-          <span
-            style={{
-              position: 'absolute',
-              top: '28px',
-              right: '48px',
-              fontFamily: 'var(--font-geist-sans)',
-              fontWeight: 700,
-              fontSize: 'clamp(5rem, 12vw, 10rem)',
-              letterSpacing: '-0.04em',
-              lineHeight: 1,
-              opacity: 0.1,
-            }}
-          >
-            {s.number}
-          </span>
-
-          {/* Center content */}
+        {services.map((s, idx) => (
           <div
+            key={s.number}
             style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textAlign: 'center',
-              padding: '0 10vw',
-              gap: '36px',
+              position: 'sticky',
+              top: 0,
+              height: '100vh',
+              zIndex: 20 + idx,
+              backgroundColor: s.bg,
+              color: s.color,
+              overflow: 'hidden',
             }}
           >
-            <h2
+            {/* Number — top right, large */}
+            <span
               style={{
+                position: 'absolute',
+                top: '28px',
+                right: '48px',
                 fontFamily: 'var(--font-geist-sans)',
                 fontWeight: 700,
-                fontSize: 'clamp(4rem, 12vw, 10rem)',
-                lineHeight: 0.95,
-                letterSpacing: '-0.03em',
-                margin: 0,
+                fontSize: 'clamp(3rem, 10vw, 10rem)',
+                letterSpacing: '-0.04em',
+                lineHeight: 1,
+                opacity: 0.1,
               }}
             >
-              {s.heading}
-            </h2>
-            <p
-              style={{
-                fontFamily: 'var(--font-geist-sans)',
-                fontWeight: 300,
-                fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)',
-                lineHeight: 1.7,
-                opacity: 0.55,
-                maxWidth: '560px',
-                margin: 0,
-              }}
-            >
-              {s.description}
-            </p>
-          </div>
-        </div>
-      ))}
+              {s.number}
+            </span>
 
-      <ToolsTech />
-    </section>
+            {/* Center content */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                padding: '0 10vw',
+                gap: '36px',
+              }}
+            >
+              <h2
+                style={{
+                  fontFamily: 'var(--font-geist-sans)',
+                  fontWeight: 700,
+                  fontSize: 'clamp(1.5rem, 10vw, 10rem)',
+                  lineHeight: 0.95,
+                  letterSpacing: '-0.03em',
+                  margin: 0,
+                }}
+              >
+                {s.heading}
+              </h2>
+              <p
+                style={{
+                  fontFamily: 'var(--font-geist-sans)',
+                  fontWeight: 300,
+                  fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)',
+                  lineHeight: 1.7,
+                  opacity: 0.55,
+                  maxWidth: '560px',
+                  margin: 0,
+                }}
+              >
+                {s.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </section>
+    </>
   );
 }

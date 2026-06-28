@@ -5,7 +5,13 @@ export interface SocialLink {
 
 export const socialLinks: SocialLink[] = [
   { label: 'Email', href: 'mailto:dcristianyuri@gmail.com' },
-  { label: 'GitHub', href: 'https://github.com/cydoming' },
-  { label: 'Facebook', href: 'https://facebook.com/cyd.tech' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/cydoming' },
+  { label: 'GitHub', href: 'https://github.com/CristianYuriDomingo' },
+  {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/cristian.yuri.domingo.2025',
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/cristian-yuri-domingo-93268b41a/',
+  },
 ];

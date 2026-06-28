@@ -51,10 +51,10 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
           {exp.bullets.map((b, bi) => (
             <li
               key={bi}
-              className="flex items-start gap-3 text-[12.5px] leading-[1.75] text-navy/65 font-light"
+              className="flex items-start gap-3 text-[12.5px] leading-[1.75] text-navy/65 font-light text-left"
             >
               <span className="mt-[9px] w-[12px] h-[1px] bg-navy/20 shrink-0" />
-              {b}
+              <span>{b}</span>
             </li>
           ))}
         </ul>
@@ -147,7 +147,8 @@ export default function AboutSection() {
           ABOUT ME
         </h2>
 
-        <div className="w-full max-w-[460px] mx-auto mt-6 sm:mt-8 text-center lg:absolute lg:bottom-[24%] lg:left-[var(--page-x)] lg:z-20 lg:max-w-[28%] lg:mt-0 lg:mx-0 lg:text-left">
+        {/* ── FIX 1: text-center → text-left ── */}
+        <div className="w-full max-w-[460px] mx-auto mt-6 sm:mt-8 text-left lg:absolute lg:bottom-[24%] lg:left-[var(--page-x)] lg:z-20 lg:max-w-[28%] lg:mt-0 lg:mx-0">
           <h3 className="font-bold uppercase tracking-widest text-navy/40 text-[20px] sm:text-[24px] mb-3 font-normal">
             {ABOUT_LABEL}
           </h3>
