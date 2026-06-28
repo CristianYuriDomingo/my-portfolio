@@ -136,7 +136,12 @@ function DesktopNavLink({ link, active }: { link: NavLink; active: boolean }) {
   );
 
   return (
-    <Link href={link.href} className={cls} style={fontFor(active)} onClick={(e) => handleHashClick(e, link.href)}>
+    <Link
+      href={link.href}
+      className={cls}
+      style={fontFor(active)}
+      onClick={(e) => handleHashClick(e, link.href)}
+    >
       {link.label}
     </Link>
   );

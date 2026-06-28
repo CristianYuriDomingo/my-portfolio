@@ -1,7 +1,7 @@
 // src/components/organisms/ContactSection.tsx
 'use client';
 
-import { useState, type FormEvent, type ReactNode } from 'react';
+import { useState, type FormEvent } from 'react';
 import { Playfair_Display } from 'next/font/google';
 import { socialLinks } from '@/data/socials';
 
@@ -11,33 +11,6 @@ const playfair = Playfair_Display({
   weight: ['400'],
   variable: '--font-playfair',
 });
-
-function Icon({
-  children,
-  size = 14,
-  className,
-}: {
-  children: ReactNode;
-  size?: number;
-  className?: string;
-}) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      {children}
-    </svg>
-  );
-}
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -211,30 +184,31 @@ export default function ContactSection() {
               {/* Message */}
               <div>
                 <label
-                className="mb-2 flex items-center gap-[6px] text-[11px] tracking-[0.18em] uppercase text-navy/50"
-                style={{
-                  fontFamily: 'var(--font-geist-sans)',
-                  fontWeight: 400,
-                }}
-              >
-                Message *
+                  htmlFor="message"
+                  className="mb-2 flex items-center gap-[6px] text-[11px] tracking-[0.18em] uppercase text-navy/50"
+                  style={{
+                    fontFamily: 'var(--font-geist-sans)',
+                    fontWeight: 400,
+                  }}
+                >
+                  Message *
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   required
                   rows={5}
-                    placeholder="What are you building?"
-                    className="
-                      w-full resize-y border border-navy/15 bg-white px-4 py-3
-                      text-sm text-navy placeholder:text-navy/50 outline-none
-                      transition-colors duration-200 ease-out
-                      focus:border-navy/40
-                    "
-                    style={{
-                      fontFamily: 'var(--font-geist-sans)',
-                      fontWeight: 400,
-                    }}
+                  placeholder="What are you building?"
+                  className="
+                    w-full resize-y border border-navy/15 bg-white px-4 py-3
+                    text-sm text-navy placeholder:text-navy/50 outline-none
+                    transition-colors duration-200 ease-out
+                    focus:border-navy/40
+                  "
+                  style={{
+                    fontFamily: 'var(--font-geist-sans)',
+                    fontWeight: 400,
+                  }}
                 />
               </div>
 

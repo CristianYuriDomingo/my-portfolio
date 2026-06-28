@@ -40,7 +40,10 @@ const toolCategories = [
 
 export default function ToolsTech() {
   return (
-    <div id="tools" className="bg-black w-full py-8 lg:py-12 border-t border-white/10">
+    <div
+      id="tools"
+      className="bg-black w-full py-8 lg:py-12 border-t border-white/10"
+    >
       <div className="mx-auto w-full max-w-[1700px] px-9 lg:px-20">
         <h2 className="w-full text-center text-[18px] lg:text-[22px] tracking-[0.22em] uppercase text-white/50 font-semibold mb-8 lg:mb-12">
           Tools &amp; Technologies

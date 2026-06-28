@@ -6,6 +6,12 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const RECIPIENT = 'dcristianyuri@gmail.com';
+
+// Resend's sandbox domain (onboarding@resend.dev) can ONLY deliver to the
+// email address tied to your own Resend account — it will 403 on any other
+// recipient. That's why this route no longer tries to auto-reply to the
+// visitor (see note below). Once you verify a real domain in Resend,
+// update this to something like 'CYD <hello@yourdomain.com>'.
 const FROM = 'CYD Portfolio <onboarding@resend.dev>';
 
 // ── Schema ─────────────────────────────────────────────────────────────────
@@ -16,9 +22,26 @@ const contactSchema = z.object({
   message: z.string().min(1, 'Message is required').max(5000),
 });
 
-// ── Email templates ────────────────────────────────────────────────────────
+// ── Helpers ────────────────────────────────────────────────────────────────
+// Visitor-supplied text goes straight into an HTML email below, so escape it
+// first — otherwise a stray "<" or a pasted link renders as live HTML in
+// your inbox instead of as plain text.
+function escapeHtml(input: string) {
+  return input
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// ── Email template ─────────────────────────────────────────────────────────
 function ownerEmailHtml(data: z.infer<typeof contactSchema>) {
-  const { name, email, company, message } = data;
+  const name = escapeHtml(data.name);
+  const email = escapeHtml(data.email);
+  const company = escapeHtml(data.company ?? '');
+  const message = escapeHtml(data.message).replace(/\n/g, '<br/>');
+
   return `
     <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#111;">
       <p style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#999;margin-bottom:32px;">
@@ -44,27 +67,10 @@ function ownerEmailHtml(data: z.infer<typeof contactSchema>) {
         }
         <tr>
           <td style="padding:16px 0;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#999;vertical-align:top;">Message</td>
-          <td style="padding:16px 0;font-size:14px;line-height:1.7;">${message.replace(/\n/g, '<br/>')}</td>
+          <td style="padding:16px 0;font-size:14px;line-height:1.7;">${message}</td>
         </tr>
       </table>
-      <p style="margin-top:40px;font-size:11px;color:#bbb;">Sent via cyd.dev contact form</p>
-    </div>
-  `;
-}
-
-function autoReplyHtml(name: string) {
-  return `
-    <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#111;">
-      <p style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#999;margin-bottom:32px;">
-        CYD Portfolio
-      </p>
-      <p style="font-size:20px;font-weight:700;margin-bottom:8px;">Hey ${name},</p>
-      <p style="font-size:14px;line-height:1.8;color:#555;">
-        Got your message — I'll get back to you within 24 hours.
-      </p>
-      <p style="font-size:14px;line-height:1.8;color:#555;margin-top:16px;">— CYD</p>
-      <hr style="border:none;border-top:1px solid #eee;margin:40px 0;" />
-      <p style="font-size:11px;color:#bbb;">Cristian Yuri Domingo · dcristianyuri@gmail.com</p>
+      <p style="margin-top:40px;font-size:11px;color:#bbb;">Sent via portfolio contact form</p>
     </div>
   `;
 }
@@ -84,21 +90,17 @@ export async function POST(req: NextRequest) {
 
     const { name, email } = parsed.data;
 
-    await Promise.all([
-      resend.emails.send({
-        from: FROM,
-        to: RECIPIENT,
-        replyTo: email,
-        subject: `New inquiry from ${name}`,
-        html: ownerEmailHtml(parsed.data),
-      }),
-      resend.emails.send({
-        from: FROM,
-        to: email,
-        subject: `Got your message, ${name}.`,
-        html: autoReplyHtml(name),
-      }),
-    ]);
+    // Only the owner notification is sent. There's no reliable way to
+    // auto-reply to the visitor yet — Resend's sandbox domain refuses to
+    // deliver to anyone but your own account email. Add that send back in
+    // once a real domain is verified in Resend.
+    await resend.emails.send({
+      from: FROM,
+      to: RECIPIENT,
+      replyTo: email,
+      subject: `New inquiry from ${name}`,
+      html: ownerEmailHtml(parsed.data),
+    });
 
     return NextResponse.json({ ok: true }, { status: 200 });
   } catch {
