@@ -29,6 +29,7 @@ const NAV_LINKS: NavLink[] = [
   { label: 'About', href: '/#about' },
   { label: 'Works', href: '/#works' },
   { label: 'Services', href: '/#services' },
+  { label: 'Tools', href: '/#tools' },
 
   { label: 'Contact', href: '/#contact' },
 ];
@@ -52,6 +53,17 @@ const FONT_SEMI: React.CSSProperties = {
 
 /** Joins class names, filtering out falsy values. */
 const cx = (...classes: string[]) => classes.filter(Boolean).join(' ');
+
+/** Smooth scroll to a section by hash (e.g. "/#about" → #about). */
+const handleHashClick = (e: React.MouseEvent, href: string) => {
+  const hash = href.split('#')[1];
+  if (!hash) return;
+  const el = document.getElementById(hash);
+  if (el) {
+    e.preventDefault();
+    el.scrollIntoView();
+  }
+};
 
 /** Checks if a nav link matches the current route. */
 const isRouteActive = (href: string, pathname: string) =>
@@ -124,7 +136,7 @@ function DesktopNavLink({ link, active }: { link: NavLink; active: boolean }) {
   );
 
   return (
-    <Link href={link.href} className={cls} style={fontFor(active)}>
+    <Link href={link.href} className={cls} style={fontFor(active)} onClick={(e) => handleHashClick(e, link.href)}>
       {link.label}
     </Link>
   );

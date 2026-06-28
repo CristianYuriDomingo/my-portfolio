@@ -29,7 +29,6 @@ export const works: Work[] = [
       'A body of design work spanning pubmats, tarpaulins, festival branding, logos, and infographics — produced for the Pen Mover student publication, ACE-IT, the Laur Tourism Office, and the Pagulyas Festival. Each piece was crafted to serve a specific communication goal while maintaining visual cohesion.',
     industry: ['Graphic Design', 'Branding', 'Publishing', 'Events'],
     technologies: [
-      'Adobe Photoshop',
       'Canva',
       'Figma',
       'Print',
@@ -65,7 +64,6 @@ export const works: Work[] = [
       'NextAuth v4',
       'PostgreSQL',
       'Prisma ORM',
-      'Vercel',
     ],
     outcome:
       'Bantay Bayan earned Best in Capstone at NEUST and took home the Gold Award at ARC 2026 — validating both its technical execution and real-world relevance. It stands as the most recognized academic project of the batch.',

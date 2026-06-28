@@ -3,6 +3,7 @@ import HeroSection from '@/components/organisms/HeroSection';
 import WorksSection from '@/components/organisms/WorksSection';
 import AboutSection from '@/components/organisms/AboutSection';
 import ServicesSection from '@/components/organisms/ServicesSection';
+import ToolsTech from '@/components/organisms/ToolsTech';
 import Footer from '@/components/organisms/Footer';
 import ContactSection from '@/components/organisms/ContactSection';
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -18,6 +19,7 @@ export default function Home() {
         <AboutSection />
         <WorksSection />
         <ServicesSection />
+        <ToolsTech />
         <ContactSection />
       </main>
       <Footer />

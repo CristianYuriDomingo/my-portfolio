@@ -1,6 +1,6 @@
 export const ABOUT_LABEL = 'Who Am I?';
 export const ABOUT_DESCRIPTION =
-  'I craft impactful digital experiences that blend creativity and technology. With expertise in branding, design, and full-stack development, I help businesses build a strong presence through thoughtful visuals and seamless digital solutions.';
+  "I'm a BSIT graduate majoring in Web Systems Technologies, passionate about UI/UX design, frontend development, and visual design. I love creating clean, user-focused digital experiences.";
 
 export type ExpEntry = {
   period: string;
@@ -15,7 +15,7 @@ export const workExperiences: ExpEntry[] = [
     period: 'Feb – May 2026',
     role: 'Graphic Designer & Web Developer',
     org: 'Laur Municipal Tourism Office',
-    type: 'OJT / Internship',
+    type: '',
     bullets: [
       <>
         Designed{' '}
@@ -48,7 +48,7 @@ export const workExperiences: ExpEntry[] = [
     period: '2024 – 2026',
     role: 'IT Org President · Layout Artist & Associate Editor',
     org: 'ACE-IT · The Pen Mover — NEUST',
-    type: 'Leadership · Publication',
+    type: '',
     bullets: [
       <>
         Served as{' '}
@@ -56,9 +56,6 @@ export const workExperiences: ExpEntry[] = [
           President of ACE-IT
         </strong>
         , the IT department student organization at NEUST Atate Campus.
-      </>,
-      <>
-        Represented the IT department in university-wide leadership councils.
       </>,
       <>
         Worked as{' '}
@@ -77,7 +74,7 @@ export const academicExperiences: ExpEntry[] = [
     period: '2022 – 2026',
     role: 'Bachelor of Science in Information Technology',
     org: 'Nueva Ecija University of Science and Technology — Atate Campus',
-    type: 'Web Systems Technology',
+    type: '',
     bullets: [
       <>
         Graduated with a specialization in{' '}
@@ -104,7 +101,7 @@ export const academicExperiences: ExpEntry[] = [
     period: '2025 – 2026',
     role: 'Capstone Lead Developer',
     org: 'Bantay Bayan — NEUST Capstone Project',
-    type: 'Best in Capstone · Gold @ ARC 2026',
+    type: '',
     bullets: [
       <>
         Built a full-stack{' '}

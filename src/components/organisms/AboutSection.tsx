@@ -60,11 +60,13 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
         </ul>
       </div>
 
-      <div className="flex lg:justify-end items-start">
-        <span className="inline-flex items-center px-3 py-[4px] border border-navy/20 text-[9px] tracking-[0.16em] uppercase text-navy/50 font-normal">
-          {exp.type}
-        </span>
-      </div>
+      {exp.type && (
+        <div className="flex lg:justify-end items-start">
+          <span className="inline-flex items-center px-3 py-[4px] border border-navy/20 text-[9px] tracking-[0.16em] uppercase text-navy/50 font-normal">
+            {exp.type}
+          </span>
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -117,38 +119,9 @@ function SectionBlock({
   );
 }
 
-const toolCategories = [
-  { label: 'Languages', tools: ['HTML', 'CSS', 'JavaScript', 'TypeScript'] },
-  {
-    label: 'Frameworks & Libraries',
-    tools: [
-      'React',
-      'Next.js',
-      'Angular',
-      'Ionic',
-      'Tailwind CSS',
-      'Framer Motion',
-    ],
-  },
-  { label: 'Design', tools: ['Figma', 'Canva', 'Adobe Photoshop', 'Photopea'] },
-  {
-    label: 'Tools & Platforms',
-    tools: [
-      'Git',
-      'GitHub',
-      'Vercel',
-      'PostgreSQL',
-      'Prisma',
-      'NextAuth',
-      'Capacitor',
-    ],
-  },
-];
-
 export default function AboutSection() {
   const [showAcad, setShowAcad] = useState(false);
   const [showExp, setShowExp] = useState(false);
-  const [showTools, setShowTools] = useState(false);
 
   return (
     <section
@@ -175,7 +148,7 @@ export default function AboutSection() {
         </h2>
 
         <div className="w-full max-w-[460px] mx-auto mt-6 sm:mt-8 text-center lg:absolute lg:bottom-[24%] lg:left-[var(--page-x)] lg:z-20 lg:max-w-[28%] lg:mt-0 lg:mx-0 lg:text-left">
-          <h3 className="font-bold uppercase tracking-widest text-navy/40 text-[13px] sm:text-[14px] mb-3 font-normal">
+          <h3 className="font-bold uppercase tracking-widest text-navy/40 text-[20px] sm:text-[24px] mb-3 font-normal">
             {ABOUT_LABEL}
           </h3>
           <p className="text-[18px] sm:text-[21px] leading-[1.8] text-navy/75 font-light">
@@ -215,58 +188,6 @@ export default function AboutSection() {
         show={showExp}
         onToggle={() => setShowExp((v) => !v)}
       />
-
-      {/* ── TOOLS & TECHNOLOGIES ── */}
-      <div className="pb-24 lg:pb-32">
-        <div className="relative mx-auto w-full max-w-[1700px] pt-16 pb-0 border-t border-navy/10">
-          <button
-            onClick={() => setShowTools((v) => !v)}
-            className="w-full flex items-center justify-between gap-8 mb-12 group"
-          >
-            <h2 className="text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-tight text-navy font-bold">
-              Tools <span className="font-light">&amp; Technologies</span>
-            </h2>
-            <div
-              className="shrink-0 flex items-center justify-center w-12 h-12 text-3xl text-navy/60 transition-transform duration-300 group-hover:text-navy"
-              style={{
-                transform: showTools ? 'rotate(180deg)' : 'rotate(0deg)',
-              }}
-            >
-              ↓
-            </div>
-          </button>
-
-          <motion.div
-            initial={false}
-            animate={{
-              height: showTools ? 'auto' : 0,
-              opacity: showTools ? 1 : 0,
-            }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            style={{ overflow: 'hidden' }}
-          >
-            <div className="flex flex-col gap-12 pb-8">
-              {toolCategories.map((cat) => (
-                <div key={cat.label}>
-                  <span className="block text-[10px] tracking-[0.22em] uppercase text-navy/30 mb-5 font-normal">
-                    {cat.label}
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {cat.tools.map((tool) => (
-                      <span
-                        key={tool}
-                        className="inline-flex items-center px-4 py-[6px] border border-navy/15 text-[10px] tracking-[0.14em] uppercase text-navy/55 font-light"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </div>
     </section>
   );
 }

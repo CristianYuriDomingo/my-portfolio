@@ -4,6 +4,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Playfair_Display } from 'next/font/google';
+import { stats } from '@/data/hero';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -53,7 +54,6 @@ export default function HeroSection() {
             className="text-[clamp(4rem,7vw,7.5rem)] leading-[1.05] tracking-tight text-navy"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
           >
-            Hi,{' '}
             <span
               style={{
                 fontFamily: 'var(--font-playfair)',
@@ -64,8 +64,9 @@ export default function HeroSection() {
                 color: '#000',
               }}
             >
-              I&apos;m
+              Hi
             </span>
+            , I&apos;m
             <br />
             CYD
           </h1>
@@ -175,11 +176,7 @@ export default function HeroSection() {
 
           {/* Stats bar */}
           <div className="flex items-stretch border-t border-navy/10 bg-white/70 backdrop-blur-sm">
-            {[
-              { value: 'Fresh', label: 'Grad of 2026' },
-              { value: 'Driven', label: 'Ready to Build' },
-              { value: '3-in-1', label: 'Dev + Design + Visual' },
-            ].map(({ value, label }, i) => (
+            {stats.map(({ value, label }, i) => (
               <div
                 key={label}
                 className={`flex-1 flex flex-col gap-[6px] px-5 sm:px-8 py-5 sm:py-6 ${
