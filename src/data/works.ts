@@ -15,6 +15,35 @@ export interface Work {
 
 export const works: Work[] = [
   {
+    slug: 'graphic-design',
+    title: 'Graphic Design',
+    tag: 'Visual Design',
+    description:
+      '2 years. Hundreds of outputs. Tarpaulins, pubmats, festival branding, logos — I made the materials people actually stopped to look at.',
+    image: '/images/works/graphic.png',
+    tagline:
+      'Two years of visual communication across events, brands, and publications.',
+    challenge:
+      'Organizations — from student publications to local government units — constantly need visual materials that are both deadline-driven and brand-consistent. The work demands speed without sacrificing quality, and adaptability across very different contexts and audiences.',
+    solution:
+      'A body of design work spanning pubmats, tarpaulins, festival branding, logos, and infographics — produced for the Pen Mover student publication, ACE-IT, the Laur Tourism Office, and the Pagulyas Festival. Each piece was crafted to serve a specific communication goal while maintaining visual cohesion.',
+    industry: ['Graphic Design', 'Branding', 'Publishing', 'Events'],
+    technologies: [
+      'Adobe Photoshop',
+      'Canva',
+      'Figma',
+      'Print',
+      'Digital',
+      'Social Media',
+    ],
+    outcome:
+      'Over 2+ years, the work reached real audiences — from students reading the publication to festival-goers seeing the branding live. It also built the design foundation that directly informs the visual direction of every web project since.',
+    screenshots: [
+      '/images/works/graphic-design/1.png',
+      '/images/works/graphic-design/2.png',
+    ],
+  },
+  {
     slug: 'bantay-bayan',
     title: 'Bantay Bayan',
     tag: 'Full-Stack Web App',
@@ -40,61 +69,48 @@ export const works: Work[] = [
     ],
     outcome:
       'Bantay Bayan earned Best in Capstone at NEUST and took home the Gold Award at ARC 2026 — validating both its technical execution and real-world relevance. It stands as the most recognized academic project of the batch.',
-    screenshots: [],
+    screenshots: [
+      '/images/works/bantay-bayan/1.png',
+      '/images/works/bantay-bayan/2.png',
+      '/images/works/bantay-bayan/3.png',
+      '/images/works/bantay-bayan/4.png',
+      '/images/works/bantay-bayan/5.png',
+      '/images/works/bantay-bayan/6.png',
+      '/images/works/bantay-bayan/7.png',
+      '/images/works/bantay-bayan/8.png',
+      '/images/works/bantay-bayan/9.png',
+    ],
   },
   {
     slug: 'sagip-247',
     title: 'Sagip 24/7',
     tag: 'Mobile App',
     description:
-      'A complete emergency response mobile app. Bilingual, native device integration, medicine overdose protection — shipped and working.',
+      'Offline-first first aid emergency app. Comprehensive medical guidance, step-by-step procedures, visual aids, CPR instructions, and myth-busting — accessible anytime, anywhere, without internet.',
     image: '/images/works/sagip-247.png',
     tagline:
-      "A cross-platform emergency response app built for communities that can't afford to wait.",
+      'A lifeline in times of crisis — offline first aid guidance for communities that need it most.',
     challenge:
-      'In many Philippine communities, reporting emergencies is still done manually — through calls, word of mouth, or physical visits to barangay halls. This creates dangerous delays in response time, especially in situations where every second counts.',
+      'In medical emergencies, quick and correct first aid can be the difference between life and death. However, in crisis situations, reliable information and internet access are often unavailable. People in remote areas, disaster-prone regions, and first responders lack accessible, trustworthy first aid guidance when it matters most.',
     solution:
-      'Sagip 24/7 is a mobile application that streamlines emergency reporting and response coordination. Residents can submit incident reports in real time, while local responders receive and act on alerts directly through the app — bridging the gap between citizens and frontline services.',
-    industry: ['Public Safety', 'Civic Tech', 'Government'],
+      'Sagip 24/7 is an offline-first mobile app that delivers comprehensive first aid instructions, step-by-step procedures, and visual demonstrations for common medical emergencies. From CPR and choking to burns and fractures, the app provides clear guidance, graphic support, myth-busting, and best practices — all stored locally and accessible without internet connectivity.',
+    industry: ['Healthcare', 'Emergency Response', 'Medical Education'],
     technologies: [
       'Angular 18',
       'Ionic 8',
       'Capacitor 6',
       'TypeScript 5.4',
-      'ngx-translate',
-      'Lottie (ngx-lottie)',
-      'Local Notifications',
-      'Haptics',
+      'Local Storage',
+      'Offline Sync',
+      'Visual Media Assets',
+      'Cross-Platform',
     ],
     outcome:
-      "Sagip 24/7 demonstrated that community-level emergency systems don't need to be complicated to be effective. The project proved the viability of cross-platform mobile development for local government use cases in the Philippine context.",
-    screenshots: [],
-  },
-  {
-    slug: 'graphic-design',
-    title: 'Graphic Design',
-    tag: 'Visual Design',
-    description:
-      '2 years. Hundreds of outputs. Tarpaulins, pubmats, festival branding, logos — I made the materials people actually stopped to look at.',
-    image: '/images/works/graphic.png',
-    tagline:
-      'Two years of visual communication across events, brands, and publications.',
-    challenge:
-      'Organizations — from student publications to local government units — constantly need visual materials that are both deadline-driven and brand-consistent. The work demands speed without sacrificing quality, and adaptability across very different contexts and audiences.',
-    solution:
-      'A body of design work spanning pubmats, tarpaulins, festival branding, logos, and infographics — produced for the Pen Mover student publication, ACE-IT, the Laur Tourism Office, and the Pagulyas Festival. Each piece was crafted to serve a specific communication goal while maintaining visual cohesion.',
-    industry: ['Graphic Design', 'Branding', 'Publishing', 'Events'],
-    technologies: [
-      'Adobe Photoshop',
-      'Canva',
-      'Figma',
-      'Print',
-      'Digital',
-      'Social Media',
+      'Sagip 24/7 demonstrated that critical medical information can be delivered effectively offline, making first aid guidance accessible to underserved communities. The app bridges gaps in healthcare access and empowers people to respond confidently during emergencies, potentially saving lives until professional help arrives.',
+    screenshots: [
+      '/images/works/sagip-247/1.png',
+      '/images/works/sagip-247/2.png',
     ],
-    outcome:
-      'Over 2+ years, the work reached real audiences — from students reading the publication to festival-goers seeing the branding live. It also built the design foundation that directly informs the visual direction of every web project since.',
-    screenshots: [],
   },
   {
     slug: 'laur-tourism',
@@ -113,6 +129,11 @@ export const works: Work[] = [
     technologies: ['HTML', 'CSS', 'JavaScript', 'GitHub', 'Vercel'],
     outcome:
       "The site went live at laurtourism.vercel.app and served as the official digital face of Laur's tourism efforts during the Pagulyas Festival season. Built entirely by one person — from design to deployment — within the OJT period.",
-    screenshots: [],
+    screenshots: [
+      '/images/works/laur-tourism/1.png',
+      '/images/works/laur-tourism/2.png',
+      '/images/works/laur-tourism/3.png',
+      '/images/works/laur-tourism/4.png',
+    ],
   },
 ];

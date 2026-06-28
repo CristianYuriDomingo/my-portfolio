@@ -1,4 +1,3 @@
-// src/components/organisms/AboutSection.tsx
 'use client';
 
 import { useRef, useState } from 'react';
@@ -28,38 +27,23 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
       }}
       className="group relative grid grid-cols-1 lg:grid-cols-[180px_1fr_auto] gap-y-3 gap-x-10 py-8 border-t border-navy/10"
     >
-      {/* Hover accent line */}
       <div className="absolute left-0 top-0 h-[1px] w-0 bg-navy/50 transition-all duration-500 group-hover:w-full" />
 
-      {/* LEFT — index + period */}
       <div className="flex flex-row lg:flex-col gap-4 lg:gap-2 items-start lg:pt-[2px]">
-        <span
-          className="text-[10px] tracking-[0.18em] uppercase text-navy/35 tabular-nums"
-          style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
-        >
+        <span className="text-[10px] tracking-[0.18em] uppercase text-navy/35 tabular-nums font-light">
           {String(index + 1).padStart(2, '0')}
         </span>
-        <span
-          className="text-[11px] tracking-[0.04em] text-navy/55"
-          style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
-        >
+        <span className="text-[11px] tracking-[0.04em] text-navy/55 font-light">
           {exp.period}
         </span>
       </div>
 
-      {/* CENTER — role, org, bullets */}
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-[5px]">
-          <h3
-            className="text-[clamp(1rem,1.6vw,1.2rem)] leading-tight tracking-tight text-navy"
-            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 600 }}
-          >
+          <h3 className="text-[clamp(1rem,1.6vw,1.2rem)] leading-tight tracking-tight text-navy font-semibold">
             {exp.role}
           </h3>
-          <p
-            className="text-[11px] tracking-[0.06em] uppercase text-navy/50"
-            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
-          >
+          <p className="text-[11px] tracking-[0.06em] uppercase text-navy/50 font-light">
             {exp.org}
           </p>
         </div>
@@ -67,8 +51,7 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
           {exp.bullets.map((b, bi) => (
             <li
               key={bi}
-              className="flex items-start gap-3 text-[12.5px] leading-[1.75] text-navy/65"
-              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
+              className="flex items-start gap-3 text-[12.5px] leading-[1.75] text-navy/65 font-light"
             >
               <span className="mt-[9px] w-[12px] h-[1px] bg-navy/20 shrink-0" />
               {b}
@@ -77,12 +60,8 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
         </ul>
       </div>
 
-      {/* RIGHT — type badge */}
       <div className="flex lg:justify-end items-start">
-        <span
-          className="inline-flex items-center px-3 py-[4px] border border-navy/20 text-[9px] tracking-[0.16em] uppercase text-navy/50 whitespace-nowrap"
-          style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-        >
+        <span className="inline-flex items-center px-3 py-[4px] border border-navy/20 text-[9px] tracking-[0.16em] uppercase text-navy/50 font-normal">
           {exp.type}
         </span>
       </div>
@@ -91,14 +70,12 @@ function ExperienceRow({ exp, index }: { exp: ExpEntry; index: number }) {
 }
 
 function SectionBlock({
-  eyebrow,
   title,
   subtitle,
   entries,
   show,
   onToggle,
 }: {
-  eyebrow: string;
   title: string;
   subtitle: string;
   entries: ExpEntry[];
@@ -107,35 +84,22 @@ function SectionBlock({
 }) {
   return (
     <div className="relative mx-auto w-full max-w-[1700px] pt-16 pb-0 border-t border-navy/10">
-      <div className="flex items-end justify-between gap-6 mb-12">
-        <div className="flex flex-col gap-3">
-          <p
-            className="text-[10px] tracking-[0.22em] uppercase text-navy/30"
-            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
-          >
-            {eyebrow}
-          </p>
-          <h2
-            className="text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-tight text-navy"
-            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
-          >
-            {title} <span style={{ fontWeight: 200 }}>{subtitle}</span>
+      <button
+        onClick={onToggle}
+        className="w-full flex items-center justify-between gap-8 mb-12 text-left group"
+      >
+        <div className="flex flex-col gap-1 flex-1">
+          <h2 className="text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-tight text-navy font-bold">
+            {title} <span className="font-light">{subtitle}</span>
           </h2>
         </div>
-        <button
-          onClick={onToggle}
-          className="mb-1 shrink-0 inline-flex items-center gap-3 px-5 py-[9px] border border-navy/15 text-[10px] tracking-[0.18em] uppercase text-navy/50 transition-all duration-300 hover:border-navy/40 hover:text-navy focus-visible:outline-none"
-          style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
+        <div
+          className="shrink-0 flex items-center justify-center w-12 h-12 text-3xl text-navy/60 transition-transform duration-300 group-hover:text-navy"
+          style={{ transform: show ? 'rotate(180deg)' : 'rotate(0deg)' }}
         >
-          {show ? 'Hide' : 'View Details'}
-          <span
-            className="inline-block transition-transform duration-300"
-            style={{ transform: show ? 'rotate(180deg)' : 'rotate(0deg)' }}
-          >
-            ↓
-          </span>
-        </button>
-      </div>
+          ↓
+        </div>
+      </button>
 
       <motion.div
         initial={false}
@@ -153,9 +117,38 @@ function SectionBlock({
   );
 }
 
+const toolCategories = [
+  { label: 'Languages', tools: ['HTML', 'CSS', 'JavaScript', 'TypeScript'] },
+  {
+    label: 'Frameworks & Libraries',
+    tools: [
+      'React',
+      'Next.js',
+      'Angular',
+      'Ionic',
+      'Tailwind CSS',
+      'Framer Motion',
+    ],
+  },
+  { label: 'Design', tools: ['Figma', 'Canva', 'Adobe Photoshop', 'Photopea'] },
+  {
+    label: 'Tools & Platforms',
+    tools: [
+      'Git',
+      'GitHub',
+      'Vercel',
+      'PostgreSQL',
+      'Prisma',
+      'NextAuth',
+      'Capacitor',
+    ],
+  },
+];
+
 export default function AboutSection() {
   const [showAcad, setShowAcad] = useState(false);
   const [showExp, setShowExp] = useState(false);
+  const [showTools, setShowTools] = useState(false);
 
   return (
     <section
@@ -177,24 +170,15 @@ export default function AboutSection() {
 
       {/* ── ABOUT PART ── */}
       <div className="relative mx-auto w-full max-w-[1700px] flex flex-col items-center lg:min-h-screen lg:h-screen lg:block">
-        <h2
-          className="w-full text-center font-display font-black leading-none tracking-tight text-navy text-[44px] sm:text-[64px] md:text-[80px] lg:absolute lg:top-[10%] lg:left-1/2 lg:z-0 lg:text-center lg:-translate-x-1/2 lg:text-[clamp(140px,15vw,230px)]"
-          style={{ fontWeight: 700 }}
-        >
+        <h2 className="w-full text-center font-bold leading-none tracking-tight text-navy text-[44px] sm:text-[64px] md:text-[80px] lg:absolute lg:top-[10%] lg:left-1/2 lg:z-0 lg:text-center lg:-translate-x-1/2 lg:text-[clamp(140px,15vw,230px)]">
           ABOUT ME
         </h2>
 
         <div className="w-full max-w-[460px] mx-auto mt-6 sm:mt-8 text-center lg:absolute lg:bottom-[24%] lg:left-[var(--page-x)] lg:z-20 lg:max-w-[28%] lg:mt-0 lg:mx-0 lg:text-left">
-          <h3
-            className="font-display font-bold uppercase tracking-widest text-navy/40 text-[13px] sm:text-[14px] mb-3"
-            style={{ fontWeight: 400 }}
-          >
+          <h3 className="font-bold uppercase tracking-widest text-navy/40 text-[13px] sm:text-[14px] mb-3 font-normal">
             {ABOUT_LABEL}
           </h3>
-          <p
-            className="text-[18px] sm:text-[21px] leading-[1.8] text-navy/75"
-            style={{ fontWeight: 200 }}
-          >
+          <p className="text-[18px] sm:text-[21px] leading-[1.8] text-navy/75 font-light">
             {ABOUT_DESCRIPTION}
           </p>
         </div>
@@ -214,9 +198,8 @@ export default function AboutSection() {
       {/* ── SEPARATOR ── */}
       <div className="w-full border-t border-navy/10" />
 
-      {/* ── ACADEMIC BACKGROUND — first ── */}
+      {/* ── ACADEMIC BACKGROUND ── */}
       <SectionBlock
-        eyebrow="Education"
         title="Academic"
         subtitle="Background"
         entries={academicExperiences}
@@ -224,16 +207,65 @@ export default function AboutSection() {
         onToggle={() => setShowAcad((v) => !v)}
       />
 
-      {/* ── WORK EXPERIENCE — second ── */}
+      {/* ── WORK EXPERIENCE ── */}
+      <SectionBlock
+        title="Work"
+        subtitle="Experience"
+        entries={workExperiences}
+        show={showExp}
+        onToggle={() => setShowExp((v) => !v)}
+      />
+
+      {/* ── TOOLS & TECHNOLOGIES ── */}
       <div className="pb-24 lg:pb-32">
-        <SectionBlock
-          eyebrow="Experience"
-          title="Work"
-          subtitle="Experience"
-          entries={workExperiences}
-          show={showExp}
-          onToggle={() => setShowExp((v) => !v)}
-        />
+        <div className="relative mx-auto w-full max-w-[1700px] pt-16 pb-0 border-t border-navy/10">
+          <button
+            onClick={() => setShowTools((v) => !v)}
+            className="w-full flex items-center justify-between gap-8 mb-12 group"
+          >
+            <h2 className="text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-tight text-navy font-bold">
+              Tools <span className="font-light">&amp; Technologies</span>
+            </h2>
+            <div
+              className="shrink-0 flex items-center justify-center w-12 h-12 text-3xl text-navy/60 transition-transform duration-300 group-hover:text-navy"
+              style={{
+                transform: showTools ? 'rotate(180deg)' : 'rotate(0deg)',
+              }}
+            >
+              ↓
+            </div>
+          </button>
+
+          <motion.div
+            initial={false}
+            animate={{
+              height: showTools ? 'auto' : 0,
+              opacity: showTools ? 1 : 0,
+            }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="flex flex-col gap-12 pb-8">
+              {toolCategories.map((cat) => (
+                <div key={cat.label}>
+                  <span className="block text-[10px] tracking-[0.22em] uppercase text-navy/30 mb-5 font-normal">
+                    {cat.label}
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {cat.tools.map((tool) => (
+                      <span
+                        key={tool}
+                        className="inline-flex items-center px-4 py-[6px] border border-navy/15 text-[10px] tracking-[0.14em] uppercase text-navy/55 font-light"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

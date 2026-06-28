@@ -7,7 +7,7 @@ Cristian Yuri S. Domingo
 Web Developer · Designer · Visual Creator
 
 **Version**
-v1.0 — June 2026
+v1.1 — June 2026
 
 **Stack**
 Next.js 14 · TypeScript · Tailwind CSS · Framer Motion · Zod · Resend
@@ -46,7 +46,7 @@ All core features are built and working:
 | Works gallery (horizontal scroll + grid) | ✅ Built |
 | Services panels (sticky scroll reveal) | ✅ Built |
 | Contact form | ✅ Built |
-| Individual work detail pages (`/works/[slug]`) | ✅ Built — 5 SSG pages |
+| Individual work detail pages (`/works/[slug]`) | ✅ Built — 4 SSG pages |
 | Contact API (`POST /api/contact`) | ✅ Built — Zod + Resend |
 | Fixed navbar with scroll-hide | ✅ Built |
 | Mobile responsive navigation | ✅ Built |
@@ -57,12 +57,13 @@ All core features are built and working:
 |---|---|
 | Scroll-driven horizontal works track (desktop) | ✅ Built |
 | Sticky service panels with scroll reveal | ✅ Built |
-| Word-by-word color animation (Services intro) | ✅ Built |
+| Word-by-word color animation (Services intro, black bg) | ✅ Built |
 | Canvas-based portrait hover effect (alpha detection) | ✅ Built |
 | Corner bracket hover overlay on hero portrait | ✅ Built |
 | Navbar hide-on-scroll-down / reveal-on-scroll-up | ✅ Built |
 | Mobile menu with staggered link animation | ✅ Built |
 | Collapsible experience sections (motion animate) | ✅ Built |
+| Work detail slide-in panel (spring animation) | ✅ Built |
 | `prefers-reduced-motion` fallback | ✅ Built |
 
 ### 2.3 Code Quality
@@ -107,7 +108,9 @@ src/
 │   │       └── route.ts        — POST handler with Zod + Resend
 │   ├── works/
 │   │   └── [slug]/
-│   │       └── page.tsx        — Work detail page (SSG, 5 pre-built paths)
+│   │       ├── layout.tsx      — Exports SSG + metadata from metadata.ts
+│   │       ├── metadata.ts     — generateStaticParams + generateMetadata
+│   │       └── page.tsx        — Work detail page (client component, 4 paths)
 │   ├── globals.css             — Tailwind directives, CSS custom properties
 │   ├── layout.tsx              — Root layout, fonts, metadata, body classes
 │   ├── page.tsx                — Home page: Hero → About → Works → Services → Contact
@@ -118,18 +121,21 @@ src/
 │   │   ├── HeroSection.tsx     — Hero with watermark, portrait, stats bar
 │   │   ├── AboutSection.tsx    — Collapsible work/academic experience
 │   │   ├── WorksSection.tsx    — Project cards, pinned scroll (desktop)
-│   │   ├── ServicesSection.tsx — Sticky panels, word reveal animation
+│   │   ├── ServicesSection.tsx — Sticky panels, word reveal on black bg
 │   │   ├── ContactSection.tsx  — Contact form + info sidebar
 │   │   └── Footer.tsx          — Minimal dark footer
-│   └── molecules/
-│       └── PortraitHoverImage.tsx — Canvas-based alpha hover effect
+│   ├── molecules/
+│   │   └── PortraitHoverImage.tsx — Canvas-based alpha hover effect
+│   └── atoms/                  — Empty (reserved for future use)
 ├── data/
-│   ├── works.ts                — Work interface + project data
+│   ├── works.ts                — Work interface + project data (4 works)
 │   └── experience.tsx          — Work/academic experience data
 ├── hooks/
 │   └── useNavbar.ts            — Navbar hooks (scroll, body lock, escape)
+├── lib/                        — Empty (reserved for future utilities)
+├── types/                      — Empty (reserved for future types)
 └── public/
-    └── images/                 — Static assets (hero, works, about, logos)
+    └── images/                 — Static assets (hero, works, about, logos, services)
 ```
 
 ### 4.2 Component Tree
@@ -140,14 +146,14 @@ src/
   <HeroSection />       — Full-viewport intro, CTA buttons, stats bar
   <AboutSection />      — Portrait + collapsible experience rows
   <WorksSection />      — Horizontal scroll (desktop) / grid (mobile)
-  <ServicesSection />   — Sticky panels + animated word intro
+  <ServicesSection />   — Sticky panels + word animation on black
   <ContactSection />    — Form + contact details
 </main>
 <Footer />              — Dark bar with copyright
 ```
 
 ### 4.3 Design Patterns
-- **Atomic Design** — Components split into `molecules` and `organisms`.
+- **Atomic Design** — Components split into `atoms`, `molecules`, and `organisms`.
 - **Custom Hooks** — Scroll hide, body scroll lock, breakpoint reset, Escape close, navbar height — all in `src/hooks/useNavbar.ts`.
 - **CSS Custom Properties** — Color tokens, font families, and dynamic values (`--navbar-h`, `--page-x`) for consistency.
 - **Framer Motion Scroll-Linked Animations** — `useScroll` + `useTransform` for scroll-driven effects.
@@ -206,37 +212,43 @@ Borders use `navy` at opacities (`/10`, `/15`, `/06`) for a consistent hairline 
 - Desktop: centered links. Mobile: burger with animated curtain dropdown + staggered items.
 - Body scroll locked when menu open. `--navbar-h` synced for dropdown position.
 - "Ask AI" button dispatches `openAIChat` custom event.
+- "Available for Work" status badge with ping indicator on desktop.
 
 ### Hero
 - 50/50 split: text left, portrait right. Watermark bg at `opacity: 0.015`.
-- Playfair italic name, role labels, bordered bio.
+- Playfair italic "CYD" name, role labels, bordered bio.
 - CTA buttons: "View My Work" (navy) and "Ask AI About Me" (outline).
 - Portrait grayscale + hover corner bracket reveal.
-- Stats bar: NEUST, Gold Award, 3-in-1.
+- Stats bar: Fresh Grad, Driven, 3-in-1.
 
 ### About
 - Large "ABOUT ME" heading with canvas-based hover portrait (alpha detection).
-- Two collapsible sections: Work Experience (2 entries) and Academic Achievements (2 entries).
+- Two collapsible sections: Academic Background (2 entries) and Work Experience (2 entries).
 - Each entry: fade-in stagger, hover accent line, index, type badge.
 
 ### Works
-- **Desktop**: Pinned horizontal scroll — `useScroll` drives `useTransform` over 320vh.
-- **Mobile**: 2-column grid.
-- 5 project cards with hover overlay, image zoom, scrim.
-- Each card links to its `<slug>` detail page.
+- **Desktop**: Pinned horizontal scroll — `useScroll` drives `useTransform` over 320vh. Dark "Selected Works" header.
+- **Mobile**: 2-column grid on light grey background.
+- 4 project cards with hover overlay, image zoom, scrim. Each card links to its `<slug>` detail page.
 
 ### Services
-- Intro: full-screen sticky with scroll-driven word color animation (`#555` → `#fff`).
-- 3 sticky panels (Design, Branding, Development) stack via z-index.
-- Each: number, heading, description, subtitle, image.
+- **Intro**: Full-screen sticky section on black bg with scroll-driven word-by-word color animation (`#555` → `#fff`). "What I bring to the table combines design, development, and brand strategy into one seamless process."
+- **3 sticky panels** stacking via z-index: **Development** (dark grey), **Design** (mid grey), **Graphics** (white, navy text).
+- Each panel: large number overlay, heading, description, tools label with tech stack list.
 
 ### Contact
-- Left: location, email, phone. Right: form (Name, Email, Company, Message).
+- Left: intro heading, availability label, email contact, social links (GitHub, Facebook, LinkedIn).
+- Right: boxy form (Name, Email, Company, Message) with wireframe styling.
 - POST to `/api/contact` — Zod validated, delivered via Resend.
 - States: idle → sending → sent / error.
 
 ### Footer
-- Dark bar: tagline + copyright.
+- Dark bar with "Infinite by Design" tagline + copyright.
+
+### Work Detail Pages (`/works/[slug]`)
+- Two-panel layout: left shows tag, large title, tagline, and "About the Project" button; right shows scrollable screenshot stack.
+- "About the Project" opens a full-screen dark panel (spring animation from left) with challenge, solution, outcome, industry tags, technology tags, and prev/next project navigation.
+- 4 pre-built SSG routes: `graphic-design`, `bantay-bayan`, `sagip-247`, `laur-tourism`.
 
 ---
 
@@ -257,7 +269,7 @@ Borders use `navy` at opacities (`/10`, `/15`, `/06`) for a consistent hairline 
 | P4 | Dark mode toggle | 📋 |
 | P4 | Unit tests | 📋 |
 
-**Currently blocked**: Contact form needs a `RESEND_API_KEY` in `.env.local` to actually send emails (free at resend.com).
+**Note**: Set `RESEND_API_KEY` in `.env.local` to enable contact form email delivery (free at resend.com).
 
 ---
 

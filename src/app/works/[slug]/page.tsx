@@ -40,91 +40,110 @@ export default function WorkDetailPage({
   const [open, setOpen] = useState(false);
 
   return (
-    <main className="h-screen overflow-hidden bg-white flex">
-      {/* ── LEFT — fixed info panel ── */}
-      <div className="relative flex flex-col justify-center px-[6vw] w-full lg:w-[45%] flex-shrink-0 h-full">
-        {/* Back link */}
-        <div className="absolute top-7 left-[6vw]">
-          <Link
-            href="/#works"
-            className="inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase text-navy/35 hover:text-navy transition-colors"
-            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
+    <main className="h-screen overflow-hidden bg-white flex flex-col">
+      {/* ── FULL-WIDTH NAVBAR HEADER ── */}
+      <div className="bg-[#F8F8F8]/95 backdrop-blur-md border-b border-navy/[0.06] px-[6vw] py-3 flex-shrink-0">
+        <Link
+          href="/#works"
+          className="inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase text-navy/35 hover:text-navy transition-colors"
+          style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="19" y1="12" x2="5" y2="12" />
-              <polyline points="12 19 5 12 12 5" />
-            </svg>
-            Back to Works
-          </Link>
-        </div>
-
-        {/* Tag */}
-        <span
-          className="text-[9px] tracking-[0.2em] uppercase text-navy/35 mb-5"
-          style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
-        >
-          {work.tag}
-        </span>
-
-        {/* Title */}
-        <h1
-          className="text-[clamp(4.5rem,9vw,8rem)] leading-[0.9] tracking-tight text-navy"
-          style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
-        >
-          {work.title}
-        </h1>
-
-        {/* Tagline */}
-        <p
-          className="mt-5 text-[0.95rem] leading-[1.7] text-navy/50 max-w-[340px]"
-          style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
-        >
-          {work.tagline}
-        </p>
-
-        {/* CTA */}
-        <button
-          onClick={() => setOpen(true)}
-          className="mt-8 self-start border border-navy/20 px-5 py-[10px] text-[10px] tracking-[0.18em] uppercase text-navy/50 hover:border-navy hover:text-navy transition-colors duration-200"
-          style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
-        >
-          About the Project
-        </button>
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          Back to Works
+        </Link>
       </div>
 
-      {/* ── RIGHT — scrollable screenshots stack ── */}
-      <div className="hidden lg:block flex-1 h-full overflow-y-auto border-l border-navy/10">
-        {work.screenshots.length > 0
-          ? work.screenshots.map((src, i) => (
-              <div
-                key={i}
-                className="relative w-full aspect-[16/10] border-b border-navy/10 flex-shrink-0"
+      {/* ── CONTENT CONTAINER ── */}
+      <div className="flex flex-col lg:flex-row flex-1 overflow-hidden">
+        {/* ── LEFT SECTION ── */}
+        <div className="flex flex-col w-full lg:w-[45%] flex-shrink-0 h-auto lg:h-full">
+          {/* ── CONTENT AREA ── */}
+          <div className="flex flex-col justify-center flex-1 px-[6vw] py-8 lg:py-0">
+            {/* Tag */}
+            <span
+              className="text-[9px] tracking-[0.2em] uppercase text-navy/35 mb-5"
+              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 400 }}
+            >
+              {work.tag}
+            </span>
+
+            {/* Title */}
+            <h1
+              className="text-[clamp(4.5rem,9vw,8rem)] leading-[0.9] tracking-tight text-navy"
+              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
+            >
+              {work.title}
+            </h1>
+
+            {/* Tagline */}
+            <p
+              className="mt-5 text-[0.95rem] leading-[1.7] text-navy/50 max-w-[340px]"
+              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
+            >
+              {work.tagline}
+            </p>
+
+            {/* CTA */}
+            <button
+              onClick={() => setOpen(true)}
+              className="mt-8 self-start inline-flex items-center gap-3 border border-navy/20 px-5 py-[10px] text-[10px] tracking-[0.18em] uppercase text-navy/50 hover:border-navy hover:text-navy transition-colors duration-200"
+              style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
+            >
+              About the Project
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                <Image
-                  src={src}
-                  alt={`${work.title} screenshot ${i + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="55vw"
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* ── RIGHT — scrollable screenshots stack ── */}
+        <div className="w-full lg:flex-1 h-auto lg:h-full overflow-y-auto border-t lg:border-t-0 lg:border-l border-navy/10">
+          {work.screenshots.length > 0
+            ? work.screenshots.map((src, i) => (
+                <div
+                  key={i}
+                  className="relative w-full aspect-[16/10] border-b border-navy/10 flex-shrink-0"
+                >
+                  <Image
+                    src={src}
+                    alt={`${work.title} screenshot ${i + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                  />
+                </div>
+              ))
+            : Array.from({ length: 4 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="w-full aspect-[16/10] border-b border-navy/10 bg-navy/[0.03]"
                 />
-              </div>
-            ))
-          : Array.from({ length: 4 }).map((_, i) => (
-              <div
-                key={i}
-                className="w-full aspect-[16/10] border-b border-navy/10 bg-navy/[0.03]"
-              />
-            ))}
+              ))}
+        </div>
       </div>
 
       {/* ── DARK PANEL (slide from right) ── */}
@@ -151,28 +170,30 @@ export default function WorkDetailPage({
               transition={{ type: 'spring', damping: 30, stiffness: 280 }}
               className="fixed top-0 left-0 z-50 h-full w-full bg-[#0a0a0a] overflow-y-auto"
             >
-              {/* Close button */}
-              <button
-                onClick={() => setOpen(false)}
-                className="sticky top-6 left-6 lg:top-12 lg:left-12 z-10 text-white/25 hover:text-white/70 transition-colors"
-                aria-label="Close"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lg:w-[28px] lg:h-[28px]"
+              {/* Close button — navbar styled */}
+              <div className="sticky top-0 left-0 right-0 z-10 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/8 px-6 lg:px-12 py-3">
+                <button
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/8 hover:bg-white/12 transition-colors duration-200"
+                  aria-label="Close"
                 >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-white/60 hover:text-white transition-colors"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
 
               {/* Two-column layout */}
               <div className="flex flex-col lg:flex-row">
@@ -246,28 +267,6 @@ export default function WorkDetailPage({
                       {work.solution}
                     </p>
                   </div>
-
-                  {work.screenshots.length > 0 && (
-                    <div>
-                      <SectionLabel>Screenshots</SectionLabel>
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                        {work.screenshots.map((src, i) => (
-                          <div
-                            key={i}
-                            className="relative aspect-[16/10] border border-white/8 overflow-hidden"
-                          >
-                            <Image
-                              src={src}
-                              alt={`Screenshot ${i + 1}`}
-                              fill
-                              className="object-cover"
-                              sizes="300px"
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
 
                   <div>
                     <SectionLabel>The Outcome</SectionLabel>

@@ -1,3 +1,22 @@
+# Changelog — Session 5
+
+## README Rewrite (v1.1)
+- **Services panels updated**: panels changed from "Design, Branding, Development" to "Development, Design, Graphics"
+- **Services intro**: noted black background with word-by-word color animation
+- **Works count**: corrected from 5 to 4 (removed cyd-portfolio from data)
+- **Works section**: documented dark "Selected Works" header redesign
+- **Work detail pages**: documented new two-panel layout with slide-in dark panel, prev/next navigation
+- **Contact section**: removed "placeholder" note — form is wired to live `/api/contact` with Resend
+- **Folder structure**: added `atoms/`, `lib/`, `types/` directories; added `metadata.ts` and `layout.tsx` under `[slug]/`
+- **Component tree**: updated Services description to "black bg"
+- **Stats bar**: corrected from "NEUST, Gold Award, 3-in-1" to "Fresh Grad, Driven, 3-in-1"
+- **Work detail section**: added new section documenting the two-panel layout approach
+- **Removed "Currently blocked"**: contact form is functional, just needs API key
+- **Bumped version**: v1.0 → v1.1
+- **Animation table**: added work detail slide-in panel row
+
+---
+
 # Changelog — Session 4
 
 ## README Rewrite

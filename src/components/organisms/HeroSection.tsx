@@ -13,11 +13,6 @@ const playfair = Playfair_Display({
 });
 
 export default function HeroSection() {
-  const handleAskAI = () => {
-    const event = new CustomEvent('openAIChat');
-    window.dispatchEvent(event);
-  };
-
   return (
     <>
       {/* ── White base ── */}
@@ -53,12 +48,12 @@ export default function HeroSection() {
             Portfolio · 2026
           </p>
 
-          {/* Headline */}
+          {/* Headline — italic on "I'm", CYD stands bold on its own line */}
           <h1
             className="text-[clamp(4rem,7vw,7.5rem)] leading-[1.05] tracking-tight text-navy"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
           >
-            I&apos;m{' '}
+            Hi,{' '}
             <span
               style={{
                 fontFamily: 'var(--font-playfair)',
@@ -69,8 +64,10 @@ export default function HeroSection() {
                 color: '#000',
               }}
             >
-              CYD
+              I&apos;m
             </span>
+            <br />
+            CYD
           </h1>
 
           {/* Role labels */}
@@ -110,8 +107,10 @@ export default function HeroSection() {
               View My Work
             </Link>
 
-            <button
-              onClick={handleAskAI}
+            <a
+              href="/cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="
                 inline-flex items-center justify-center
                 px-[24px] py-[10px]
@@ -123,18 +122,16 @@ export default function HeroSection() {
               "
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
             >
-              Ask AI About Me
-            </button>
+              View CV
+            </a>
           </div>
         </div>
 
         {/* ══════════════════════════════════
             RIGHT — Photo + Stats bar
-            · On mobile: full-width block below content
-            · On desktop: 50% column with left margin
         ══════════════════════════════════ */}
         <div className="w-full lg:w-1/2 flex flex-col ml-0 lg:ml-6 lg:mr-6">
-          {/* Photo wrapper — hover animation */}
+          {/* Photo wrapper */}
           <div className="relative flex-1 min-h-[60vw] sm:min-h-[50vw] lg:min-h-0 group overflow-hidden">
             <Image
               src="/images/hero/portrait.webp"
@@ -151,7 +148,7 @@ export default function HeroSection() {
             {/* Left-edge fade into white */}
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent pointer-events-none" />
 
-            {/* Hover overlay — corner bracket + label */}
+            {/* Hover overlay */}
             <div
               className="
                 absolute inset-0 pointer-events-none

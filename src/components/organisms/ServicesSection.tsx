@@ -14,8 +14,6 @@ const services = [
     heading: 'Development',
     description:
       'Building responsive websites, web apps, and systems with modern tools — clean code, fast performance, and scalable structure.',
-    tools:
-      'HTML • CSS • JavaScript • TypeScript • React • Next.js • Tailwind CSS • Git • AI-Assisted Development',
     bg: '#1a1a1a',
     color: '#ffffff',
   },
@@ -24,7 +22,6 @@ const services = [
     heading: 'Design',
     description:
       'Designing clean, user-centered interfaces for web and mobile — from wireframes to polished UI, built with intention.',
-    tools: 'Figma',
     bg: '#333333',
     color: '#ffffff',
   },
@@ -33,7 +30,6 @@ const services = [
     heading: 'Graphics',
     description:
       'Creating visual content that communicates clearly — social media posts, infographics, layouts, and print-ready materials.',
-    tools: 'Canva • Photopea',
     bg: '#ffffff',
     color: '#141D38',
   },
@@ -107,7 +103,7 @@ function IntroPanel() {
             style={{
               fontFamily: 'var(--font-geist-sans)',
               fontWeight: 700,
-              fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+              fontSize: 'clamp(2rem, 4.5vw, 3.5rem)',
               lineHeight: 1.5,
               letterSpacing: '-0.02em',
               textAlign: 'center',
@@ -215,7 +211,7 @@ export default function ServicesSection() {
               justifyContent: 'center',
               textAlign: 'center',
               padding: '0 10vw',
-              gap: '24px',
+              gap: '36px',
             }}
           >
             <h2
@@ -243,56 +239,6 @@ export default function ServicesSection() {
             >
               {s.description}
             </p>
-          </div>
-
-          {/* Tools — centered text */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '72px',
-              left: 0,
-              right: 0,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '0 24px',
-              pointerEvents: 'none',
-            }}
-          >
-            <span
-              style={{
-                fontFamily: 'var(--font-geist-sans)',
-                fontWeight: 400,
-                fontSize: '0.65rem',
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                opacity: 0.5,
-              }}
-            >
-              Tools
-            </span>
-            <span
-              style={{
-                width: '1px',
-                height: '10px',
-                margin: '0 8px',
-                backgroundColor: s.color,
-                opacity: 0.2,
-              }}
-            />
-            <span
-              style={{
-                fontFamily: 'var(--font-geist-sans)',
-                fontWeight: 300,
-                fontSize: '0.75rem',
-                letterSpacing: '0.04em',
-                opacity: 0.75,
-                textAlign: 'center',
-              }}
-            >
-              {s.tools}
-            </span>
           </div>
         </div>
       ))}

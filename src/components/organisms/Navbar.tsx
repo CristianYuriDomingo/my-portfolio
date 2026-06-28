@@ -21,10 +21,6 @@ interface NavLink {
   href: string;
 }
 
-interface NavbarProps {
-  onAiChatClick?: () => void;
-}
-
 // ═══════════════════════════════════════════════════════════════════════════════
 // Constants
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -33,7 +29,7 @@ const NAV_LINKS: NavLink[] = [
   { label: 'About', href: '/#about' },
   { label: 'Works', href: '/#works' },
   { label: 'Services', href: '/#services' },
-  { label: 'Ask AI', href: '#' },
+
   { label: 'Contact', href: '/#contact' },
 ];
 
@@ -59,7 +55,7 @@ const cx = (...classes: string[]) => classes.filter(Boolean).join(' ');
 
 /** Checks if a nav link matches the current route. */
 const isRouteActive = (href: string, pathname: string) =>
-  href !== '#' && (href === '/' ? pathname === '/' : pathname.startsWith(href));
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
 
 /** Returns the appropriate font style based on active state. */
 const fontFor = (active: boolean) => (active ? FONT_SEMI : FONT_LIGHT);
@@ -118,15 +114,7 @@ function StatusBadge({ className = '' }: { className?: string }) {
 
 // ─── Desktop nav link ─────────────────────────────────────────────────────────
 
-function DesktopNavLink({
-  link,
-  active,
-  onAiClick,
-}: {
-  link: NavLink;
-  active: boolean;
-  onAiClick?: () => void;
-}) {
+function DesktopNavLink({ link, active }: { link: NavLink; active: boolean }) {
   const cls = cx(
     'inline-flex items-center py-1.5',
     'text-[12px] tracking-[0.12em] uppercase whitespace-nowrap',
@@ -134,19 +122,6 @@ function DesktopNavLink({
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/20',
     active ? 'text-navy' : 'text-navy/50 hover:text-navy'
   );
-
-  if (link.href === '#') {
-    return (
-      <button
-        onClick={onAiClick}
-        className={cls}
-        style={fontFor(active)}
-        aria-label="Open AI Chat"
-      >
-        {link.label}
-      </button>
-    );
-  }
 
   return (
     <Link href={link.href} className={cls} style={fontFor(active)}>
@@ -239,12 +214,10 @@ function MobileDropdown({
   open,
   onClose,
   pathname,
-  onAiClick,
 }: {
   open: boolean;
   onClose: () => void;
   pathname: string;
-  onAiClick?: () => void;
 }) {
   // Prevent initial flash — don't render until first open
   const [mounted, setMounted] = useState(false);
@@ -310,7 +283,6 @@ function MobileDropdown({
                       open={open}
                       active={isRouteActive(link.href, pathname)}
                       onClose={onClose}
-                      onAiClick={link.href === '#' ? onAiClick : undefined}
                     />
                   ))}
                 </ul>
@@ -343,7 +315,6 @@ function MobileNavItem({
   open,
   active,
   onClose,
-  onAiClick,
 }: {
   link: NavLink;
   index: number;
@@ -351,7 +322,6 @@ function MobileNavItem({
   open: boolean;
   active: boolean;
   onClose: () => void;
-  onAiClick?: () => void;
 }) {
   const cls = cx(
     'flex items-center w-full',
@@ -378,25 +348,6 @@ function MobileNavItem({
     ].join(', '),
   };
 
-  const handleClick = () => {
-    onAiClick?.();
-    onClose();
-  };
-
-  if (link.href === '#') {
-    return (
-      <li>
-        <button
-          onClick={handleClick}
-          className={cls}
-          style={{ ...staggerStyle, width: '100%', textAlign: 'left' }}
-        >
-          {link.label}
-        </button>
-      </li>
-    );
-  }
-
   return (
     <li>
       <Link
@@ -415,7 +366,7 @@ function MobileNavItem({
 // Main Navbar
 // ═══════════════════════════════════════════════════════════════════════════════
 
-export default function Navbar({ onAiChatClick }: NavbarProps) {
+export default function Navbar() {
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
 
@@ -470,7 +421,6 @@ export default function Navbar({ onAiChatClick }: NavbarProps) {
                 <DesktopNavLink
                   link={link}
                   active={isRouteActive(link.href, pathname)}
-                  onAiClick={link.href === '#' ? onAiChatClick : undefined}
                 />
               </li>
             ))}
@@ -489,7 +439,6 @@ export default function Navbar({ onAiChatClick }: NavbarProps) {
         open={mobileOpen}
         onClose={closeMobile}
         pathname={pathname}
-        onAiClick={onAiChatClick}
       />
     </>
   );
