@@ -119,9 +119,14 @@ function SectionBlock({
   );
 }
 
+const HEADING = 'ABOUT ME';
+
 export default function AboutSection() {
   const [showAcad, setShowAcad] = useState(false);
   const [showExp, setShowExp] = useState(false);
+
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const headingInView = useInView(headingRef, { once: true, margin: '-80px' });
 
   return (
     <section
@@ -143,11 +148,33 @@ export default function AboutSection() {
 
       {/* ── ABOUT PART ── */}
       <div className="relative mx-auto w-full max-w-[1700px] flex flex-col items-center lg:min-h-screen lg:h-screen lg:block">
-        <h2 className="w-full text-center font-bold leading-none tracking-tight text-navy text-[44px] sm:text-[64px] md:text-[80px] lg:absolute lg:top-[10%] lg:left-1/2 lg:z-0 lg:text-center lg:-translate-x-1/2 lg:text-[clamp(140px,15vw,230px)]">
-          ABOUT ME
+        <h2
+          ref={headingRef}
+          aria-label={HEADING}
+          className="w-full text-center font-bold leading-none tracking-tight text-navy text-[44px] sm:text-[64px] md:text-[80px] lg:absolute lg:top-[10%] lg:left-1/2 lg:z-0 lg:text-center lg:-translate-x-1/2 lg:text-[clamp(140px,15vw,230px)] flex justify-center"
+        >
+          {HEADING.split('').map((char, i) => (
+            <span
+              key={i}
+              style={{ overflow: 'hidden', display: 'inline-block' }}
+            >
+              <motion.span
+                aria-hidden="true"
+                style={{ display: 'inline-block' }}
+                initial={{ y: '110%', opacity: 0 }}
+                animate={headingInView ? { y: '0%', opacity: 1 } : {}}
+                transition={{
+                  duration: 0.7,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: char === ' ' ? 0 : 0.05 + i * 0.055,
+                }}
+              >
+                {char === ' ' ? '\u00A0' : char}
+              </motion.span>
+            </span>
+          ))}
         </h2>
 
-        {/* ── FIX 1: text-center → text-left ── */}
         <div className="w-full max-w-[460px] mx-auto mt-6 sm:mt-8 text-left lg:absolute lg:bottom-[24%] lg:left-[var(--page-x)] lg:z-20 lg:max-w-[28%] lg:mt-0 lg:mx-0">
           <h3 className="font-bold uppercase tracking-widest text-navy/40 text-[20px] sm:text-[24px] mb-3 font-normal">
             {ABOUT_LABEL}
