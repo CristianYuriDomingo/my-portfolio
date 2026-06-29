@@ -49,11 +49,13 @@ export default function HeroSection() {
             Portfolio · 2026
           </p>
 
-          {/* Headline — italic on "I'm", CYD stands bold on its own line */}
+          {/* Headline — sans serif with "CYD" in italic serif */}
           <h1
             className="text-[clamp(4rem,7vw,7.5rem)] leading-[1.05] tracking-tight text-navy"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
           >
+            Hi, I&apos;m
+            <br />
             <span
               style={{
                 fontFamily: 'var(--font-playfair)',
@@ -64,11 +66,8 @@ export default function HeroSection() {
                 color: '#000',
               }}
             >
-              Hi
+              CYD
             </span>
-            , I&apos;m
-            <br />
-            CYD
           </h1>
 
           {/* Role labels */}
@@ -85,9 +84,10 @@ export default function HeroSection() {
               className="text-base leading-[1.85] text-navy/55"
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
             >
-              I&apos;m Cristian Yuri Domingo — CYD for short. A 3-in-1 Designer,
-              Developer, and Visual Creator from Nueva Ecija, PH. One person,
-              full package.
+              CYD is short for Cristian Yuri Domingo — a 3-in-1 Designer,
+              Developer, and Visual Creator passionate about crafting modern
+              digital experiences through thoughtful design, clean code, and
+              compelling visuals.
             </p>
           </div>
 

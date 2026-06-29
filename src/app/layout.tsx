@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { Bebas_Neue } from 'next/font/google';
+import { Bebas_Neue, Playfair_Display } from 'next/font/google';
 import './globals.css';
+import LayoutClient from '@/components/LayoutClient';
 
 // ─── Fonts ────────────────────────────────────────────────────────────────────
 
@@ -24,8 +25,15 @@ const bebasNeue = Bebas_Neue({
   display: 'swap',
 });
 
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  style: ['italic'],
+  weight: ['400', '700'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
 // ─── Metadata ─────────────────────────────────────────────────────────────────
-// TODO: update metadataBase with your real domain before deploying
 
 export const metadata: Metadata = {
   title: {
@@ -65,11 +73,12 @@ export default function RootLayout({
           ${geistSans.variable}
           ${geistMono.variable}
           ${bebasNeue.variable}
+          ${playfair.variable}
           font-sans antialiased
           bg-background text-foreground
         `}
       >
-        {children}
+        <LayoutClient>{children}</LayoutClient>
       </body>
     </html>
   );
