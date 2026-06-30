@@ -8,6 +8,8 @@ interface ChatModalProps {
   onClose: () => void;
 }
 
+const MAX_MESSAGE_LENGTH = 400;
+
 export function ChatModal({ isOpen, onClose }: ChatModalProps) {
   const [messages, setMessages] = useState<
     { id: string; role: 'user' | 'assistant'; content: string }[]
@@ -16,25 +18,94 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
   const [loading, setLoading] = useState(false);
   const end = useRef<HTMLDivElement>(null);
 
-  const send = () => {
-    if (!input.trim()) return;
-    setMessages((p) => [
-      ...p,
-      { id: Date.now().toString(), role: 'user', content: input },
-    ]);
+  // Honeypot field — real users never see or fill this, bots that
+  // auto-fill every input often will.
+  const [website, setWebsite] = useState('');
+
+  // Timestamp for when the modal was opened, used for a basic
+  // "too fast to be human" check on the server.
+  const openedAtRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      openedAtRef.current = Date.now();
+    }
+  }, [isOpen]);
+
+  const send = async () => {
+    const trimmed = input.trim();
+    if (!trimmed || loading) return;
+
+    const userMessage = {
+      id: Date.now().toString(),
+      role: 'user' as const,
+      content: trimmed,
+    };
+
+    setMessages((p) => [...p, userMessage]);
     setInput('');
     setLoading(true);
-    setTimeout(() => {
+
+    try {
+      const history = messages.map((m) => ({
+        role: m.role,
+        content: m.content,
+      }));
+
+      const elapsedMs = openedAtRef.current
+        ? Date.now() - openedAtRef.current
+        : undefined;
+
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: trimmed,
+          history,
+          website, // honeypot — should always be empty for real users
+          elapsedMs,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        const fallback =
+          data?.message ||
+          data?.error ||
+          'Hmm, something went wrong on my end. Try again in a bit?';
+        setMessages((p) => [
+          ...p,
+          {
+            id: (Date.now() + 1).toString(),
+            role: 'assistant',
+            content: fallback,
+          },
+        ]);
+        return;
+      }
+
       setMessages((p) => [
         ...p,
         {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: 'Demo response!',
+          content: data.reply,
         },
       ]);
+    } catch {
+      setMessages((p) => [
+        ...p,
+        {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content:
+            "Can't reach the server right now. Check your connection and try again.",
+        },
+      ]);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   useEffect(() => {
@@ -43,6 +114,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
 
   const sans = { fontFamily: 'var(--font-geist-sans)' };
   const eyebrow = 'text-[10px] tracking-[0.22em] uppercase text-navy/35';
+  const remaining = MAX_MESSAGE_LENGTH - input.length;
 
   return (
     <AnimatePresence>
@@ -164,20 +236,52 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
 
               {/* Footer */}
               <div className="border-t border-navy/10 px-8 py-6">
-                <p
-                  className={`${eyebrow} mb-2`}
-                  style={{ ...sans, fontWeight: 400 }}
-                >
-                  Message
-                </p>
+                <div className="flex items-center justify-between mb-2">
+                  <p className={eyebrow} style={{ ...sans, fontWeight: 400 }}>
+                    Message
+                  </p>
+                  {input.length > 0 && (
+                    <p
+                      className={`text-[10px] tabular-nums ${
+                        remaining < 0 ? 'text-red-500' : 'text-navy/30'
+                      }`}
+                      style={sans}
+                    >
+                      {remaining}
+                    </p>
+                  )}
+                </div>
+
+                {/* Honeypot field — visually and structurally hidden from
+                    real users, left here for bots that blindly fill forms. */}
+                <input
+                  type="text"
+                  name="website"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    width: 1,
+                    height: 1,
+                    opacity: 0,
+                    pointerEvents: 'none',
+                  }}
+                />
+
                 <div className="flex gap-2">
                   <input
                     type="text"
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    onChange={(e) =>
+                      setInput(e.target.value.slice(0, MAX_MESSAGE_LENGTH))
+                    }
                     onKeyDown={(e) => e.key === 'Enter' && send()}
                     placeholder="Type here..."
                     disabled={loading}
+                    maxLength={MAX_MESSAGE_LENGTH}
                     className="flex-1 border border-navy/15 bg-white px-4 py-3 text-[13px] text-navy placeholder:text-navy/40 outline-none focus:border-navy/40 focus:ring-1 focus:ring-navy/15 transition-colors"
                     style={sans}
                   />
