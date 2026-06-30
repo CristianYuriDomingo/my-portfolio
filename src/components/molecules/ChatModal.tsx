@@ -17,6 +17,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const end = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Honeypot field — real users never see or fill this, bots that
   // auto-fill every input often will.
@@ -31,6 +32,15 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
       openedAtRef.current = Date.now();
     }
   }, [isOpen]);
+
+  // Scroll to input when keyboard appears or messages update
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      setTimeout(() => {
+        inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }, 100);
+    }
+  }, [messages, loading, isOpen]);
 
   const send = async () => {
     const trimmed = input.trim();
@@ -108,10 +118,6 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
     }
   };
 
-  useEffect(() => {
-    end.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, loading]);
-
   const sans = { fontFamily: 'var(--font-geist-sans)' };
   const eyebrow = 'text-[10px] tracking-[0.22em] uppercase text-navy/35';
   const remaining = MAX_MESSAGE_LENGTH - input.length;
@@ -131,24 +137,27 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="w-full max-w-[500px] h-[600px] bg-white border border-navy/10 shadow-[0_24px_60px_-12px_rgba(20,29,56,0.25)] flex flex-col">
+            <div className="w-full max-w-[95vw] sm:max-w-[500px] h-[70vh] sm:h-[600px] max-h-[90dvh] bg-white border border-navy/10 shadow-[0_24px_60px_-12px_rgba(20,29,56,0.25)] flex flex-col rounded-lg sm:rounded-none">
               {/* Header */}
-              <div className="flex justify-between items-start px-8 pt-7 pb-6 border-b border-navy/10">
+              <div className="flex justify-between items-start px-4 sm:px-8 pt-4 sm:pt-7 pb-3 sm:pb-6 border-b border-navy/10 flex-shrink-0">
                 <div>
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-1 sm:mb-2">
                     <span className="relative flex h-[6px] w-[6px]">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-navy/40" />
                       <span className="relative inline-flex h-[6px] w-[6px] rounded-full bg-navy" />
                     </span>
-                    <p className={eyebrow} style={{ ...sans, fontWeight: 300 }}>
+                    <p
+                      className={`${eyebrow} text-[8px] sm:text-[10px]`}
+                      style={{ ...sans, fontWeight: 300 }}
+                    >
                       AI Assistant
                     </p>
                   </div>
                   <h2
-                    className="text-[28px] leading-none tracking-tight text-navy"
+                    className="text-[20px] sm:text-[28px] leading-none tracking-tight text-navy"
                     style={{ ...sans, fontWeight: 700 }}
                   >
                     Ask{' '}
@@ -166,7 +175,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                 <button
                   onClick={onClose}
                   aria-label="Close chat"
-                  className="group -mt-1 -mr-2 w-9 h-9 flex items-center justify-center rounded-full text-navy/40 hover:text-navy hover:bg-navy/[0.06] transition-colors duration-200"
+                  className="group -mt-1 -mr-2 w-8 sm:w-9 h-8 sm:h-9 flex items-center justify-center rounded-full text-navy/40 hover:text-navy hover:bg-navy/[0.06] transition-colors duration-200 flex-shrink-0"
                 >
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path
@@ -179,15 +188,18 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                 </button>
               </div>
 
-              {/* Body */}
-              <div className="flex-1 overflow-y-auto px-8 py-6 flex flex-col gap-3">
+              {/* Body - Messages */}
+              <div className="flex-1 overflow-y-auto px-3 sm:px-8 py-3 sm:py-6 flex flex-col gap-2 sm:gap-3 min-h-0">
                 {messages.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-full text-center gap-3">
-                    <p className={eyebrow} style={{ ...sans, fontWeight: 300 }}>
+                  <div className="flex flex-col items-center justify-center h-full text-center gap-2 sm:gap-3">
+                    <p
+                      className={`${eyebrow} text-[8px] sm:text-[10px]`}
+                      style={{ ...sans, fontWeight: 300 }}
+                    >
                       (Start)
                     </p>
                     <p
-                      className="text-[20px] text-navy/70"
+                      className="text-[16px] sm:text-[20px] text-navy/70"
                       style={{
                         fontFamily: 'var(--font-playfair)',
                         fontStyle: 'italic',
@@ -205,10 +217,10 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                         className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
                         <div
-                          className={`max-w-[85%] px-4 py-3 text-[13px] ${
+                          className={`max-w-[85%] px-3 sm:px-4 py-2 sm:py-3 text-[12px] sm:text-[13px] ${
                             msg.role === 'user'
-                              ? 'bg-navy text-white'
-                              : 'border border-navy/10 text-navy'
+                              ? 'bg-navy text-white rounded'
+                              : 'border border-navy/10 text-navy rounded'
                           }`}
                           style={sans}
                         >
@@ -217,7 +229,7 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                       </div>
                     ))}
                     {loading && (
-                      <div className="flex gap-1 border border-navy/10 px-4 py-3 w-fit">
+                      <div className="flex gap-1 border border-navy/10 px-3 sm:px-4 py-2 sm:py-3 w-fit rounded">
                         <span className="w-1.5 h-1.5 bg-navy/40 animate-pulse" />
                         <span
                           className="w-1.5 h-1.5 bg-navy/40 animate-pulse"
@@ -234,15 +246,18 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
                 )}
               </div>
 
-              {/* Footer */}
-              <div className="border-t border-navy/10 px-8 py-6">
+              {/* Footer - Input */}
+              <div className="border-t border-navy/10 px-3 sm:px-8 py-3 sm:py-6 flex-shrink-0">
                 <div className="flex items-center justify-between mb-2">
-                  <p className={eyebrow} style={{ ...sans, fontWeight: 400 }}>
+                  <p
+                    className={`${eyebrow} text-[8px] sm:text-[10px]`}
+                    style={{ ...sans, fontWeight: 400 }}
+                  >
                     Message
                   </p>
                   {input.length > 0 && (
                     <p
-                      className={`text-[10px] tabular-nums ${
+                      className={`text-[9px] sm:text-[10px] tabular-nums ${
                         remaining < 0 ? 'text-red-500' : 'text-navy/30'
                       }`}
                       style={sans}
@@ -273,22 +288,31 @@ export function ChatModal({ isOpen, onClose }: ChatModalProps) {
 
                 <div className="flex gap-2">
                   <input
+                    ref={inputRef}
                     type="text"
                     value={input}
                     onChange={(e) =>
                       setInput(e.target.value.slice(0, MAX_MESSAGE_LENGTH))
                     }
                     onKeyDown={(e) => e.key === 'Enter' && send()}
+                    onFocus={() => {
+                      setTimeout(() => {
+                        inputRef.current?.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'end',
+                        });
+                      }, 300);
+                    }}
                     placeholder="Type here..."
                     disabled={loading}
                     maxLength={MAX_MESSAGE_LENGTH}
-                    className="flex-1 border border-navy/15 bg-white px-4 py-3 text-[13px] text-navy placeholder:text-navy/40 outline-none focus:border-navy/40 focus:ring-1 focus:ring-navy/15 transition-colors"
+                    className="flex-1 border border-navy/15 bg-white px-3 sm:px-4 py-2 sm:py-3 text-[12px] sm:text-[13px] text-navy placeholder:text-navy/40 outline-none focus:border-navy/40 focus:ring-1 focus:ring-navy/15 transition-colors rounded"
                     style={sans}
                   />
                   <button
                     onClick={send}
                     disabled={loading || !input.trim()}
-                    className="w-11 h-11 bg-navy text-white hover:opacity-90 active:scale-[0.97] disabled:opacity-40 transition-all flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-navy/30"
+                    className="w-9 sm:w-11 h-9 sm:h-11 bg-navy text-white hover:opacity-90 active:scale-[0.97] disabled:opacity-40 transition-all flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-navy/30 rounded flex-shrink-0"
                   >
                     →
                   </button>
