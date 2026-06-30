@@ -1,3 +1,4 @@
+//src/app/works/[slug]/page.tsx
 'use client';
 
 import { works } from '@/data/works';

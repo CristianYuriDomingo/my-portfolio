@@ -9,6 +9,7 @@ import {
   useReducedMotion,
 } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Playfair_Display } from 'next/font/google';
 import { type Work, works } from '@/data/works';
 
@@ -21,7 +22,7 @@ const playfair = Playfair_Display({
 
 function WorkCard({ work }: { work: Work }) {
   return (
-    <a
+    <Link
       href={`/works/${work.slug}`}
       className="group block w-full flex-shrink-0"
     >
@@ -108,7 +109,7 @@ function WorkCard({ work }: { work: Work }) {
           )
         )}
       </p>
-    </a>
+    </Link>
   );
 }
 

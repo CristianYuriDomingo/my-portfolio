@@ -78,12 +78,19 @@ const fontFor = (active: boolean) => (active ? FONT_SEMI : FONT_LIGHT);
 
 // ─── Logo ─────────────────────────────────────────────────────────────────────
 
-function Logo({ size = 46 }: { size?: number }) {
+function Logo({
+  size = 46,
+  onMobileClose,
+}: {
+  size?: number;
+  onMobileClose?: () => void;
+}) {
   return (
     <Link
       href="/"
       aria-label="CYD Portfolio — home"
       className="flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/20"
+      onClick={onMobileClose}
     >
       <div
         className="relative overflow-hidden"
@@ -426,7 +433,7 @@ export default function Navbar() {
       >
         <div className="relative flex items-center justify-between max-w-7xl mx-auto px-6 md:px-12 py-2.5">
           {/* Left: Logo */}
-          <Logo size={46} />
+          <Logo size={46} onMobileClose={closeMobile} />
 
           {/* Center: Desktop links */}
           <ul
