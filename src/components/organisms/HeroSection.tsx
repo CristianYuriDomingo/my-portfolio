@@ -109,7 +109,7 @@ export default function HeroSection() {
             </Link>
 
             <a
-              href="/cv.pdf"
+              href="/Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="
@@ -123,7 +123,7 @@ export default function HeroSection() {
               "
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
             >
-              View CV
+              View Resume
             </a>
           </div>
         </div>
