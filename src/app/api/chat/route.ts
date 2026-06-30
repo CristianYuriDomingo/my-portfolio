@@ -282,8 +282,9 @@ export async function POST(req: NextRequest) {
       "I couldn't generate a response.";
 
     return NextResponse.json({ reply });
-  } catch (error: any) {
-    if (error?.status === 429) {
+  } catch (error: unknown) {
+    const isGroqError = error && typeof error === 'object' && 'status' in error;
+    if (isGroqError && (error as any).status === 429) {
       return NextResponse.json(
         {
           error: 'Rate limit',
