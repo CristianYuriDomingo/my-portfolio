@@ -284,7 +284,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ reply });
   } catch (error: unknown) {
     const isGroqError = error && typeof error === 'object' && 'status' in error;
-    if (isGroqError && (error as any).status === 429) {
+    if (isGroqError && (error as { status: number }).status === 429) {
       return NextResponse.json(
         {
           error: 'Rate limit',
