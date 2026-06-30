@@ -68,7 +68,7 @@ function cleanupStore() {
   if (now - lastCleanup < 10 * 60_000) return; // every 10 minutes max
   lastCleanup = now;
   const oneDayAgo = now - 24 * 60 * 60_000;
-  for (const [ip, bucket] of rateLimitStore.entries()) {
+  for (const [ip, bucket] of Array.from(rateLimitStore.entries())) {
     const stillActive = bucket.dayTimestamps.some((t) => t > oneDayAgo);
     if (!stillActive) rateLimitStore.delete(ip);
   }
