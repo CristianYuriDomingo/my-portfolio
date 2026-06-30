@@ -13,34 +13,25 @@ export type ExpEntry = {
 export const workExperiences: ExpEntry[] = [
   {
     period: 'Feb – May 2026',
-    role: 'Graphic Designer & Web Developer',
-    org: 'Laur Municipal Tourism Office',
+    role: 'Web Developer & Multimedia Artist (OJT)',
+    org: 'Social Media Team & Municipal Tourism Office — Laur, Nueva Ecija',
     type: '',
     bullets: [
       <>
-        Designed{' '}
+        Produced{' '}
         <strong className="text-navy/85 font-semibold">
-          Pagulyas Festival
+          50+ print and digital marketing assets
         </strong>{' '}
-        materials — tarpaulins, pubmats, and full branding collateral.
+        including social media graphics, tarpaulins, infographics, and event
+        branding for multiple municipal campaigns.
       </>,
       <>
-        Built and deployed{' '}
+        Designed and developed a{' '}
         <strong className="text-navy/85 font-semibold">
-          laurtourism.vercel.app
+          tourism website for the Municipality of Laur
         </strong>{' '}
-        using vanilla HTML, CSS, and JS via GitHub + Vercel.
-      </>,
-      <>
-        Produced social media graphics and visual communications for municipal
-        tourism campaigns.
-      </>,
-      <>
-        Proposed 3D design concepts and developed an{' '}
-        <strong className="text-navy/85 font-semibold">
-          admin CMS UI demo
-        </strong>{' '}
-        for the tourism office.
+        featuring tourist destinations, a gallery, and emergency information
+        using HTML, CSS, and JavaScript.
       </>,
     ],
   },
