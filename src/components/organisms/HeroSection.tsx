@@ -40,7 +40,7 @@ export default function HeroSection() {
         {/* ══════════════════════════════════
             LEFT — Text content
         ══════════════════════════════════ */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center px-[6vw] py-28 lg:py-0 gap-0">
+        <div className="w-full lg:w-1/2 flex flex-col justify-start lg:justify-center px-[6vw] pt-28 pb-16 lg:py-0 gap-0">
           {/* Eyebrow */}
           <p
             className="mb-5 text-[12px] tracking-[0.22em] uppercase text-navy/35"
@@ -49,13 +49,12 @@ export default function HeroSection() {
             Portfolio · 2026
           </p>
 
-          {/* Headline — sans serif with "CYD" in italic serif */}
+          {/* Headline — single line, "Cyd." in italic serif inline */}
           <h1
-            className="text-[clamp(4rem,7vw,7.5rem)] leading-[1.05] tracking-tight text-navy"
+            className="text-[3.5rem] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[1.05] tracking-tight text-navy sm:whitespace-nowrap"
             style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 700 }}
           >
-            Hi, I&apos;m
-            <br />
+            Hi, I&apos;m{' '}
             <span
               style={{
                 fontFamily: 'var(--font-playfair)',
@@ -66,22 +65,14 @@ export default function HeroSection() {
                 color: '#000',
               }}
             >
-              CYD
+              Cyd.
             </span>
           </h1>
 
-          {/* Role labels */}
-          <p
-            className="mt-5 text-[13px] tracking-[0.2em] uppercase text-navy/40"
-            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
-          >
-            UI/UX Designer · Developer · Visual Creator
-          </p>
-
-          {/* Bio */}
-          <div className="mt-7 pl-4 border-l-2 border-navy/15 max-w-[480px]">
+          {/* Bio — leads, directly under headline */}
+          <div className="mt-8 pl-4 border-l-2 border-navy/15 max-w-[480px]">
             <p
-              className="text-base leading-[1.85] text-navy/55"
+              className="text-base sm:text-lg md:text-xl leading-[1.7] text-navy/60"
               style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
             >
               CYD is short for Cristian Yuri Domingo — a 3-in-1 Designer,
@@ -89,6 +80,22 @@ export default function HeroSection() {
               digital experiences through thoughtful design, clean code, and
               compelling visuals.
             </p>
+          </div>
+
+          {/* Role tags — pill chips for scannability, replaces plain label line */}
+          <div className="mt-6 flex flex-wrap gap-2">
+            {['UI/UX Designer', 'Developer', 'Visual Creator'].map((role) => (
+              <span
+                key={role}
+                className="px-3 py-1 text-[10px] sm:text-[11px] tracking-[0.15em] uppercase border border-navy/20 text-navy/50"
+                style={{
+                  fontFamily: 'var(--font-geist-sans)',
+                  fontWeight: 300,
+                }}
+              >
+                {role}
+              </span>
+            ))}
           </div>
 
           {/* Buttons */}

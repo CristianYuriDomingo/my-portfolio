@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import PortraitHoverImage from '@/components/molecules/PortraitHoverImage';
+import { ChatModal } from '@/components/molecules/ChatModal';
 import {
   ABOUT_LABEL,
   ABOUT_DESCRIPTION,
@@ -124,6 +125,7 @@ const HEADING = 'ABOUT ME';
 export default function AboutSection() {
   const [showAcad, setShowAcad] = useState(false);
   const [showExp, setShowExp] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const headingRef = useRef<HTMLHeadingElement>(null);
   const headingInView = useInView(headingRef, { once: true, margin: '-80px' });
@@ -179,9 +181,28 @@ export default function AboutSection() {
           <h3 className="font-bold uppercase tracking-widest text-navy/40 text-[20px] sm:text-[24px] mb-3 font-normal">
             {ABOUT_LABEL}
           </h3>
-          <p className="text-[18px] sm:text-[21px] leading-[1.8] text-navy/75 font-light">
+          <p className="text-[18px] sm:text-[21px] leading-[1.8] text-navy/75 font-light mb-6">
             {ABOUT_DESCRIPTION}
           </p>
+
+          <motion.button
+            onClick={() => setIsChatOpen(true)}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="
+              inline-flex items-center justify-center
+              px-[24px] py-[10px]
+              bg-navy text-white text-base tracking-tight
+              transition-all duration-200 ease-out
+              hover:opacity-90 active:scale-[0.97]
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/30
+            "
+            style={{ fontFamily: 'var(--font-geist-sans)', fontWeight: 300 }}
+          >
+            Ask AI About Me
+          </motion.button>
         </div>
 
         <div className="relative mt-10 w-full hidden lg:block lg:absolute lg:bottom-0 lg:right-[var(--page-x)] lg:left-auto lg:mt-0 lg:w-auto lg:h-[115%] lg:max-w-none lg:aspect-[4/5] lg:z-10">
@@ -216,6 +237,11 @@ export default function AboutSection() {
         show={showExp}
         onToggle={() => setShowExp((v) => !v)}
       />
+
+      {/* ── CLOSING SEPARATOR + SPACING BEFORE NEXT SECTION ── */}
+      <div className="w-full border-t border-navy/10 mb-16 sm:mb-24 lg:mb-32" />
+
+      <ChatModal isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </section>
   );
 }
