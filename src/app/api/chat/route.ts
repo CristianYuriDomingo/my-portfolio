@@ -1,7 +1,15 @@
 import Groq from 'groq-sdk';
 import { NextRequest, NextResponse } from 'next/server';
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+function getGroq() {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) {
+    throw new Error(
+      'The GROQ_API_KEY environment variable is missing or empty'
+    );
+  }
+  return new Groq({ apiKey });
+}
 
 // ── Config ──────────────────────────────────────────────
 const MAX_MESSAGE_LENGTH = 400;
@@ -265,7 +273,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const response = await groq.chat.completions.create({
+    const response = await getGroq().chat.completions.create({
       model: 'openai/gpt-oss-20b',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
