@@ -12,7 +12,18 @@ function getGroq() {
 }
 
 // ── Config ──────────────────────────────────────────────
+// Max length for the CURRENT incoming user message (matches client input cap).
 const MAX_MESSAGE_LENGTH = 400;
+
+// Max length allowed for any single message stored inside the conversation
+// history. This must be generous enough to fit AI replies (which are capped
+// by max_completion_tokens, not characters, and can legitimately exceed 400
+// chars even at 2-4 sentences). Using the same 400-char cap here as for user
+// input was the bug: a slightly long AI reply would get saved into history
+// client-side, then rejected by this same validator on the very next
+// request — producing the intermittent "Invalid conversation history" error.
+const MAX_HISTORY_ITEM_LENGTH = 2000;
+
 const MAX_HISTORY_MESSAGES = 20;
 const MIN_TIME_TO_SEND_MS = 1200; // anything faster than this from modal-open is suspicious
 
@@ -84,18 +95,53 @@ function cleanupStore() {
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
 
-function isValidHistory(value: unknown): value is ChatMessage[] {
-  if (!Array.isArray(value)) return false;
-  if (value.length > MAX_HISTORY_MESSAGES) return false;
-  return value.every(
-    (m) =>
-      m &&
-      typeof m === 'object' &&
-      (m.role === 'user' || m.role === 'assistant') &&
-      typeof m.content === 'string' &&
-      m.content.length > 0 &&
-      m.content.length <= MAX_MESSAGE_LENGTH
-  );
+// Returns a list of reasons the history failed validation, or an empty
+// array if it's valid. Returning reasons (instead of just true/false) lets
+// us log exactly what went wrong when this rejects a request.
+function validateHistory(value: unknown): {
+  valid: boolean;
+  reasons: string[];
+} {
+  const reasons: string[] = [];
+
+  if (!Array.isArray(value)) {
+    return { valid: false, reasons: ['history is not an array'] };
+  }
+
+  if (value.length > MAX_HISTORY_MESSAGES) {
+    reasons.push(
+      `history has ${value.length} messages, max is ${MAX_HISTORY_MESSAGES}`
+    );
+  }
+
+  value.forEach((m, i) => {
+    if (!m || typeof m !== 'object') {
+      reasons.push(`item ${i} is not an object`);
+      return;
+    }
+    const { role, content } = m as { role?: unknown; content?: unknown };
+
+    if (role !== 'user' && role !== 'assistant') {
+      reasons.push(`item ${i} has invalid role: ${String(role)}`);
+    }
+    if (typeof content !== 'string' || content.length === 0) {
+      reasons.push(`item ${i} has empty or non-string content`);
+      return;
+    }
+
+    // User-authored messages are capped tighter (matches client-side cap).
+    // Assistant-authored messages get a more generous cap since replies
+    // aren't character-limited the way user input is.
+    const cap = role === 'user' ? MAX_MESSAGE_LENGTH : MAX_HISTORY_ITEM_LENGTH;
+
+    if (content.length > cap) {
+      reasons.push(
+        `item ${i} (role: ${String(role)}) has content length ${content.length}, max is ${cap}`
+      );
+    }
+  });
+
+  return { valid: reasons.length === 0, reasons };
 }
 
 function isAllowedOrigin(req: NextRequest): boolean {
@@ -257,7 +303,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (!isValidHistory(history)) {
+    const historyCheck = validateHistory(history);
+    if (!historyCheck.valid) {
+      // Logged server-side only — never leaked to the client. If this still
+      // fires after the fix, these reasons will tell us exactly which item
+      // and why, instead of guessing.
+      console.error('Invalid conversation history:', historyCheck.reasons);
       return NextResponse.json(
         { error: 'Invalid conversation history' },
         { status: 400 }
@@ -282,7 +333,7 @@ export async function POST(req: NextRequest) {
       model: 'openai/gpt-oss-20b',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
-        ...history,
+        ...(history as ChatMessage[]),
         { role: 'user', content: trimmed },
       ],
       stream: false,
