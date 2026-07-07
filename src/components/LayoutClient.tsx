@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Preloader from '@/components/organisms/Preloader';
+import CustomCursor from '@/components/atoms/CustomCursor';
 
 export default function LayoutClient({
   children,
@@ -16,11 +17,17 @@ export default function LayoutClient({
   const isWorksSlug = pathname.startsWith('/works/');
 
   if (isWorksSlug) {
-    return <main>{children}</main>;
+    return (
+      <>
+        <CustomCursor />
+        <main>{children}</main>
+      </>
+    );
   }
 
   return (
     <>
+      <CustomCursor />
       {!preloaderDone && (
         <Preloader onComplete={() => setPreloaderDone(true)} />
       )}
